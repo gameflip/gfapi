@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>bulk_listing.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="authorization.html">
+                  authorization.js
+                </a>
+              
+                
+                <a class="source" href="authorization_ruby.html">
+                  authorization_ruby.rb
+                </a>
+              
+                
+                <a class="source" href="bulk_listing.html">
+                  bulk_listing.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>bulk_listing.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Sample code to creates listings for first 2 items in your Steam CS:GO inventory.
+Your Gameflip account needs to be verified and Steam connected.</p>
+<p>Generate the API Key and OTP secret in <a href="https://gameflip.com/settings">Settings page</a></p>
+<p>Type in bash shell:</p>
+<pre><code>  <span class="hljs-keyword">export</span> GFAPI_KEY=my_api_key
+  <span class="hljs-keyword">export</span> GFAPI_SECRET=my_api_secret
+  node src/samples/bulk_listing.js
+</code></pre><p>If you are using an IDE, set the <code>GFAPI_KEY</code> and <code>GFAPI_SECRET</code> in the Run Configuration Environment.
+Be careful not to commit/push anything with the API key/secret to a public repository.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-meta">
+'use strict'</span>;
+
+<span class="hljs-keyword">const</span> GFAPI_KEY = process.env.GFAPI_KEY;
+<span class="hljs-keyword">const</span> GFAPI_SECRET = process.env.GFAPI_SECRET;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>For your own code, use the ‘gfapi’ library (`npm install ‘iJJi/gfapi’).</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> GfApi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../index'</span>); <span class="hljs-comment">// require('gfapi')</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Create listings for first 2 items in your Steam CS:GO inventory</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Create GF API client. Options: logLevel</p>
+<ul>
+<li><code>trace</code> (logs HTTP requests/responses)</li>
+<li><code>debug</code> (outputs HTTP requests)</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> gfapi = <span class="hljs-keyword">new</span> GfApi(GFAPI_KEY, {
+        <span class="hljs-attr">secret</span>: GFAPI_SECRET,
+        <span class="hljs-attr">algorithm</span>: <span class="hljs-string">"SHA1"</span>,
+        <span class="hljs-attr">digits</span>: <span class="hljs-number">6</span>,
+        <span class="hljs-attr">period</span>: <span class="hljs-number">30</span>
+    }, {
+        <span class="hljs-attr">logLevel</span>: <span class="hljs-string">'debug'</span>
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Checks if you are Steam connected and do not have a trade ban or hold. Can be commented out after first run.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">await</span> gfapi.check_trade_ban(); <span class="hljs-comment">// throws UnprocessableEntityError if trade ban or hold</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Get your Gameflip profile for your profile.steam_id</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> profile = <span class="hljs-keyword">await</span> gfapi.profile_get();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Get Steam inventory (must be public).
+Note: this is a helper function and is not really part of the API (ie, not supported).</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> inventory = <span class="hljs-keyword">await</span> gfapi.steam_inventory_get(profile.steam_id, GfApi.STEAM.APP_ID.CSGO, {
+        <span class="hljs-attr">l</span>: <span class="hljs-string">'english'</span>, <span class="hljs-attr">count</span>: <span class="hljs-number">2</span>
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Item’s <code>market_hash_name</code> needed if you are specifying price</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> marketHashName = inventory.descriptions.reduce(<span class="hljs-function">(<span class="hljs-params">map, x</span>) =&gt;</span> {
+        map[x.classid] = x.market_hash_name;
+        <span class="hljs-keyword">return</span> map;
+    }, {});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Create bulk object (bulk.status=’start’)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> bulk = <span class="hljs-keyword">await</span> gfapi.bulk_post();
+
+    <span class="hljs-keyword">const</span> bulk_id = bulk.id;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== BULK_ID ="</span>, bulk_id);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Initiate trade offer (bulk.status=’receive_pending’)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    bulk = <span class="hljs-keyword">await</span> gfapi.bulk_put(bulk_id, {
+        <span class="hljs-attr">listing_status</span>: <span class="hljs-string">'ready'</span>, <span class="hljs-comment">// 'ready' (default) or 'onsale'</span>
+        items: inventory.assets.map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> ({
+            <span class="hljs-attr">id</span>: x.assetid,  <span class="hljs-comment">// id of item</span>
+            appid: x.appid, <span class="hljs-comment">// Currently, all items must have same appid</span>
+            price: <span class="hljs-number">100</span>,     <span class="hljs-comment">// Optional. price in cents</span>
+            market_hash_name: marketHashName[x.classid] <span class="hljs-comment">// Optional. Used to identify item for price</span>
+        }))
+    });
+
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`== Created trade offer <span class="hljs-subst">${bulk.offer_key}</span>`</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>You must now go into the Steam Mobile Client and accept and confirm trade offer.
+This will poll until you accept/confirm, reject, or the trade offer times out.
+When Gameflip detects that it has received the Steam items (and there are no trade holds),
+the Gameflip server will create a listing for each item.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> attempt = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">do</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`== <span class="hljs-subst">${attempt++}</span> Waiting for you to ACCEPT and CONFIRM OFFER`</span>);
+
+        <span class="hljs-keyword">await</span> GfApi.sleep(<span class="hljs-number">10</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>With no data parameter specified, the <code>bulk_put</code> updates and returns latest bulk object</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        bulk = <span class="hljs-keyword">await</span> gfapi.bulk_put(bulk_id);
+    } <span class="hljs-keyword">while</span> (bulk.status == GfApi.STATUS.RECEIVE_PENDING);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>See bulk.listings for the listing id and status.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== BULK ="</span>, <span class="hljs-built_in">JSON</span>.stringify(bulk, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>When <code>bulk.status = &#39;listed&#39;</code>, all listings will be created but may still be pending search indexing.
+You can do a <code>gfapi.listing_get(listing_id)</code> to verify there existance.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    attempt = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">do</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`== <span class="hljs-subst">${attempt++}</span> Pending listing creation`</span>);
+        <span class="hljs-keyword">await</span> GfApi.sleep(<span class="hljs-number">10</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>With no data parameter specified, the <code>bulk_put</code> updates and returns latest bulk object</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        bulk = <span class="hljs-keyword">await</span> gfapi.bulk_put(bulk_id);
+    } <span class="hljs-keyword">while</span> (bulk.status == GfApi.STATUS.RECEIVED);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>If <code>price</code> and <code>market_hash_name</code> are specified and there is no ambiguity about the item, the listings
+will have the status specified. Otherwise, the listing status will be ‘draft’.
+Display first listing</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> listing_id = bulk.listings[<span class="hljs-number">0</span>].id;
+    <span class="hljs-keyword">let</span> listing = <span class="hljs-keyword">await</span> gfapi.listing_get(listing_id);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== First listing ="</span>, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+
+    <span class="hljs-keyword">let</span> escrow = <span class="hljs-keyword">await</span> gfapi.escrow_get(listing_id);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== First escrow ="</span>, <span class="hljs-built_in">JSON</span>.stringify(escrow, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Run main() and catch any unhandle Promise errors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>main().catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'==== ERROR'</span>, err);
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

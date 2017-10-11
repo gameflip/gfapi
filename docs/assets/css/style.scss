@@ -1,0 +1,47 @@
+---
+---
+
+@import "jekyll-theme-slate";
+
+.inner {
+  max-width: 800px;
+}
+
+#header_wrap .inner {
+  padding: 15px 10px 10px 10px;
+}
+
+#gf_logo {
+  overflow: auto;
+}
+
+#gf_logo p {
+  margin: 30px 0px 0px 0px;
+  color: #0090ff;
+  font-size: 42px;
+  font-weight: 700;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  vertical-align: top;
+}
+
+#gf_logo img {
+  float: left;
+
+  padding-left: 0;
+  margin-left: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+
+  border: 0px solid #ebebeb;
+  box-shadow: 0 0 0px #ebebeb;
+  -webkit-box-shadow: 0 0 0px #ebebeb;
+  -moz-box-shadow: 0 0 0px #ebebeb;
+  -o-box-shadow: 0 0 0px #ebebeb;
+  -ms-box-shadow: 0 0 0px #ebebeb;
+}
+
+sup {
+  vertical-align: super;
+  font-size: 18px;
+}

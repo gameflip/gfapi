@@ -1,0 +1,41 @@
+{
+  "name": "gfapi",
+  "version": "0.1.0",
+  "description": "Gameflip API",
+  "keywords": "Gameflip",
+  "homepage": "https://github.com/iJJi/gfapi",
+  "bugs": "https://github.com/iJJi/gfapi/issues",
+  "author": {
+    "name": "Eng-Shien Wu",
+    "email": "engshien.wu@ijji.com"
+  },
+  "license": "MIT",
+  "private": true,
+  "files": [
+    "index.js"
+  ],
+  "repository": "iJJi/gfapi",
+  "engines": {
+    "node": ">=8.5.0"
+  },
+  "scripts": {
+    "bulk_listing": "node src/samples/bulk_listing.js",
+    "test": "ENVIRONMENT=mocha mocha src/test --recursive",
+    "docs": "jsdoc -c jsdoc_conf.js -d docs -P package.json index.js; docco -o docs/samples src/samples/*.js src/samples/*.rb"
+  },
+  "dependencies": {
+    "bunyan": "^1.8.12",
+    "bluebird": "^3.5.0",
+    "node-rest-client-promise": "^3.0.0",
+    "http-errors": "^1.6.2",
+    "promise-ratelimit": "^0.0.3",
+    "speakeasy": "^2.0.0",
+    "base-64": "^0.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "chai": "^3.5.0",
+    "docco": "^0.7.0",
+    "jsdoc": "^3.5.5"
+  }
+}
