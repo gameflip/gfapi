@@ -1,3 +1,8 @@
+### Getting Start
+Login and go to the [Settings](https://gameflip.com/settings) menu at Gameflip.com.  Here you can either create your API Key
+and TOTP secret or request to have Developer access.  Please specify how you intend to use the platform.  Due to limited
+support, we only accept a small number of developers during the Beta period.  We will open up the developer access over time.
+
 ### Sample Code
 * [Node.js](https://github.com/gameflip/gfapi)
 
