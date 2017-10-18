@@ -1,5 +1,7 @@
 ### Sample Code
-* [Node.js](https://github.com/gameflip/gfapi)
+* Node.js
+  * [Create listings for CS:GO items](https://gameflip.github.io/gfapi/samples/bulk_listing.html)
+  * [GFAPI library](https://github.com/gameflip/gfapi)
 
 ### API Request
 
