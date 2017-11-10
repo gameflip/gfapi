@@ -90,7 +90,7 @@ async function main() {
     console.log("=== BULK =", JSON.stringify(bulk, null, 2));
 
     // When `bulk.status = 'listed'`, all listings will be created but may still be pending search indexing.
-    // You can do a `gfapi.listing_get(listing_id)` to verify there existance.
+    // You can do a `gfapi.listing_get(listing_id)` to verify their existance.
     attempt = 1;
     do {
         console.log(`== ${attempt++} Pending listing creation`);
