@@ -15,7 +15,7 @@
 //
 // 3. Sample API call to get your profile
 // ```bash
-// export API="https://gameflip.fingershock.com/api/v1"
+// export API="https://production-gameflip.fingershock.com/api/v1"
 // curl -isS -H "$(node authorization.js)" -X GET "${API}/account/me/profile"; echo
 // ```
 

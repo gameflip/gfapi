@@ -29,7 +29,7 @@ const CONST = {
     }, {}),
 
     BASE_URL: {
-        production: 'https://gameflip.fingershock.com/api/v1',
+        production: 'https://production-gameflip.fingershock.com/api/v1',
         test: 'https://test-gameflip.fingershock.com/api/v1',
         development: 'http://localhost:3000/api/v1'
     },
@@ -430,9 +430,10 @@ class GfApi {
 
             return apiData.data;
         } else {
+            const error = apiData.error || {};
             const response = result.response;
-            const statusCode = Util.options(apiData.code, response.statusCode);
-            const statusMessage = Util.options(apiData.message, response.statusMessage);
+            const statusCode = Util.options(error.code, response.statusCode);
+            const statusMessage = Util.options(error.message, response.statusMessage);
 
             this.log.trace(`FAIL: statusCode=${statusCode} statusMessage=${statusMessage}`);
             throw HttpErrors(statusCode, statusMessage);
