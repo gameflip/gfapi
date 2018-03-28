@@ -8,7 +8,21 @@ const Bunyan = require('bunyan');
 const QueryString = require('querystring');
 
 const CONST = {
-    STATUS: {
+    CATEGORY: {
+        // Important: Listing must use correct category according to Gameflip terms of service.  Physical items can only be purchased
+        // and shipped within the continental US states
+
+        GAMES: 'CONSOLE_VIDEO_GAMES',            // Video games, digital or physical
+        INGAME: 'DIGITAL_INGAME',                // In-game items, digital only
+        GIFTCARD: 'GIFTCARD',                    // Gift cards, digital or physical
+        CONSOLE: 'VIDEO_GAME_HARDWARE',          // Console game hardware, physical listing only
+        ACCESSORIES: 'VIDEO_GAME_ACCESSORIES',   // Console game accessories, physical listing only
+        TOYS: 'TOYS_AND_GAMES',                  // Collectibles, physical listing only
+        VIDEO: 'VIDEO_DVD',                      // Movies, physical or digital
+        OTHER: 'UNKNOWN'                         // Unsupported category
+    },
+
+    ESCROW_STATUS: {
         START: 'start',                     // Initial condition: seller has Steam item(s)
         RECEIVE_PENDING: 'receive_pending', // Offer made to seller to get Steam item(s)
         RECEIVED: 'received',               // Gameflip has Steam item(s)
@@ -20,6 +34,14 @@ const CONST = {
         DELIVERED: 'delivered',             // Escrow status: Buyer has item (terminal state)
         RETURN_PENDING: 'return_pending',   // Escrow status: Trade offer made to seller to return item, but not accepted yet
         RETURNED: 'returned'                // Escrow status: Seller has accepted return of item
+    },
+
+    LISTING_STATUS: {
+        DRAFT: 'draft',                     // Listing is draft/editing mode.  You cannot list it when it's in this mode
+        READY: 'ready',                     // Listing is ready to be listed, required fields have been filled
+        ONSALE: 'onsale',                   // Listing is published to the public
+        SALE_PENDING: 'sale_pending',       // A buyer just bought the listing, and payment is being processed
+        SOLD: 'sold'                        // A buyer had bought the listing
     },
 
     // {10: TRACE, 20: DEBUG, 30: INFO, 40: WARN, 50: ERROR, 60: FATAL}
@@ -218,7 +240,7 @@ class GfApi {
      * - limit # of entries to get (default: 20, max: 100)</ul>
      * @returns Array of bulks (subset of data fields) or null if none left
      */
-    bulk_mine_get(query = CONST.STATUS.LISTED) {
+    bulk_mine_get(query = CONST.ESCROW_STATUS.LISTED) {
         return this._getList('steam/bulk/mine', query);
     }
 

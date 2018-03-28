@@ -84,7 +84,7 @@ async function main() {
 
         // With no data parameter specified, the `bulk_put` updates and returns latest bulk object
         bulk = await gfapi.bulk_put(bulk_id);
-    } while (bulk.status == GfApi.STATUS.RECEIVE_PENDING);
+    } while (bulk.status == GfApi.ESCROW_STATUS.RECEIVE_PENDING);
 
     // See bulk.listings for the listing id and status.
     console.log("=== BULK =", JSON.stringify(bulk, null, 2));
@@ -98,7 +98,7 @@ async function main() {
 
         // With no data parameter specified, the `bulk_put` updates and returns latest bulk object
         bulk = await gfapi.bulk_put(bulk_id);
-    } while (bulk.status == GfApi.STATUS.RECEIVED);
+    } while (bulk.status == GfApi.ESCROW_STATUS.RECEIVED);
 
     // If `price` and `market_hash_name` are specified and there is no ambiguity about the item, the listings
     // will have the status specified. Otherwise, the listing status will be 'draft'.
