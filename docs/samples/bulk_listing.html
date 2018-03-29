@@ -34,6 +34,11 @@
                   bulk_listing.js
                 </a>
               
+                
+                <a class="source" href="search_listing.html">
+                  search_listing.js
+                </a>
+              
             </div>
           </div>
         </li>
@@ -274,7 +279,7 @@ the Gameflip server will create a listing for each item.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>        bulk = <span class="hljs-keyword">await</span> gfapi.bulk_put(bulk_id);
-    } <span class="hljs-keyword">while</span> (bulk.status == GfApi.STATUS.RECEIVE_PENDING);</pre></div></div>
+    } <span class="hljs-keyword">while</span> (bulk.status == GfApi.ESCROW_STATUS.RECEIVE_PENDING);</pre></div></div>
             
         </li>
         
@@ -324,7 +329,7 @@ You can do a <code>gfapi.listing_get(listing_id)</code> to verify their existanc
             </div>
             
             <div class="content"><div class='highlight'><pre>        bulk = <span class="hljs-keyword">await</span> gfapi.bulk_put(bulk_id);
-    } <span class="hljs-keyword">while</span> (bulk.status == GfApi.STATUS.RECEIVED);</pre></div></div>
+    } <span class="hljs-keyword">while</span> (bulk.status == GfApi.ESCROW_STATUS.RECEIVED);</pre></div></div>
             
         </li>
         
