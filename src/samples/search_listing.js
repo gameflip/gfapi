@@ -20,7 +20,6 @@ const GFAPI_SECRET = process.env.GFAPI_SECRET;
 // For your own code, use the 'gfapi' library (`npm install 'iJJi/gfapi').
 const GfApi = require('../../index'); // require('gfapi')
 
-// Create listings for first 2 items in your Steam CS:GO inventory
 async function main() {
     // Create GF API client. Options: logLevel
     // * `trace` (logs HTTP requests/responses)
