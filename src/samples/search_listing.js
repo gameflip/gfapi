@@ -35,37 +35,37 @@ async function main() {
 
     // Search listings for Rocket League XBox One
     let query = {
-      category: GfApi.CATEGORY.INGAME,
-      upc: '812872018935',                  // Rocket League on Xbox One
-      status: GfApi.LISTING_STATUS.ONSALE,  // On sale listings only (not Sold)
-      price: '100,2999',                    // Price range between 1 USD and 29.99 USD (value in cents)
-      tags: 'id: zomba',                    // Search only Zomba wheels
-      sort: 'price:asc',                    // Sort by lowest price (highest price: 'price:desc', most recent: 'onsale:desc')
-      limit: 5
+        category: GfApi.CATEGORY.INGAME,
+        upc: GfApi.UPC.RL_XONE,               // Rocket League on Xbox One
+        status: GfApi.LISTING_STATUS.ONSALE,  // On sale listings only (not Sold)
+        price: '100,2999',                    // Price range between 1 USD and 29.99 USD (value in cents)
+        tags: 'id: zomba',                    // Search only Zomba wheels
+        sort: 'price:asc',                    // Sort by lowest price (highest price: 'price:desc', most recent: 'onsale:desc')
+        limit: 5
     };
 
     let listings = await gfapi.listing_search(query);
     listings.map(listing => {
-      console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
+        console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
     });
 
     // Search listings for CSGO skins
     query = {
-      category: GfApi.CATEGORY.INGAME,
-      upc: '094922417596',                  // CSGO
-      status: GfApi.LISTING_STATUS.ONSALE,  // On sale listings only (not Sold)
-      tags: 'Type: Rifle^Weapon: AK-47',    // Filter by Rifle and AK-47
-      sort: 'onsale:desc',
-      limit: 5
+        category: GfApi.CATEGORY.INGAME,
+        upc: GfApi.UPC.CSGO,                  // CSGO
+        status: GfApi.LISTING_STATUS.ONSALE,  // On sale listings only (not Sold)
+        tags: 'Type: Rifle^Weapon: AK-47',    // Filter by Rifle and AK-47
+        sort: 'onsale:desc',
+        limit: 5
     };
 
     listings = await gfapi.listing_search(query);
     listings.map(listing => {
-      console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
+        console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
     });
 }
 
-// Run main() and catch any unhandle Promise errors
+// Run main() and catch any unhandled Promise errors
 main().catch(err => {
     console.log('==== ERROR', err);
 });

@@ -35,6 +35,11 @@
                 </a>
               
                 
+                <a class="source" href="rl_listing.html">
+                  rl_listing.js
+                </a>
+              
+                
                 <a class="source" href="search_listing.html">
                   search_listing.js
                 </a>
@@ -90,7 +95,9 @@ Be careful not to commit/push anything with the API key/secret to a public repos
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> GfApi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../index'</span>); <span class="hljs-comment">// require('gfapi')</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> GfApi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../index'</span>); <span class="hljs-comment">// require('gfapi')</span>
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
             
         </li>
         
@@ -100,21 +107,6 @@ Be careful not to commit/push anything with the API key/secret to a public repos
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
-              </div>
-              <p>Create listings for first 2 items in your Steam CS:GO inventory</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-4">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p>Create GF API client. Options: logLevel</p>
 <ul>
@@ -136,30 +128,58 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         </li>
         
         
-        <li id="section-5">
+        <li id="section-4">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p>Search listings for Rocket League XBox One</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> query = {
-      <span class="hljs-attr">category</span>: GfApi.CATEGORY.INGAME,
-      <span class="hljs-attr">upc</span>: <span class="hljs-string">'812872018935'</span>,                  <span class="hljs-comment">// Rocket League on Xbox One</span>
-      status: GfApi.LISTING_STATUS.ONSALE,  <span class="hljs-comment">// On sale listings only (not Sold)</span>
-      price: <span class="hljs-string">'100,2999'</span>,                    <span class="hljs-comment">// Price range between 1 USD and 29.99 USD (value in cents)</span>
-      tags: <span class="hljs-string">'id: zomba'</span>,                    <span class="hljs-comment">// Search only Zomba wheels</span>
-      sort: <span class="hljs-string">'price:asc'</span>,                    <span class="hljs-comment">// Sort by lowest price (highest price: 'price:desc', most recent: 'onsale:desc')</span>
-      limit: <span class="hljs-number">5</span>
+        <span class="hljs-attr">category</span>: GfApi.CATEGORY.INGAME,
+        <span class="hljs-attr">upc</span>: GfApi.UPC.RL_XONE,               <span class="hljs-comment">// Rocket League on Xbox One</span>
+        status: GfApi.LISTING_STATUS.ONSALE,  <span class="hljs-comment">// On sale listings only (not Sold)</span>
+        price: <span class="hljs-string">'100,2999'</span>,                    <span class="hljs-comment">// Price range between 1 USD and 29.99 USD (value in cents)</span>
+        tags: <span class="hljs-string">'id: zomba'</span>,                    <span class="hljs-comment">// Search only Zomba wheels</span>
+        sort: <span class="hljs-string">'price:asc'</span>,                    <span class="hljs-comment">// Sort by lowest price (highest price: 'price:desc', most recent: 'onsale:desc')</span>
+        limit: <span class="hljs-number">5</span>
     };
 
     <span class="hljs-keyword">let</span> listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
     listings.map(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
     });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Search listings for CSGO skins</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    query = {
+        <span class="hljs-attr">category</span>: GfApi.CATEGORY.INGAME,
+        <span class="hljs-attr">upc</span>: GfApi.UPC.CSGO,                  <span class="hljs-comment">// CSGO</span>
+        status: GfApi.LISTING_STATUS.ONSALE,  <span class="hljs-comment">// On sale listings only (not Sold)</span>
+        tags: <span class="hljs-string">'Type: Rifle^Weapon: AK-47'</span>,    <span class="hljs-comment">// Filter by Rifle and AK-47</span>
+        sort: <span class="hljs-string">'onsale:desc'</span>,
+        <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
+    };
+
+    listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
+    listings.map(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+    });
+}</pre></div></div>
             
         </li>
         
@@ -170,35 +190,7 @@ Be careful not to commit/push anything with the API key/secret to a public repos
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>Search listings for CSGO skins</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    query = {
-      <span class="hljs-attr">category</span>: GfApi.CATEGORY.INGAME,
-      <span class="hljs-attr">upc</span>: <span class="hljs-string">'094922417596'</span>,                  <span class="hljs-comment">// CSGO</span>
-      status: GfApi.LISTING_STATUS.ONSALE,  <span class="hljs-comment">// On sale listings only (not Sold)</span>
-      tags: <span class="hljs-string">'Type: Rifle^Weapon: AK-47'</span>,    <span class="hljs-comment">// Filter by Rifle and AK-47</span>
-      sort: <span class="hljs-string">'onsale:desc'</span>,
-      <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
-    };
-
-    listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    listings.map(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
-    });
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-7">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
-              </div>
-              <p>Run main() and catch any unhandle Promise errors</p>
+              <p>Run main() and catch any unhandled Promise errors</p>
 
             </div>
             

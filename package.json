@@ -27,6 +27,8 @@
     "bunyan": "^1.8.12",
     "bluebird": "^3.5.0",
     "node-rest-client-promise": "^3.0.0",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2",
     "http-errors": "^1.6.2",
     "promise-ratelimit": "^0.0.3",
     "speakeasy": "^2.0.0",

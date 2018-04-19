@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>rl_listing.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="authorization.html">
+                  authorization.js
+                </a>
+              
+                
+                <a class="source" href="authorization_ruby.html">
+                  authorization_ruby.rb
+                </a>
+              
+                
+                <a class="source" href="bulk_listing.html">
+                  bulk_listing.js
+                </a>
+              
+                
+                <a class="source" href="rl_listing.html">
+                  rl_listing.js
+                </a>
+              
+                
+                <a class="source" href="search_listing.html">
+                  search_listing.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>rl_listing.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Sample code to creates listings for first 2 items in your Steam CS:GO inventory.
+Your Gameflip account needs to be verified and Steam connected.</p>
+<p>Generate the API Key and OTP secret in <a href="https://gameflip.com/settings">Settings page</a></p>
+<p>Type in bash shell:</p>
+<pre><code>  <span class="hljs-keyword">export</span> GFAPI_KEY=my_api_key
+  <span class="hljs-keyword">export</span> GFAPI_SECRET=my_api_secret
+  node src/samples/bulk_listing.js
+</code></pre><p>If you are using an IDE, set the <code>GFAPI_KEY</code> and <code>GFAPI_SECRET</code> in the Run Configuration Environment.
+Be careful not to commit/push anything with the API key/secret to a public repository.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-meta">
+'use strict'</span>;
+
+<span class="hljs-keyword">const</span> GFAPI_KEY = process.env.GFAPI_KEY;
+<span class="hljs-keyword">const</span> GFAPI_SECRET = process.env.GFAPI_SECRET;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>For your own code, use the ‘gfapi’ library (`npm install ‘iJJi/gfapi’).</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> GfApi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../index'</span>); <span class="hljs-comment">// require('gfapi')</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Create a Rocket League listing</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Create GF API client. Options: logLevel</p>
+<ul>
+<li><code>trace</code> (logs HTTP requests/responses)</li>
+<li><code>debug</code> (outputs HTTP requests)</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> gfapi = <span class="hljs-keyword">new</span> GfApi(GFAPI_KEY, {
+        <span class="hljs-attr">secret</span>: GFAPI_SECRET,
+        <span class="hljs-attr">algorithm</span>: <span class="hljs-string">"SHA1"</span>,
+        <span class="hljs-attr">digits</span>: <span class="hljs-number">6</span>,
+        <span class="hljs-attr">period</span>: <span class="hljs-number">30</span>
+    }, {
+        <span class="hljs-attr">logLevel</span>: <span class="hljs-string">'debug'</span>
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>For an inventory of Rocket League items and photo URLs, view <a href="https://gameflip.com/api/gameitem/inventory/812872018935">https://gameflip.com/api/gameitem/inventory/812872018935</a>
+and for Fortnite, view <a href="https://gameflip.com/api/gameitem/inventory/GFPCFORTNITE">https://gameflip.com/api/gameitem/inventory/GFPCFORTNITE</a></p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>DO EDIT: Choose an image for your listing</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> photo_url = <span class="hljs-string">'https://gameflip.com'</span> + <span class="hljs-string">'/img/items/rocket-league/key.png'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Create an initial listing</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> query = {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>DO EDIT: Put just ‘Key’ for example if you are selling one, otherwise write the quantity as so: Item Name | 10x</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        name: <span class="hljs-string">'Keys | 10x'</span>,
+        <span class="hljs-attr">description</span>: <span class="hljs-string">'Selling cheap keys!'</span>,
+        <span class="hljs-attr">price</span>: <span class="hljs-number">1050</span>, <span class="hljs-comment">// price in cents</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>MAYBE EDIT: Platform variation, change if you want to sell for example Fortnite (upc) on the PlayStation (platform) section instead</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        upc: GfApi.UPC.RL_XONE,
+        <span class="hljs-attr">platform</span>: GfApi.PLATFORM.XONE,
+        <span class="hljs-attr">shipping_within_days</span>: GfApi.SHIPPING_WITHIN_DAYS.ONE,
+        <span class="hljs-attr">expire_in_days</span>: GfApi.EXPIRE_IN_DAYS.SEVEN,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>DON’T EDIT: Standard settings for coordinated transfer in game item</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        category: GfApi.CATEGORY.INGAME,
+        <span class="hljs-attr">digital</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">digital_region</span>: <span class="hljs-string">'none'</span>,
+        <span class="hljs-attr">digital_deliverable</span>: <span class="hljs-string">'transfer'</span>,
+        <span class="hljs-attr">shipping_predefined_package</span>: <span class="hljs-string">'None'</span>,
+        <span class="hljs-attr">shipping_fee</span>: <span class="hljs-number">0</span>,
+        <span class="hljs-attr">shipping_paid_by</span>: <span class="hljs-string">'seller'</span>,
+        
+    };
+    <span class="hljs-keyword">let</span> listing = <span class="hljs-keyword">await</span> gfapi.listing_post(query);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Upload an image to use as the listing’s cover photo</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">await</span> gfapi.upload_photo(listing.id, photo_url);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>List the listing for sale</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">await</span> gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Run main() and catch any unhandle Promise errors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>main().catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'==== ERROR'</span>, err);
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

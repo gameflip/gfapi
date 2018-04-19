@@ -30,16 +30,16 @@
 
 const Promise = require('bluebird');
 const NodeRestClient = require('node-rest-client-promise').Client;
+const Request = require('request-promise');
 const Speakeasy = require('speakeasy');
 const HttpErrors = require('http-errors');
 const Bunyan = require('bunyan');
 const QueryString = require('querystring');
 
 const CONST = {
+    // Important: Listing must use correct category according to Gameflip terms of service.  Physical items can only be purchased
+    // and shipped within the continental US states
     CATEGORY: {
-        // Important: Listing must use correct category according to Gameflip terms of service.  Physical items can only be purchased
-        // and shipped within the continental US states
-
         GAMES: 'CONSOLE_VIDEO_GAMES',            // Video games, digital or physical
         INGAME: 'DIGITAL_INGAME',                // In-game items, digital only
         GIFTCARD: 'GIFTCARD',                    // Gift cards, digital or physical
@@ -48,6 +48,68 @@ const CONST = {
         TOYS: 'TOYS_AND_GAMES',                  // Collectibles, physical listing only
         VIDEO: 'VIDEO_DVD',                      // Movies, physical or digital
         OTHER: 'UNKNOWN'                         // Unsupported category
+    },
+    
+    UPC: {
+        CSGO: '094922417596',
+        DOTA2: '111111111111',
+        TF2: '014633098693',
+        RUST: '000000252490',
+        PUBG: '000000578080',
+        H1Z1: '000000433850',
+        H1Z1_JS: '000000295110',
+        FORTNITE_ALL: 'GFPCFORTNITE,GFPSFORTNITE,GFXOFORTNITE',
+        FORTNITE_PC: 'GFPCFORTNITE',
+        FORTNITE_PS4: 'GFPSFORTNITE',
+        FORTNITE_XONE: 'GFXOFORTNITE',
+        RL_ALL: '023171037943,812872018928,812872018935,GF00RLSWITCH',
+        RL_STEAM: '023171037943',
+        RL_PS4: '812872018928',
+        RL_XONE: '812872018935',
+        RL_SWITCH: 'GF00RLSWITCH'
+    },
+    
+    PLATFORM: {
+        XBOX: 'xbox',
+        X360: 'xbox_360',
+        XONE: 'xbox_one',
+        PS1: 'playstation',
+        PS2: 'playstation_2',
+        PS3: 'playstation_3',
+        PS4: 'playstation_4',
+        PSP: 'playstation_portable',
+        PSVITA: 'playstation_vita',
+        N64: 'nintendo_64',
+        NGAMECUBE: 'nintendo_gamecube',
+        NWII: 'nintendo_wii',
+        NWIIU: 'nintendo_wiiu',
+        NSWITCH: 'nintendo_switch',
+        NDS: 'nintendo_ds',
+        NDSI: 'nintendo_dsi',
+        N3DS: 'nintendo_3ds',
+        STEAM: 'steam',
+        ORIGIN: 'origin',
+        UPLAY: 'uplay',
+        GOG: 'gog',
+        MOBILE: 'mobile',
+        BATTLENET: 'battlenet',
+        XLIVE: 'xbox_live',
+        PSN: 'playstation_network',
+        UNKNOWN: 'unknown'
+    },
+    
+    // The promised time frame which you will ship a physical item or deliver a digital item
+    SHIPPING_WITHIN_DAYS: {
+      ONE: 1,
+      TWO: 2,
+      THREE: 3
+    },
+    
+    // Your listing will automatically expire after these many days
+    EXPIRE_IN_DAYS: {
+      SEVEN: 7,
+      FOURTEEN: 14,
+      THIRTY: 30
     },
 
     ESCROW_STATUS: {
@@ -70,6 +132,19 @@ const CONST = {
         ONSALE: 'onsale',                   // Listing is published to the public
         SALE_PENDING: 'sale_pending',       // A buyer just bought the listing, and payment is being processed
         SOLD: 'sold'                        // A buyer had bought the listing
+    },
+    
+    LISTING_PHOTO_STATUS: {
+      PENDING: 'pending',
+      ACTIVE: 'active',
+      DELETED: 'deleted'
+    },
+    
+    LISTING_OPS: {
+      TEST: 'test',
+      ADD: 'add',
+      REPLACE: 'replace',
+      REMOVE: 'remove'
     },
 
     // {10: TRACE, 20: DEBUG, 30: INFO, 40: WARN, 50: ERROR, 60: FATAL}
@@ -218,6 +293,66 @@ class GfApi {
      */
     listing_search(query) {
         return this._getList('listing', query);
+    }
+    
+    /**
+     * Creates a blank listing to be edited and posted.
+     * @returns listing
+     */
+    listing_post(query) {
+        return this._post('listing', query);
+    }
+    
+    /**
+     * Updates a listing with new or updated properties.
+     * @param {hash} Query options.
+     * @returns listing
+     */
+    listing_patch(id, query) {
+        return this._patch(`listing/${id}`, JSON.stringify(query));
+    }
+    
+    /**
+     * Changes a listing's status.
+     * @param {string} id
+     * @param {enum} status
+     * @returns listing
+     */
+    listing_status(id, status) {
+        return this.listing_patch(id, [{
+            op: CONST.LISTING_OPS.REPLACE,
+            path: '/status',
+            value: status
+        }]);
+    }
+    
+    /**
+     * Uploads an online image to Gameflip for use as the listing's cover photo.
+     * NOTE: Images have a filesize limit of 500 kilobytes.
+     * @param {string} url
+     * @returns {object} photo object with url
+     */
+    async upload_photo(listing_id, url) {
+        let photo_obj = await this._post('listing/' + listing_id + '/photo');
+        if (!photo_obj || !photo_obj.upload_url)  return console.log('Failed POST photo to API');
+        
+        let photo_blob = await Request.get(url, {encoding: null});
+        let upload_req = await Request.put({
+            url: photo_obj.upload_url,
+            body: photo_blob
+        });
+        
+        let patch = [{
+            op: CONST.LISTING_OPS.REPLACE,
+            path: '/photo/' + photo_obj.id + '/status',
+            value: CONST.LISTING_PHOTO_STATUS.ACTIVE
+        },
+        {
+            op: CONST.LISTING_OPS.REPLACE,
+            path: '/cover_photo',
+            value: photo_obj.id
+        }];
+        return await this.listing_patch(listing_id, patch);
     }
 
     /**
@@ -531,7 +666,7 @@ module.exports = Object.assign(GfApi, CONST, Util);
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Mar 29 2018 15:09:46 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Apr 18 2018 17:40:13 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>
