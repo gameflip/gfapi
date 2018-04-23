@@ -4,9 +4,9 @@ Node.js API bindings and sample code create Gameflip listings for Steam items
 * [REST API documentation](https://gameflip.github.io/gfapi)
 * [Node.js GFAPI Bindings](https://gameflip.github.io/gfapi/gfapi/0.1.1/GfApi.html)
 * Node.js Sample Code
-  * [Bulk Listing](https://gameflip.github.io/gfapi/samples/bulk_listing.html)
-  * [Search Listing](https://gameflip.github.io/gfapi/samples/search_listing.html)
+  * [Steam Bulk Listing](https://gameflip.github.io/gfapi/samples/bulk_listing.html)
   * [Rocket League Listing](https://gameflip.github.io/gfapi/samples/rl_listing.html)
+  * [Search Listing](https://gameflip.github.io/gfapi/samples/search_listing.html)
 
 ### API Key and OTP secret
 
