@@ -1,4 +1,4 @@
-// Sample code to creates listings for first 2 items in your Steam CS:GO inventory.
+// Sample code to create a listing for Rocket League.
 // Your Gameflip account needs to be verified and Steam connected.
 //
 // Generate the API Key and OTP secret in [Settings page](https://gameflip.com/settings)

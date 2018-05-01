@@ -1,4 +1,5 @@
-// Sample code to search listings on Gameflip.  Your Gameflip account needs to be verified and in good standing.
+// Sample code to search listings on Gameflip. 
+// Your Gameflip account needs to be verified and in good standing.
 //
 // Generate the API Key and OTP secret in [Settings page](https://gameflip.com/settings)
 //
