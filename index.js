@@ -323,7 +323,13 @@ class GfApi {
             op: CONST.LISTING_OPS.REPLACE,
             path: '/cover_photo',
             value: photo_obj.id
-        }];
+        },
+        {
+            op: CONST.LISTING.OPS.REPLACE,
+            path: '/photo/' + photo_obj.id + '/display_order',
+            Value: 1
+        }
+                    ];
         return await this.listing_patch(listing_id, patch);
     }
 
