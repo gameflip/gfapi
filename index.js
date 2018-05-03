@@ -107,16 +107,28 @@ const CONST = {
     },
     
     LISTING_PHOTO_STATUS: {
-      PENDING: 'pending',
-      ACTIVE: 'active',
-      DELETED: 'deleted'
+        PENDING: 'pending',
+        ACTIVE: 'active',
+        DELETED: 'deleted'
     },
     
     LISTING_OPS: {
-      TEST: 'test',
-      ADD: 'add',
-      REPLACE: 'replace',
-      REMOVE: 'remove'
+        TEST: 'test',
+        ADD: 'add',
+        REPLACE: 'replace',
+        REMOVE: 'remove'
+    },
+
+    EXCHANGE_STATUS: {
+        PENDING: 'pending',                       // Exchange is being created
+        PENDING_CANCEL: 'pending_cancel',         // Exchange is being canceled
+        PENDING_RESCINDING: 'pending_rescinding', // Exchange is being refunded
+        SETTLED: 'settled',                       // Exchange has payment settled (verified and approved)
+        RECEIVED: 'received',                     // Buyer has received the item
+        PENDING_COMPLETION: 'pending_completion', // Exchange is being completed, happens after seller rates
+        COMPLETE: 'complete',                     // Exchange completes, both buyer and seller have rated each other
+        CANCELLED: 'cancelled',                   // Exchange has been cancelled, and payment authorization (if any) is also cancelled
+        RESCINDED: 'rescinded'                    // Exchange has been cancelled with refund completed
     },
 
     // {10: TRACE, 20: DEBUG, 30: INFO, 40: WARN, 50: ERROR, 60: FATAL}
@@ -297,7 +309,11 @@ class GfApi {
             value: status
         }]);
     }
-    
+
+    exchange_search(query) {
+        return this._getList('exchange', query);
+    }
+
     /**
      * Uploads an online image to Gameflip for use as the listing's cover photo.
      * NOTE: Images have a filesize limit of 500 kilobytes.

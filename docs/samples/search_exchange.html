@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>rl_listing.js</title>
+  <title>search_exchange.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -58,7 +58,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>rl_listing.js</h1>
+                  <h1>search_exchange.js</h1>
               </div>
           </li>
         
@@ -70,8 +70,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>Sample code to create a listing for Rocket League.
-Your Gameflip account needs to be verified and Steam connected.</p>
+              <p>Sample code to search listings on Gameflip.  Your Gameflip account needs to be verified and in good standing.</p>
 <p>Generate the API Key and OTP secret in <a href="https://gameflip.com/settings">Settings page</a></p>
 <p>Type in bash shell:</p>
 <pre><code>  <span class="hljs-keyword">export</span> GFAPI_KEY=my_api_key
@@ -112,7 +111,7 @@ Be careful not to commit/push anything with the API key/secret to a public repos
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Create a Rocket League listing</p>
+              <p>Search exchanges (sold listings or purchases)</p>
 
             </div>
             
@@ -153,10 +152,20 @@ Be careful not to commit/push anything with the API key/secret to a public repos
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>For an inventory of Rocket League items and photo URLs, view <a href="https://gameflip.com/api/gameitem/inventory/812872018935">https://gameflip.com/api/gameitem/inventory/812872018935</a>
-and for Fortnite, view <a href="https://gameflip.com/api/gameitem/inventory/GFPCFORTNITE">https://gameflip.com/api/gameitem/inventory/GFPCFORTNITE</a></p>
+              <p>Search sold &amp; completed listing</p>
 
             </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> query = {
+      <span class="hljs-attr">role</span>: <span class="hljs-string">'seller'</span>,   <span class="hljs-comment">// Get my 'complete' exchanges (rated by both buyer &amp; seller).  Use role: 'buyer' for listings you bought.</span>
+      status: GfApi.EXCHANGE_STATUS.COMPLETE,
+      <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
+    };
+
+    <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> gfapi.exchange_search(query);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Found "</span> + result.found + <span class="hljs-string">" results"</span>);
+    <span class="hljs-keyword">let</span> exchanges = result.exchanges || [];
+    exchanges.map(<span class="hljs-function"><span class="hljs-params">exchange</span> =&gt;</span> {</pre></div></div>
             
         </li>
         
@@ -167,11 +176,12 @@ and for Fortnite, view <a href="https://gameflip.com/api/gameitem/inventory/GFPC
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>DO EDIT: Choose an image for your listing</p>
+              <p>console.log(“=== Exchange “ + exchange.id, JSON.stringify(exchange, null, 2));</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> photo_url = <span class="hljs-string">'https://gameflip.com'</span> + <span class="hljs-string">'/img/items/rocket-league/key.png'</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Exchange "</span> + exchange.name);
+    });</pre></div></div>
             
         </li>
         
@@ -182,11 +192,20 @@ and for Fortnite, view <a href="https://gameflip.com/api/gameitem/inventory/GFPC
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>Create an initial listing</p>
+              <p>Search past completed purchases</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> query = {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    query = {
+      <span class="hljs-attr">role</span>: <span class="hljs-string">'buyer'</span>,
+      <span class="hljs-attr">status</span>: GfApi.EXCHANGE_STATUS.COMPLETE,
+      <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
+    };
+
+    result = <span class="hljs-keyword">await</span> gfapi.exchange_search(query);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Found "</span> + result.found + <span class="hljs-string">" results"</span>);
+    exchanges = result.exchanges || [];
+    exchanges.map(<span class="hljs-function"><span class="hljs-params">exchange</span> =&gt;</span> {</pre></div></div>
             
         </li>
         
@@ -197,13 +216,14 @@ and for Fortnite, view <a href="https://gameflip.com/api/gameitem/inventory/GFPC
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>DO EDIT: Put just ‘Key’ for example if you are selling one, otherwise write the quantity as so: Item Name | 10x</p>
+              <p>console.log(“=== Exchange “ + exchange.id, JSON.stringify(exchange, null, 2));</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        name: <span class="hljs-string">'Keys | 10x'</span>,
-        <span class="hljs-attr">description</span>: <span class="hljs-string">'Selling cheap keys!'</span>,
-        <span class="hljs-attr">price</span>: <span class="hljs-number">1050</span>, <span class="hljs-comment">// price in cents</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Exchange "</span> + exchange.name);
+    });
+
+}</pre></div></div>
             
         </li>
         
@@ -213,79 +233,6 @@ and for Fortnite, view <a href="https://gameflip.com/api/gameitem/inventory/GFPC
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
-              </div>
-              <p>MAYBE EDIT: Platform variation, change if you want to sell for example Fortnite (upc) on the PlayStation (platform) section instead</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        upc: GfApi.UPC.RL_XONE,
-        <span class="hljs-attr">platform</span>: GfApi.PLATFORM.XONE,
-        <span class="hljs-attr">shipping_within_days</span>: GfApi.SHIPPING_WITHIN_DAYS.ONE,
-        <span class="hljs-attr">expire_in_days</span>: GfApi.EXPIRE_IN_DAYS.SEVEN,</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-10">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
-              </div>
-              <p>DON’T EDIT: Standard settings for coordinated transfer in game item</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        category: GfApi.CATEGORY.INGAME,
-        <span class="hljs-attr">digital</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-attr">digital_region</span>: <span class="hljs-string">'none'</span>,
-        <span class="hljs-attr">digital_deliverable</span>: <span class="hljs-string">'transfer'</span>,
-        <span class="hljs-attr">shipping_predefined_package</span>: <span class="hljs-string">'None'</span>,
-        <span class="hljs-attr">shipping_fee</span>: <span class="hljs-number">0</span>,
-        <span class="hljs-attr">shipping_paid_by</span>: <span class="hljs-string">'seller'</span>,
-        
-    };
-    <span class="hljs-keyword">let</span> listing = <span class="hljs-keyword">await</span> gfapi.listing_post(query);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-11">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
-              </div>
-              <p>Upload an image to use as the listing’s cover photo</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">await</span> gfapi.upload_photo(listing.id, photo_url);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-12">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
-              </div>
-              <p>List the listing for sale</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">await</span> gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-13">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <p>Run main() and catch any unhandle Promise errors</p>
 
