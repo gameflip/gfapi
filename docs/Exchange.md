@@ -63,7 +63,7 @@ GET /api/v1/exchange?role=buyer&seller=us-east-1:8140e966-e1ab-11e6-a74b-3c15c2c
 Authorization: Gameflip 101a3f71e67e028ff390652002c69eae--f33d9d1ebeb1ee75bfd78fe6ba704604e06ba6
 ```
 
-**response
+**response**
 
 ```http
 HTTP/1.1 200 OK
