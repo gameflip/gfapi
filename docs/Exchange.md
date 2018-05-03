@@ -18,7 +18,7 @@ Searches by non-admin users are restricted to exchanges for which the requesting
 
 The exchange fields indexed, along with their type and supported search operations are listed below.
 
- * field: The name of the exchange property.  `_id` means all properties that end with `_id`
+ * field: The name of the exchange property.  `*_id` means all properties that end with `*_id`
  * type: The data type which is repeated here but is the same as in the exchange.
    - boolean: can be either true or false
    - date: must be an RFC 3389 formatted date with milliseconds in the UTC timezone. Also accepts the special value of now
@@ -28,18 +28,18 @@ The exchange fields indexed, along with their type and supported search operatio
    - exactly one: accepts one value and matches if the field equals the value. Searching for multiple values like digital=true,false is not allowed since it just doesn't make sense.
    - range: accepts exactly two values and matches if the field value is GTE (greater than or equal) to the first value and LT (strictly less than) the second value. Range also accepts the special value of any when an open-ended range is desired.
 
-Pagination uses limit and start integer parameters to indicate page size and position. The next_page URI is included in the response. The underlying search engine limits the page depth to 10,000 and an error will result if the results attempt to go further than that. For applications that need deep (but forward-only) paging, use a last_key value of initial and the next_page URI can be followed to any arbitrary page depth.
+Pagination uses limit and start integer parameters to indicate page size and position. The `next_page` URI is included in the response. The underlying search engine limits the page depth to 10,000 and an error will result if the results attempt to go further than that. For applications that need deep (but forward-only) paging, use a `last_key` value of initial and the `next_page` URI can be followed to any arbitrary page depth.
 
-field    | type   | search operation
-------------------|-----------------
+Field    | Type   | Search operation
+---------|--------|-----------------
 role     | string | in set (buyer/seller) -- defaults to any role
-id,`*_id | string | in set
+id,`*_id` | string | in set
 name     | string | fuzzy match
 buyer    | string | in set
 seller   | string | in set
 price    | number | range
 risk     | number | range
-status,*_status    | string | in set
+status,`*_status` | string | in set
 buyer_rated   | boolean | exactly one (true/false)
 seller_rated  | boolean | exactly one (true/false)
 category      | string | in set
@@ -49,7 +49,7 @@ escrow	 | boolean | exactly one (true/false)
 settled	 | date | range
 shipped	 | date | range
 received | date | range
-auto_rate_after    | date | range
+auto_rate_after | date | range
 created	 | date | range
 updated	 | date | range
 version	 | number | range
