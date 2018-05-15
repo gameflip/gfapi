@@ -21,8 +21,7 @@
   "scripts": {
     "bulk_listing": "node src/samples/bulk_listing.js",
     "test": "ENVIRONMENT=mocha mocha src/test --recursive",
-    "docs": "jsdoc -c jsdoc_conf.js -d docs -P package.json index.js; docco -o docs/samples src/samples/*.js src/samples/*.rb",
-    "docs_win": "jsdoc -c jsdoc_conf.js -d docs -P package.json index.js && docco -o docs\\samples src\\samples\\*.js"
+    "docs": "jsdoc -c jsdoc_conf.js -d docs -P package.json index.js; docco -o docs/samples src/samples/*.js src/samples/*.rb"
   },
   "dependencies": {
     "bunyan": "^1.8.12",

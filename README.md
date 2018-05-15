@@ -13,25 +13,23 @@ Node.js API bindings and sample code create Gameflip listings for Steam items
 To get the API Key and secret, contact Gameflip support.
 During Beta, API Keys are only being given out to select customers.
 
-### 1. Install [NodeJS v8.x LTS](https://nodejs.org) and [Python 2.7.14](https://www.python.org/downloads/release/python-2714/)
+### 1. Install [Git](https://git-scm.com/downloads), [NodeJS v8.x LTS](https://nodejs.org), and [Python 2.7.14](https://www.python.org/downloads/release/python-2714/)
 
 ### 2. Download sample code
 ```
   git clone https://github.com/gameflip/gfapi.git
 ```
 
-### 3. Install dependencies and generate docs
-Mac and Linux:
+### 3. Install dependencies
 ```
   cd gfapi
   npm install
+```
+
+(Optional) Mac and Linux:  
+This command converts `src/samples/*.js` files into HTML as seen on the [documentation website](https://gameflip.github.io/gfapi/samples/search_listing.html).
+```
   npm run-script docs
-```
-Windows:
-```
-  cd gfapi
-  npm install
-  npm run-script docs_win
 ```
 
 ### 4. Run Sample Code
