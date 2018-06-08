@@ -333,7 +333,7 @@ class GfApi {
         let patch = [{
             op: CONST.LISTING_OPS.REPLACE,
             path: '/photo/' + photo_obj.id + '/display_order',
-            value: 0
+            value: 1
         },
         {
             op: CONST.LISTING_OPS.REPLACE,
