@@ -315,12 +315,17 @@ class GfApi {
     }
 
     /**
-     * Uploads an online image to Gameflip for use as the listing's cover photo.
+     * Uploads an online image to Gameflip for use as the listing's photo.
      * NOTE: Images have a filesize limit of 500 kilobytes.
-     * @param {string} url
+     * @param {string} listing_id to update the listing
+     * @param {string} url of the photo
+     * @param {int} display_order for multiple photos. If not provided then it
+     * is a cover photo and is shown on the search pages (should be lower res).
+     * If provided then it is a listing page photo (should be higher res), and
+     * the number is its order in the photo carousel.
      * @returns {object} photo object with url
      */
-    async upload_photo(listing_id, url) {
+    async upload_photo(listing_id, url, display_order) {
         let photo_obj = await this._post('listing/' + listing_id + '/photo');
         if (!photo_obj || !photo_obj.upload_url)  return console.log('Failed POST photo to API');
         
@@ -332,19 +337,20 @@ class GfApi {
         
         let patch = [{
             op: CONST.LISTING_OPS.REPLACE,
-            path: '/photo/' + photo_obj.id + '/display_order',
-            value: 1
-        },
-        {
-            op: CONST.LISTING_OPS.REPLACE,
             path: '/photo/' + photo_obj.id + '/status',
             value: CONST.LISTING_PHOTO_STATUS.ACTIVE
-        },
-        {
+        }];
+        let order_patch = display_order >= 0 ? {
+            op: CONST.LISTING_OPS.REPLACE,
+            path: '/photo/' + photo_obj.id + '/display_order',
+            value: display_order
+        } : {
             op: CONST.LISTING_OPS.REPLACE,
             path: '/cover_photo',
             value: photo_obj.id
-        }];
+        };
+        patch.push(order_patch);
+        
         return await this.listing_patch(listing_id, patch);
     }
 
