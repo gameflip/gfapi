@@ -130,6 +130,8 @@ const CONST = {
         CANCELLED: 'cancelled',                   // Exchange has been cancelled, and payment authorization (if any) is also cancelled
         RESCINDED: 'rescinded'                    // Exchange has been cancelled with refund completed
     },
+    
+    IMAGE_TYPES: ['image/jpeg', 'image/png'],
 
     // {10: TRACE, 20: DEBUG, 30: INFO, 40: WARN, 50: ERROR, 60: FATAL}
     LOG_NAME_FROM_LEVEL: Object.keys(Bunyan.nameFromLevel).reduce(function (map, key) {
@@ -316,7 +318,7 @@ class GfApi {
 
     /**
      * Uploads an online image to Gameflip for use as the listing's photo.
-     * NOTE: Images have a filesize limit of 500 kilobytes.
+     * LIMITATIONS: filesize 500 kilobytes, filetype JPG or PNG.
      * @param {string} listing_id to update the listing
      * @param {string} url of the photo
      * @param {int} display_order for multiple photos. If not provided then it
@@ -329,10 +331,24 @@ class GfApi {
         let photo_obj = await this._post('listing/' + listing_id + '/photo');
         if (!photo_obj || !photo_obj.upload_url)  return console.log('Failed POST photo to API');
         
+        // Get the image's content type
+        let image_type;
+        try {
+          image_type = ((photo_obj['upload_form'])['fields'])['Content-Type'];
+          if (CONST.IMAGE_TYPES.indexOf(image_type.toLowerCase()) === -1) {
+            return console.log('Image content type not allowed: ' + image_type);
+          }
+        } catch (e) {
+          image_type = IMAGE_TYPES[0];
+        }
+        
         let photo_blob = await Request.get(url, {encoding: null});
         let upload_req = await Request.put({
             url: photo_obj.upload_url,
-            body: photo_blob
+            body: photo_blob,
+            headers: {
+                "Content-Type": image_type
+            }
         });
         
         let patch = [{
