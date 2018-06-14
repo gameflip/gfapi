@@ -32,7 +32,8 @@
     "http-errors": "^1.6.2",
     "promise-ratelimit": "^0.0.3",
     "speakeasy": "^2.0.0",
-    "base-64": "^0.1.0"
+    "base-64": "^0.1.0",
+    "file-type": "^8.0.0"
   },
   "devDependencies": {
     "marked": "^0.3.19",

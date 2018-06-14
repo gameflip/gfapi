@@ -65,15 +65,20 @@ async function main() {
         
     };
     let listing = await gfapi.listing_post(query);
+    
     // Upload an image to show in the listing page
-    await gfapi.upload_photo(listing.id, photo_url, 0);
-    // Upload another image to show in the search results
-    await gfapi.upload_photo(listing.id, photo_url);
-    // If you want to add a second image in the listing page then add the same
-    // line of code with 0 changed to 1, and if a third then 1 to 2, and so on
-    // in that order.
-    // List the listing for sale
-    await gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);
+    gfapi.upload_photo(listing.id, photo_url, 0).then(() => {
+      // Upload another image to show in the search results
+      return gfapi.upload_photo(listing.id, photo_url);
+      // If you want to add a second image in the listing page then uncomment the two lines below:
+      // }).then(() => {
+      // return gfapi.upload_photo(listing.id, second_photo_url, 1);
+    }).then(() => {
+      // List the listing for sale
+      return gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);
+    }).catch(err => {
+      console.log(err);
+    });
 }
 
 // Run main() and catch any unhandle Promise errors

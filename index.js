@@ -7,6 +7,7 @@ const Speakeasy = require('speakeasy');
 const HttpErrors = require('http-errors');
 const Bunyan = require('bunyan');
 const QueryString = require('querystring');
+const FileType = require('file-type');
 
 const CONST = {
     // Important: Listing must use correct category according to Gameflip terms of service.  Physical items can only be purchased
@@ -131,7 +132,8 @@ const CONST = {
         RESCINDED: 'rescinded'                    // Exchange has been cancelled with refund completed
     },
     
-    IMAGE_TYPES: ['image/jpeg', 'image/png'],
+    IMAGE_MIME_TYPES: ['image/jpeg', 'image/png'],
+    IMAGE_BYTE_SIZE: 500000,
 
     // {10: TRACE, 20: DEBUG, 30: INFO, 40: WARN, 50: ERROR, 60: FATAL}
     LOG_NAME_FROM_LEVEL: Object.keys(Bunyan.nameFromLevel).reduce(function (map, key) {
@@ -318,7 +320,6 @@ class GfApi {
 
     /**
      * Uploads an online image to Gameflip for use as the listing's photo.
-     * LIMITATIONS: filesize 500 kilobytes, filetype JPG or PNG.
      * @param {string} listing_id to update the listing
      * @param {string} url of the photo
      * @param {int} display_order for multiple photos. If not provided then it
@@ -328,21 +329,23 @@ class GfApi {
      * @returns {object} photo object with url
      */
     async upload_photo(listing_id, url, display_order) {
-        let photo_obj = await this._post('listing/' + listing_id + '/photo');
-        if (!photo_obj || !photo_obj.upload_url)  return console.log('Failed POST photo to API');
-        
-        // Get the image's content type
-        let image_type;
-        try {
-          image_type = ((photo_obj['upload_form'])['fields'])['Content-Type'];
-          if (CONST.IMAGE_TYPES.indexOf(image_type.toLowerCase()) === -1) {
-            return console.log('Image content type not allowed: ' + image_type);
-          }
-        } catch (e) {
-          image_type = IMAGE_TYPES[0];
+        // Download the image
+        let photo_blob = await Request.get(url, {encoding: null});
+        if (photo_blob.length > CONST.IMAGE_BYTE_SIZE) {
+          throw new Error(`ERROR Image file size over limit: ${photo_blob.length} > ${CONST.IMAGE_BYTE_SIZE}`);
+        }
+        let image_type = (FileType(photo_blob))['mime'];
+        if (CONST.IMAGE_MIME_TYPES.indexOf(image_type) === -1) {
+          throw new Error(`ERROR Image content type not allowed: ${image_type}`);
         }
         
-        let photo_blob = await Request.get(url, {encoding: null});
+        // Request permission to upload
+        let photo_obj = await this._post('listing/' + listing_id + '/photo');
+        if (!photo_obj || !photo_obj.upload_url) {
+          throw new Error('ERROR Failed POST photo to API');
+        }
+        
+        // Upload the image
         let upload_req = await Request.put({
             url: photo_obj.upload_url,
             body: photo_blob,
@@ -351,6 +354,7 @@ class GfApi {
             }
         });
         
+        // Update the listing with the new image
         let patch = [{
             op: CONST.LISTING_OPS.REPLACE,
             path: '/photo/' + photo_obj.id + '/status',

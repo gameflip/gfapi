@@ -260,7 +260,7 @@ and for Fortnite, view <a href="https://gameflip.com/api/gameitem/inventory/GFPC
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">await</span> gfapi.upload_photo(listing.id, photo_url, <span class="hljs-number">0</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    gfapi.upload_photo(listing.id, photo_url, <span class="hljs-number">0</span>).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {</pre></div></div>
             
         </li>
         
@@ -275,7 +275,7 @@ and for Fortnite, view <a href="https://gameflip.com/api/gameitem/inventory/GFPC
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">await</span> gfapi.upload_photo(listing.id, photo_url);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">return</span> gfapi.upload_photo(listing.id, photo_url);</pre></div></div>
             
         </li>
         
@@ -286,15 +286,13 @@ and for Fortnite, view <a href="https://gameflip.com/api/gameitem/inventory/GFPC
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
-              <p>If you want to add a second image in the listing page then add the same
-line of code with 0 changed to 1, and if a third then 1 to 2, and so on
-in that order.
-List the listing for sale</p>
+              <p>If you want to add a second image in the listing page then uncomment the two lines below:
+}).then(() =&gt; {
+return gfapi.upload_photo(listing.id, second_photo_url, 1);</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">await</span> gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);
-}</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    }).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {</pre></div></div>
             
         </li>
         
@@ -304,6 +302,25 @@ List the listing for sale</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>List the listing for sale</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">return</span> gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);
+    }).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+      <span class="hljs-built_in">console</span>.log(err);
+    });
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <p>Run main() and catch any unhandle Promise errors</p>
 
