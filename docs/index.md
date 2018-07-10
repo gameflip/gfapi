@@ -7,6 +7,7 @@ support, we only accept a small number of developers during the Beta period.  We
 * Node.js
   * [Create listings for CS:GO items](https://gameflip.github.io/gfapi/samples/bulk_listing.html)
   * [Create listings for Rocket League items](https://gameflip.github.io/gfapi/samples/rl_listing.html)
+  * [Search my listings](https://gameflip.github.io/gfapi/samples/my_listings.html)
   * [Search listings](https://gameflip.github.io/gfapi/samples/search_listing.html)
   * [Search exchanges](https://gameflip.github.io/gfapi/samples/search_exchange.html)
   * [GFAPI library](https://github.com/gameflip/gfapi)
@@ -67,9 +68,10 @@ or a single object.
 
 ## Service: [Profile](Profile.md)
 
-Service                           | Method | Documentation
-----------------------------------|--------|--------------
-/api/v1/account/me/profile        | GET    | [GET /api/v1/account/me/profile](Profile.md#get-apiv1accountmeprofile)
+Service                            | Method | Documentation
+-----------------------------------|--------|--------------
+/api/v1/account/:id/profile        | GET    | [GET /api/v1/account/:id/profile](Profile.md#get-apiv1accountidprofile)
+/api/v1/account/me/profile         | GET    | [GET /api/v1/account/me/profile](Profile.md#get-apiv1accountmeprofile)
 
 ## Service: [Account](Account.md)
 

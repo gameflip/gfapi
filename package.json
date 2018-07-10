@@ -24,16 +24,16 @@
     "docs": "jsdoc -c jsdoc_conf.js -d docs -P package.json index.js; docco -o docs/samples src/samples/*.js src/samples/*.rb"
   },
   "dependencies": {
-    "bunyan": "^1.8.12",
+    "base-64": "^0.1.0",
     "bluebird": "^3.5.0",
+    "bunyan": "^1.8.12",
+    "file-type": "^8.1.0",
+    "http-errors": "^1.6.2",
     "node-rest-client-promise": "^3.0.0",
+    "promise-ratelimit": "^0.0.3",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
-    "http-errors": "^1.6.2",
-    "promise-ratelimit": "^0.0.3",
-    "speakeasy": "^2.0.0",
-    "base-64": "^0.1.0",
-    "file-type": "^8.0.0"
+    "speakeasy": "^2.0.0"
   },
   "devDependencies": {
     "marked": "^0.3.19",

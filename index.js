@@ -261,8 +261,9 @@ class GfApi {
      * Get profile
      * @returns profile
      */
-    profile_get() {
-        return this._get('account/me/profile');
+    profile_get(id) {
+        let suffix = id || 'me';
+        return this._get(`account/${suffix}/profile`);
     }
 
     /**
@@ -273,6 +274,15 @@ class GfApi {
      */
     listing_get(id) {
         return this._get(`listing/${id}`);
+    }
+    
+    /**
+     * Get a user's listings.
+     * @param owner of the user.
+     * @returns listings
+     */
+    listing_of(owner) {
+        return this._get(`listing?owner=${owner}`);
     }
 
     /**
