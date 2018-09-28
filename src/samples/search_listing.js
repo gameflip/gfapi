@@ -64,6 +64,34 @@ async function main() {
     listings.map(listing => {
         console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
     });
+
+    // Search listings for gift cards from sellers who accept FLP
+    query = {
+        category: GfApi.CATEGORY.GIFTCARD,
+        status: GfApi.LISTING_STATUS.ONSALE,           // On sale listings only (not Sold)
+        accept_currency: GfApi.ACCEPT_CURRENCY.FLP,    // Accept FLP only
+        sort: 'onsale:desc',
+        limit: 5
+    };
+
+    listings = await gfapi.listing_search(query);
+    listings.map(listing => {
+        console.log("=== Listing accepting FLP only " + listing.id, JSON.stringify(listing, null, 2));
+    });
+
+    // Search listings for Google Play gift cards
+    query = {
+        category: GfApi.CATEGORY.GIFTCARD,
+        platform: 'google',                   // Other brands you can search 'apple', 'amazon', 'xbox_live', 'playstation_network', 'steam', and more
+        status: GfApi.LISTING_STATUS.ONSALE,  // On sale listings only (not Sold)
+        sort: 'onsale:desc',
+        limit: 5
+    };
+
+    listings = await gfapi.listing_search(query);
+    listings.map(listing => {
+        console.log("=== Listing for Google Play gift card " + listing.id, JSON.stringify(listing, null, 2));
+    });
 }
 
 // Run main() and catch any unhandled Promise errors

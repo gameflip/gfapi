@@ -131,6 +131,11 @@ const CONST = {
         CANCELLED: 'cancelled',                   // Exchange has been cancelled, and payment authorization (if any) is also cancelled
         RESCINDED: 'rescinded'                    // Exchange has been cancelled with refund completed
     },
+
+    ACCEPT_CURRENCY: {
+        USD: 'USD',
+        FLP: 'FLP'
+    },
     
     IMAGE_MIME_TYPES: ['image/jpeg', 'image/png'],
     IMAGE_BYTE_SIZE: 500000,
