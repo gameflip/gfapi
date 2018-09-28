@@ -40,6 +40,11 @@
                 </a>
               
                 
+                <a class="source" href="my_wallet.html">
+                  my_wallet.js
+                </a>
+              
+                
                 <a class="source" href="rl_listing.html">
                   rl_listing.js
                 </a>
@@ -189,8 +194,7 @@ Be careful not to commit/push anything with the API key/secret to a public repos
     listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
     listings.map(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
-    });
-}</pre></div></div>
+    });</pre></div></div>
             
         </li>
         
@@ -200,6 +204,59 @@ Be careful not to commit/push anything with the API key/secret to a public repos
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Search listings for gift cards from sellers who accept FLP</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    query = {
+        <span class="hljs-attr">category</span>: GfApi.CATEGORY.GIFTCARD,
+        <span class="hljs-attr">status</span>: GfApi.LISTING_STATUS.ONSALE,           <span class="hljs-comment">// On sale listings only (not Sold)</span>
+        accept_currency: GfApi.ACCEPT_CURRENCY.FLP,    <span class="hljs-comment">// Accept FLP only</span>
+        sort: <span class="hljs-string">'onsale:desc'</span>,
+        <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
+    };
+
+    listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
+    listings.map(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing accepting FLP only "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Search listings for Google Play gift cards</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    query = {
+        <span class="hljs-attr">category</span>: GfApi.CATEGORY.GIFTCARD,
+        <span class="hljs-attr">platform</span>: <span class="hljs-string">'google'</span>,                   <span class="hljs-comment">// Other brands you can search 'apple', 'amazon', 'xbox_live', 'playstation_network', 'steam', and more</span>
+        status: GfApi.LISTING_STATUS.ONSALE,  <span class="hljs-comment">// On sale listings only (not Sold)</span>
+        sort: <span class="hljs-string">'onsale:desc'</span>,
+        <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
+    };
+
+    listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
+    listings.map(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing for Google Play gift card "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+    });
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <p>Run main() and catch any unhandled Promise errors</p>
 

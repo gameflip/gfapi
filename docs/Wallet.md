@@ -4,17 +4,22 @@
 * Cash (real cash): hard currency
 * Gbux (Gameflip bucks): internal currency (non-transferrable, does not expire)
 * Bonus (bonus cash, or incentive credit)
+* Flp: FLP deposit or from sale proceeds
+* Gflp: FLP from conversion
+* Bonus Flp: Bonus (incentive) FLP given from promotions or contests
 * Cash withhold: amount withheld but not withdrawn from cash balance
 * Gbux withhold: amount withheld but not withdrawn from cash balance
 * Bonus withhold: amount withheld but not withdrawn from bonus
 * Transaction: an entry for fund withdraw or deposit
 
 ## Required behaviors
-* balance: get total wallet balance, including cash and bonus
+* balance: get total wallet balance, including cash and bonus and different currencies
 * available_balance: get total wallet balance, including cash and bonus, less withholds
 * cash_balance: total/available/withhold
 * gbux_balance: total/available/withhold
 * bonus_balance: total/available/withhold
+* flp_balance: total/available/withhold
+* gflp_balance: total/available/withhold
 * debit (withdraw)
 * credit (deposit)
 
@@ -67,9 +72,14 @@ fund_flow           | 'credit' or 'debit'
 cash_available      | integer
 gbux_available      | inteter
 bonus_available     | integer
+flp_available       | integer
+gflp_available      | integer
 cash_amount         | integer
 gbux_amount         | integer
 bonus_amount        | integer
+flp_amount          | integer
+gflp_amount         | integer
+bonus_flp_amount    | integer
 bonus_usage         | hash { bonus_id: amount }
 description         | string
 created             | timestamp
@@ -134,8 +144,6 @@ solution is similar to error conditions in debit procedure
 
 ### credit to bonus
 Just add it to the table. the record itself works as a single transaction
-
-### available balance
 
 #### cash_balance
 directly from cash entry, pending transaction amount listed separately as withhold amount
