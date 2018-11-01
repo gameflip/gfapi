@@ -47,7 +47,14 @@ async function main() {
         name: 'Keys | 10x',
         description: 'Selling cheap keys!',
         price: 1050, // price in cents
-        
+        tags: [      // Must use the correct tag for search/filtering to function properly
+          "id: key",
+          "type: Key",
+          "quantity: 10x"
+        ],
+        // Example with color
+        // tags: [ "id: chakram", "type: Wheel", "color: Black" ]
+
         // MAYBE EDIT: Platform variation, change if you want to sell for example Fortnite (upc) on the PlayStation (platform) section instead
         upc: GfApi.UPC.RL_XONE,
         platform: GfApi.PLATFORM.XONE,
