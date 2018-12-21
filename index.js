@@ -22,7 +22,12 @@ const CONST = {
         VIDEO: 'VIDEO_DVD',                      // Movies, physical or digital
         OTHER: 'UNKNOWN'                         // Unsupported category
     },
-    
+
+    KIND: {
+        ITEM: 'item',   // Item selling
+        GIG:  'gig',    // Gig selling
+    },
+
     UPC: {
         CSGO: '094922417596',
         DOTA2: '111111111111',
@@ -73,6 +78,7 @@ const CONST = {
     
     // The promised time frame which you will ship a physical item or deliver a digital item
     SHIPPING_WITHIN_DAYS: {
+      AUTO: 0,
       ONE: 1,
       TWO: 2,
       THREE: 3
@@ -134,7 +140,8 @@ const CONST = {
 
     ACCEPT_CURRENCY: {
         USD: 'USD',
-        FLP: 'FLP'
+        FLP: 'FLP',
+        BOTH: 'BOTH'
     },
     
     IMAGE_MIME_TYPES: ['image/jpeg', 'image/png'],
@@ -299,6 +306,10 @@ class GfApi {
         return this._get(endpoint);
     }
 
+    wallet_flp_put(owner) {
+        return this._put(`flp/account/${owner}/key`);
+    }
+
     /**
      * Get single listing by id. The listing owner can view any listing they own.
      * Anyone else may only view listings that are publicly viewable or get an error.
@@ -357,6 +368,35 @@ class GfApi {
         }]);
     }
 
+    /**
+     * Get digital goods from listing if any available. This method will retrieve, decrypt, and return the digital goods.
+     * @param {string} listing id
+     * @returns digital content previously stored for the listing
+     * @errors:
+     *   400 - Not a digital listing
+     *   403 - Not owner
+     *   404 - Listing not found
+     */
+    digital_goods_get(id) {
+        return this._get(`listing/${id}/digital_goods`);
+    }
+
+    /**
+     * Put digital goods/content for digital listing
+     * @code digital code or digital content
+     * @errors:
+     *   400 - The `code` parameter is missing and required.  The `code` is too long, the `code` already exists, or the listing does not exist.
+     *   403 - Not owner
+     *   404 - Listing not found
+     */
+    digital_goods_put(id, code) {
+        return this._put(`listing/${id}/digital_goods`, { code: code });
+    }
+
+    /**
+     * Search exchanges (purchases or sold listings).
+     * @returns the search result which also contains an array of exchanges owned by the API key owner
+     */
     exchange_search(query) {
         return this._getList('exchange', query);
     }

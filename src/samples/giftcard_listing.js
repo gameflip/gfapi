@@ -7,7 +7,7 @@
 // ```
 //   export GFAPI_KEY=my_api_key
 //   export GFAPI_SECRET=my_api_secret
-//   node src/samples/bulk_listing.js
+//   node src/samples/giftcard_listing.js
 // ```
 //
 // If you are using an IDE, set the `GFAPI_KEY` and `GFAPI_SECRET` in the Run Configuration Environment.
@@ -39,42 +39,39 @@ async function main() {
     // and for Fortnite, view https://gameflip.com/api/gameitem/inventory/GFPCFORTNITE
     
     // DO EDIT: Choose an image for your listing
-    let photo_url = 'https://gameflip.com' + '/img/items/rocket-league/key.png';
+    let photo_url = 'https://gameflip.com/img/app/digital_card_googleplay.png';
     // Create an initial listing
     let query = {
       
-        // DO EDIT: Put just 'Key' for example if you are selling one, otherwise write the quantity as so: Item Name | 10x
-        name: 'Keys | 10x',
-        description: 'Selling cheap keys!',
-        price: 1050, // price in cents
-        tags: [      // Must use the correct tag for search/filtering to function properly
-          "id: key",
-          "type: Key",
-          "quantity: 10x"
+        // DO EDIT: Use appropriate name & description to reflect the nature of the listing
+        name: '$20.00 Google Play',               // Include the full value with $ so that discount can be shown
+        description: '$20.00 Google Play card',   // Include any specific instructions or important information in description
+        price: 1950, // price you want to sell in cents
+        tags: [      // Must use the correct tags for search/filtering to function properly
+          "balance: 2000",
+          "currency: USD",
+          "type: giftcard"
         ],
-        // Example with color
-        // tags: [ "id: chakram", "type: Wheel", "color: Black" ]
 
-        // MAYBE EDIT: Platform variation, change if you want to sell for example Fortnite (upc) on the PlayStation (platform) section instead
-        upc: GfApi.UPC.RL_XONE,
-        platform: GfApi.PLATFORM.XONE,
-        shipping_within_days: GfApi.SHIPPING_WITHIN_DAYS.ONE,
+        // Standard settings
+        platform: "google",
         expire_in_days: GfApi.EXPIRE_IN_DAYS.SEVEN,
-        //accept_currency: GfApi.ACCEPT_CURRENCY.FLP   // Uncomment this if you want to accept FLP instead of USD
-        
-        // DON'T EDIT: Standard settings for coordinated transfer in game item
-        category: GfApi.CATEGORY.INGAME,
+        category: GfApi.CATEGORY.GIFTCARD,
         kind: GfApi.KIND.ITEM,
         digital: true,
-        digital_region: 'none',
-        digital_deliverable: 'transfer',
-        shipping_predefined_package: 'None',
-        shipping_fee: 0,
-        shipping_paid_by: 'seller',
-        
+        digital_region: 'none',                                 // If restrictive, must specify (ex: "US")
+        digital_deliverable: 'code',
+        shipping_within_days: GfApi.SHIPPING_WITHIN_DAYS.AUTO,  // Set auto delivery if you are going to store the digital code within Gameflip
+
+        // USD is the default when not specified accept_currency
+        //accept_currency: GfApi.ACCEPT_CURRENCY.FLP
+        //accept_currency: GfApi.ACCEPT_CURRENCY.BOTH
     };
     let listing = await gfapi.listing_post(query);
-    
+
+    let code = "MY-GIFT-CARD-CODE-" + (new Date()).getTime();   // Digital code must be unique for each listing
+    await gfapi.digital_goods_put(listing.id, code);
+
     // Upload an image to show in the listing page
     gfapi.upload_photo(listing.id, photo_url, 0).then(() => {
       // Upload another image to show in the search results
@@ -84,7 +81,8 @@ async function main() {
       // return gfapi.upload_photo(listing.id, second_photo_url, 1);
     }).then(() => {
       // List the listing for sale
-      return gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);
+      //return gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);
+      return gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.READY);
     }).catch(err => {
       console.log(err);
     });
