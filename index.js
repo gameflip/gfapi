@@ -311,7 +311,7 @@ class GfApi {
     }
 
     /**
-     * Get single listing by id. The listing owner can view any listing they own.
+     * Get a single listing by id. The listing owner can view any listing they own.
      * Anyone else may only view listings that are publicly viewable or get an error.
      * @param id list id
      * @returns listing
@@ -338,7 +338,7 @@ class GfApi {
     }
     
     /**
-     * Creates a blank listing to be edited and posted.
+     * Create a blank listing to be edited and posted.
      * @returns listing
      */
     listing_post(query) {
@@ -346,7 +346,7 @@ class GfApi {
     }
     
     /**
-     * Updates a listing with new or updated properties.
+     * Update a listing with new or updated properties.
      * @param {hash} Query options.
      * @returns listing
      */
@@ -355,7 +355,7 @@ class GfApi {
     }
     
     /**
-     * Changes a listing's status.
+     * Change a listing's status.
      * @param {string} id
      * @param {enum} status
      * @returns listing
@@ -366,6 +366,16 @@ class GfApi {
             path: '/status',
             value: status
         }]);
+    }
+    
+    /**
+     * Delete a single listing by id.
+     * @param id list id
+     * @returns result
+     */
+    async listing_delete(id) {
+        await this.listing_status(id, CONST.LISTING_STATUS.DRAFT);
+        return await this._delete(`listing/${id}`);
     }
 
     /**
@@ -402,7 +412,7 @@ class GfApi {
     }
 
     /**
-     * Uploads an online image to Gameflip for use as the listing's photo.
+     * Upload an online image to Gameflip for use as the listing's photo.
      * @param {string} listing_id to update the listing
      * @param {string} url of the photo
      * @param {int} display_order for multiple photos. If not provided then it
@@ -688,6 +698,17 @@ class GfApi {
                 "Content-Type": "application/json-patch+json"
             },
             data: data
+        }));
+    }
+    
+    _delete(uri) {
+        const url = `${this.baseUrl}/${uri}`;
+        this._entry(`DELETE '${url}'`);
+
+        return this._result(this.client.deletePromise(url, {
+            headers: {
+                "Authorization": this._authorizationHeader()
+            }
         }));
     }
 

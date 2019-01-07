@@ -34,7 +34,7 @@ async function main() {
         logLevel: 'debug'
     });
 
-    // Put in an owner ID as seen in the URL of a user's Gameflip profile
+    // Put in an owner ID as seen in the URL of a user's Gameflip profile.
     // For example: let owner = 'us-east-1:c62554cb-d881-4ac4-a0ab-7b51022ab87c';
     let owner = '';
     let profile = await gfapi.profile_get(owner);
