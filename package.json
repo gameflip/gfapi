@@ -25,14 +25,14 @@
   },
   "dependencies": {
     "base-64": "^0.1.0",
-    "bluebird": "^3.5.0",
+    "bluebird": "^3.5.3",
     "bunyan": "^1.8.12",
     "file-type": "^8.1.0",
-    "http-errors": "^1.6.2",
-    "node-rest-client-promise": "^3.0.0",
+    "http-errors": "^1.7.2",
+    "node-rest-client-promise": "^3.1.1",
     "promise-ratelimit": "^0.0.3",
-    "request": "^2.85.0",
-    "request-promise": "^4.2.2",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
     "speakeasy": "^2.0.0"
   },
   "devDependencies": {
