@@ -36,7 +36,7 @@ async function main() {
     });
     
     // For an inventory of Rocket League items and photo URLs, view https://gameflip.com/api/gameitem/inventory/812872018935
-    // and for Fortnite, view https://gameflip.com/api/gameitem/inventory/GFPCFORTNITE
+    // and for Fortnite, view https://gameflip.com/api/gameitem/inventory/GFFORTNITE
     
     // DO EDIT: Choose an image for your listing
     let photo_url = 'https://gameflip.com' + '/img/items/rocket-league/key.png';
