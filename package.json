@@ -25,10 +25,11 @@
   },
   "dependencies": {
     "base-64": "^0.1.0",
-    "bluebird": "^3.5.3",
+    "bluebird": "^3.5.5",
     "bunyan": "^1.8.12",
     "file-type": "^8.1.0",
     "http-errors": "^1.7.2",
+    "node-rest-client": "github:gameflip/node-rest-client",
     "node-rest-client-promise": "^3.1.1",
     "promise-ratelimit": "^0.0.3",
     "request": "^2.88.0",
@@ -36,8 +37,8 @@
     "speakeasy": "^2.0.0"
   },
   "devDependencies": {
-    "marked": "^0.3.19",
     "docco": "^0.7.0",
-    "jsdoc": "^3.5.5"
+    "jsdoc": "^3.6.3",
+    "marked": "^0.7.0"
   }
 }

@@ -1,4 +1,4 @@
-// Sample code to search listings on Gameflip. 
+// Sample code to search listings on Gameflip.
 // Your Gameflip account needs to be verified and in good standing.
 //
 // Generate the API Key and OTP secret in [Settings page](https://gameflip.com/settings)
@@ -46,9 +46,11 @@ async function main() {
     };
 
     let listings = await gfapi.listing_search(query);
-    listings.map(listing => {
-        console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
-    });
+    if (listings) {
+        listings.forEach(listing => {
+            console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
+        });
+    }
 
     // Search listings for CSGO skins
     query = {
@@ -61,9 +63,11 @@ async function main() {
     };
 
     listings = await gfapi.listing_search(query);
-    listings.map(listing => {
-        console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
-    });
+    if (listings) {
+        listings.forEach(listing => {
+            console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
+        });
+    }
 
     // Search listings for gift cards from sellers who accept FLP
     query = {
@@ -75,9 +79,11 @@ async function main() {
     };
 
     listings = await gfapi.listing_search(query);
-    listings.map(listing => {
-        console.log("=== Listing accepting FLP only " + listing.id, JSON.stringify(listing, null, 2));
-    });
+    if (listings) {
+        listings.forEach(listing => {
+            console.log("=== Listing accepting FLP only " + listing.id, JSON.stringify(listing, null, 2));
+        });
+    }
 
     // Search listings for Google Play gift cards
     query = {
@@ -89,9 +95,11 @@ async function main() {
     };
 
     listings = await gfapi.listing_search(query);
-    listings.map(listing => {
-        console.log("=== Listing for Google Play gift card " + listing.id, JSON.stringify(listing, null, 2));
-    });
+    if (listings) {
+        listings.forEach(listing => {
+            console.log("=== Listing for Google Play gift card " + listing.id, JSON.stringify(listing, null, 2));
+        });
+    }
 }
 
 // Run main() and catch any unhandled Promise errors
