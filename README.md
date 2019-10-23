@@ -16,7 +16,7 @@ Node.js API bindings and sample code create Gameflip listings for Steam items
 To get the API Key and secret, contact Gameflip support.
 During Beta, API Keys are only being given out to select customers.
 
-### 1. Install [Git](https://git-scm.com/downloads), [NodeJS v8.x LTS](https://nodejs.org), and [Python 2.7.14](https://www.python.org/downloads/release/python-2714/)
+### 1. Install [Git](https://git-scm.com/downloads), [NodeJS v12.13.x LTS](https://nodejs.org), and [Python 2.7.14](https://www.python.org/downloads/release/python-2714/)
 
 ### 2. Download sample code
 ```
