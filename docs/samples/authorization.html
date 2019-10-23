@@ -102,17 +102,14 @@
               <p><strong>Generates authorization header to login to Gameflip API</strong></p>
 <ol>
 <li><p>Get your Gameflip API Key and TOTP secret:</p>
-<pre><code>https:<span class="hljs-comment">//gameflip.com/settings</span>
-</code></pre></li>
+<pre><code>https:<span class="hljs-comment">//gameflip.com/settings</span></code></pre></li>
 <li><p>Add the API key and secret to your IDE environment or <code>~/.bash_profile</code>:</p>
-<pre><code class="lang-bash"><span class="hljs-built_in">export</span> GFAPI_KEY=my_api_key
-<span class="hljs-built_in">export</span> GFAPI_SECRET=my_api_secret
-</code></pre>
+<pre><code class="language-bash"><span class="hljs-built_in">export</span> GFAPI_KEY=my_api_key
+<span class="hljs-built_in">export</span> GFAPI_SECRET=my_api_secret</code></pre>
 </li>
 <li><p>Sample API call to get your profile</p>
-<pre><code class="lang-bash"><span class="hljs-built_in">export</span> API=<span class="hljs-string">"https://production-gameflip.fingershock.com/api/v1"</span>
-curl -isS -H <span class="hljs-string">"<span class="hljs-variable">$(node authorization.js)</span>"</span> -X GET <span class="hljs-string">"<span class="hljs-variable">${API}</span>/account/me/profile"</span>; <span class="hljs-built_in">echo</span>
-</code></pre>
+<pre><code class="language-bash"><span class="hljs-built_in">export</span> API=<span class="hljs-string">"https://production-gameflip.fingershock.com/api/v1"</span>
+curl -isS -H <span class="hljs-string">"<span class="hljs-variable">$(node authorization.js)</span>"</span> -X GET <span class="hljs-string">"<span class="hljs-variable">${API}</span>/account/me/profile"</span>; <span class="hljs-built_in">echo</span></code></pre>
 </li>
 </ol>
 

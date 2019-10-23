@@ -61,7 +61,6 @@ async function main() {
 
     // Initiate trade offer (bulk.status='receive_pending')
     bulk = await gfapi.bulk_put(bulk_id, {
-        listing_status: 'ready', // 'ready' (default) or 'onsale'
         items: inventory.assets.map(x => ({
             id: x.assetid,  // id of item
             appid: x.appid, // Currently, all items must have same appid

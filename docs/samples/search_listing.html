@@ -85,14 +85,13 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>Sample code to search listings on Gameflip. 
+              <p>Sample code to search listings on Gameflip.
 Your Gameflip account needs to be verified and in good standing.</p>
 <p>Generate the API Key and OTP secret in <a href="https://gameflip.com/settings">Settings page</a></p>
 <p>Type in bash shell:</p>
 <pre><code>  <span class="hljs-keyword">export</span> GFAPI_KEY=my_api_key
   <span class="hljs-keyword">export</span> GFAPI_SECRET=my_api_secret
-  node src/samples/bulk_listing.js
-</code></pre><p>If you are using an IDE, set the <code>GFAPI_KEY</code> and <code>GFAPI_SECRET</code> in the Run Configuration Environment.
+  node src/samples/bulk_listing.js</code></pre><p>If you are using an IDE, set the <code>GFAPI_KEY</code> and <code>GFAPI_SECRET</code> in the Run Configuration Environment.
 Be careful not to commit/push anything with the API key/secret to a public repository.</p>
 
             </div>
@@ -170,9 +169,11 @@ Be careful not to commit/push anything with the API key/secret to a public repos
     };
 
     <span class="hljs-keyword">let</span> listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    listings.map(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
-    });</pre></div></div>
+    <span class="hljs-keyword">if</span> (listings) {
+        listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+        });
+    }</pre></div></div>
             
         </li>
         
@@ -197,9 +198,11 @@ Be careful not to commit/push anything with the API key/secret to a public repos
     };
 
     listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    listings.map(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
-    });</pre></div></div>
+    <span class="hljs-keyword">if</span> (listings) {
+        listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+        });
+    }</pre></div></div>
             
         </li>
         
@@ -223,9 +226,11 @@ Be careful not to commit/push anything with the API key/secret to a public repos
     };
 
     listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    listings.map(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing accepting FLP only "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
-    });</pre></div></div>
+    <span class="hljs-keyword">if</span> (listings) {
+        listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing accepting FLP only "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+        });
+    }</pre></div></div>
             
         </li>
         
@@ -249,9 +254,11 @@ Be careful not to commit/push anything with the API key/secret to a public repos
     };
 
     listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    listings.map(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing for Google Play gift card "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
-    });
+    <span class="hljs-keyword">if</span> (listings) {
+        listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing for Google Play gift card "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+        });
+    }
 }</pre></div></div>
             
         </li>

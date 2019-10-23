@@ -124,7 +124,6 @@ In PUT params, specify list of items to escrow/list.
 Create offer
 
 Specify list of items in seller's inventory.
-Optionally, specify listing_status as either "ready" (default) or "onsale".
 If item price and market_hash_name not specified, listing goes to 'draft'.
 
 ```http
