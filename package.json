@@ -27,7 +27,7 @@
     "base-64": "^0.1.0",
     "bluebird": "^3.5.5",
     "bunyan": "^1.8.12",
-    "file-type": "^8.1.0",
+    "file-type": "^14.1.2",
     "http-errors": "^1.7.2",
     "node-rest-client": "github:gameflip/node-rest-client",
     "node-rest-client-promise": "^3.1.1",

@@ -8,6 +8,7 @@ const HttpErrors = require('http-errors');
 const Bunyan = require('bunyan');
 const QueryString = require('querystring');
 const FileType = require('file-type');
+const Fs = require('fs');
 
 const CONST = {
     // Important: Listing must use correct category according to Gameflip terms of service.  Physical items can only be purchased
@@ -418,17 +419,19 @@ class GfApi {
      * the number is its order in the photo carousel.
      * @returns {object} photo object with url
      */
-    async upload_photo(listing_id, url, display_order) {
-        // Download the image
-        let photo_blob = await Request.get(url, {encoding: null});
-        if (photo_blob.length > CONST.IMAGE_BYTE_SIZE) {
-          throw new Error(`ERROR Image file size over limit: ${photo_blob.length} > ${CONST.IMAGE_BYTE_SIZE}`);
-        }
-        let image_type = (FileType(photo_blob))['mime'];
+    async upload_photo(listing_id, file_or_url, display_order) {
+        let photo = file_or_url.indexOf("https://") >= 0 ? await this._readPhotoFromUrl(file_or_url) : await this._readPhotoFromFile(file_or_url);
+        let photo_data = photo.data;
+        let image_type = photo.mime;
+
         if (CONST.IMAGE_MIME_TYPES.indexOf(image_type) === -1) {
           throw new Error(`ERROR Image content type not allowed: ${image_type}`);
         }
-        
+
+        if (photo_data.length > CONST.IMAGE_BYTE_SIZE) {
+          throw new Error(`ERROR Image file size over limit: ${photo_data.length} > ${CONST.IMAGE_BYTE_SIZE}`);
+        }
+
         // Request permission to upload
         let photo_obj = await this._post('listing/' + listing_id + '/photo');
         if (!photo_obj || !photo_obj.upload_url) {
@@ -438,7 +441,7 @@ class GfApi {
         // Upload the image
         let upload_req = await Request.put({
             url: photo_obj.upload_url,
-            body: photo_blob,
+            body: photo_data,
             headers: {
                 "Content-Type": image_type
             }
@@ -766,6 +769,30 @@ class GfApi {
             this.log.trace(`FAIL: statusCode=${response.statusCode} statusMessage=${response.statusMessage}`);
             throw HttpErrors(response.statusCode, response.statusMessage);
         }
+    }
+
+    async _readPhotoFromUrl(url) {
+        this.log.debug(`Read from url ${url}`);
+        let photo_data = null;
+        let image_type = {};
+
+        // Download the image
+        photo_data = await Request.get(url, {encoding: null});
+        image_type = await FileType.fromBuffer(photo_data);
+
+        return {data: photo_data, mime: image_type.mime};
+    }
+
+    async _readPhotoFromFile(file) {
+        this.log.debug(`Read from file ${file}`);
+        let photo_data = null;
+        let image_type = {};
+
+        // Read file
+        photo_data = Fs.readFileSync(file);
+        image_type = await FileType.fromFile(file);
+
+        return {data: photo_data, mime: image_type.mime};
     }
 }
 
