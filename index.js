@@ -35,6 +35,7 @@ const CONST = {
         TF2: '014633098693',
         RUST: '000000252490',
         PUBG: '000000578080',
+        PUBG_LITE: 'GF00PUBGLITE',
         H1Z1: '000000433850',
         H1Z1_JS: '000000295110',
         FORTNITE: 'GFFORTNITE',
@@ -42,7 +43,19 @@ const CONST = {
         RL_STEAM: '023171037943',
         RL_PS4: '812872018928',
         RL_XONE: '812872018935',
-        RL_SWITCH: 'GF00RLSWITCH'
+        RL_SWITCH: 'GF00RLSWITCH',
+        ROBLOX: 'GF0000ROBLOX',
+        FALLOUT76_PC: 'GFPCFLLOUT76',
+        FALLOUT76_PS4: 'GFPSFLLOUT76',
+        FALLOUT76_XONE: 'GFXOFLLOUT76',
+        BORDERLANDS3_PC: 'GFPCBDLANDS3',
+        BORDERLANDS3_PS4: 'GFPSBDLANDS3',
+        BORDERLANDS3_XONE: 'GFXOBDLANDS3',
+        FIFA: 'GF000000FIFA',
+        MADDEN: 'GF0000MADDEN',
+        POKEMON_SWORD_SHIELD: '045496596972',
+        POKEMON_LETS_GO: '045496593940',
+        POKEMON_SUN_MOON: 'GFPOKSUNMOON'
     },
     
     PLATFORM: {
@@ -71,7 +84,7 @@ const CONST = {
         BATTLENET: 'battlenet',
         XLIVE: 'xbox_live',
         PSN: 'playstation_network',
-        UNKNOWN: 'unknown'
+        UNKNOWN: 'unknown'           // For PC platform, use UNKNOWN
     },
     
     // The promised time frame which you will ship a physical item or deliver a digital item
