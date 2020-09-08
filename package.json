@@ -25,20 +25,20 @@
   },
   "dependencies": {
     "base-64": "^0.1.0",
-    "bluebird": "^3.5.5",
-    "bunyan": "^1.8.12",
-    "file-type": "^14.1.2",
-    "http-errors": "^1.7.2",
+    "bluebird": "^3.7.2",
+    "bunyan": "^1.8.14",
+    "file-type": "^14.7.1",
+    "http-errors": "^1.8.0",
     "node-rest-client": "github:gameflip/node-rest-client",
-    "node-rest-client-promise": "^3.1.1",
+    "node-rest-client-promise": "github:gameflip/node-rest-client-promise",
     "promise-ratelimit": "^0.0.3",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
     "speakeasy": "^2.0.0"
   },
   "devDependencies": {
     "docco": "^0.7.0",
-    "jsdoc": "^3.6.3",
+    "jsdoc": "^3.6.5",
     "marked": "^0.7.0"
   }
 }
