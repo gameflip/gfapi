@@ -1,8 +1,7 @@
 'use strict';
 
 const Promise = require('bluebird');
-const NodeRestClient = require('node-rest-client-promise').Client;
-const Request = require('request-promise');
+const Axios = require('axios');
 const Speakeasy = require('speakeasy');
 const HttpErrors = require('http-errors');
 const Bunyan = require('bunyan');
@@ -262,8 +261,6 @@ class GfApi {
         const split = apiKey.split('-');
         this.baseUrl = (split.length == 1) ? CONST.BASE_URL.production : CONST.BASE_URL[split[0]];
 
-        this.client = new NodeRestClient();
-
         this.log = Bunyan.createLogger({
             name: 'gfapi',
             level: options.logLevel || 'debug',
@@ -456,12 +453,8 @@ class GfApi {
         }
         
         // Upload the image
-        let upload_req = await Request.put({
-            url: photo_obj.upload_url,
-            body: photo_data,
-            headers: {
-                "Content-Type": image_type
-            }
+        let upload_req = await Axios.put(photo_obj.upload_url, photo_data, {
+            headers: { "Content-Type": image_type }
         });
         
         // Update the listing with the new image
@@ -637,7 +630,9 @@ class GfApi {
         const contextId = CONST.STEAM.CONTEXT_ID[appId] || CONST.STEAM.CONTEXT_ID.DEFAULT;
         const url = `http://steamcommunity.com/inventory/${profileid}/${appId}/${contextId}${Util.queryString(query)}`;
         this._entry(`GET '${url}'`);
-        return this._steamResult(this.client.getPromise(url, {}), query);
+        return this._steamRequest({
+            url: url
+        }, query);
     }
 
     // ----------------
@@ -648,11 +643,12 @@ class GfApi {
         const url = `${this.baseUrl}/${uri}${Util.queryString(query)}`;
         this._entry(`GET '${url}'`);
 
-        return this._result(this.client.getPromise(url, {
+        return this._apiRequest({
+            url: url,
             headers: {
                 "Authorization": this._authorizationHeader()
             }
-        }));
+        });
     }
 
     _getList(uri, query) {
@@ -663,70 +659,69 @@ class GfApi {
         const url = query.nextPage || `${this.baseUrl}/${uri}${Util.queryString(query)}`;
         this._entry(`GET ${url}`);
 
-        return this._result(this.client.getPromise(url, {
+        return this._apiRequest({
+            url: url,
             headers: {
                 "Authorization": this._authorizationHeader()
             }
-        }), query);
+        }, query);
     }
 
     _post(uri, data = null) {
         const url = `${this.baseUrl}/${uri}`;
         this._entry(`POST ${url} data=${JSON.stringify(data, null, 2)}`);
 
-        const args = {
+        return this._apiRequest({
+            url: url,
+            method: 'post',
             headers: {
                 "Authorization": this._authorizationHeader(),
                 "Content-Type": "application/json"
-            }
-        };
-
-        if (data) {
-            args.data = data;
-        }
-
-        return this._result(this.client.postPromise(url, args));
+            },
+            data: data
+        });
     }
 
     _put(uri, data = null) {
         const url = `${this.baseUrl}/${uri}`;
         this._entry(`PUT ${url} data=${JSON.stringify(data, null, 2)}`);
 
-        const args = {
+        return this._apiRequest({
+            url: url,
+            method: 'put',
             headers: {
                 "Authorization": this._authorizationHeader(),
                 "Content-Type": "application/json"
-            }
-        };
-
-        if (data) {
-            args.data = data;
-        }
-
-        return this._result(this.client.putPromise(url, args));
+            },
+            data: data
+        });
     }
 
     _patch(uri, data = null) {
         this._entry(`PATCH ${uri} data=${JSON.stringify(data, null, 2)}`);
 
-        return this._result(this.client.patchPromise(`${this.baseUrl}/${uri}`, {
+        return this._apiRequest({
+            url: `${this.baseUrl}/${uri}`,
+            method: 'patch',
             headers: {
                 "Authorization": this._authorizationHeader(),
                 "Content-Type": "application/json-patch+json"
             },
             data: data
-        }));
+        });
     }
     
     _delete(uri) {
         const url = `${this.baseUrl}/${uri}`;
         this._entry(`DELETE '${url}'`);
 
-        return this._result(this.client.deletePromise(url, {
+        return this._apiRequest({
+            url: url,
+            method: 'delete',
             headers: {
                 "Authorization": this._authorizationHeader()
             }
-        }));
+        });
     }
 
     _authorizationHeader() {
@@ -738,53 +733,81 @@ class GfApi {
         this.log.debug(text);
     }
     
-    async _result(resultPromise, query = null) {
-        const result = await resultPromise;
-        const apiData = result.data || {};
-        if (apiData.status == 'SUCCESS') {
-            this.log.trace(`SUCCESS: ${JSON.stringify(apiData, null, 2)}`);
+    async _apiRequest(request, query = null) {
+        try {
+            const result = await Axios(request);
+            const apiData = result.data || {};
+            if (apiData.status == 'SUCCESS') {
+                this.log.trace(`SUCCESS: ${JSON.stringify(apiData, null, 2)}`);
 
-            if (Util.isNull(apiData.next_page) && Util.emptyArray(apiData.data)) {
-                return null;
+                if (Util.isNull(apiData.next_page) && Util.emptyArray(apiData.data)) {
+                    return null;
+                }
+
+                if (query) {
+                    // null if apiData.next_page is undefined
+                    query.nextPage = Util.options(apiData.next_page);
+                }
+
+                return apiData.data;
+            } else {
+                const error = apiData.error || {};
+                const response = result.response;
+                const statusCode = Util.options(error.code, response.statusCode);
+                const statusMessage = Util.options(error.message, response.statusMessage);
+
+                this.log.trace(`FAIL: statusCode=${statusCode} statusMessage=${statusMessage}`);
+                throw HttpErrors(statusCode, statusMessage);
             }
-
-            if (query) {
-                // null if apiData.next_page is undefined
-                query.nextPage = Util.options(apiData.next_page);
+        }
+        catch (error) {
+            if (error.response) {
+                const statusCode = error.response.status;
+                const statusMessage = error.message || '';
+                this.log.trace(`FAIL: statusCode=${statusCode} statusMessage=${statusMessage}`);
+                throw HttpErrors(statusCode, statusMessage);
             }
-
-            return apiData.data;
-        } else {
-            const error = apiData.error || {};
-            const response = result.response;
-            const statusCode = Util.options(error.code, response.statusCode);
-            const statusMessage = Util.options(error.message, response.statusMessage);
-
-            this.log.trace(`FAIL: statusCode=${statusCode} statusMessage=${statusMessage}`);
-            throw HttpErrors(statusCode, statusMessage);
+            else if (error.request) {
+                throw new Error(`ERROR sending request: ${request}`);
+            }
+            else if (error.message) throw new Error(`ERROR sending request: ${error.message}`);
         }
     }
 
-    async _steamResult(resultPromise, query = null) {
-        const result = await resultPromise;
-        const apiData = result.data || {};
-        if (apiData.success) {
-            this.log.trace(`SUCCESS: ${JSON.stringify(apiData, null, 2)}`);
+    async _steamRequest(request, query = null) {
+        try {
+            const result = await Axios(request);
+            const apiData = result.data || {};
+            if (apiData.success) {
+                this.log.trace(`SUCCESS: ${JSON.stringify(apiData, null, 2)}`);
 
-            if (Util.isNull(apiData.more_items) && Util.emptyArray(apiData.assets)) {
-                return null;
+                if (Util.isNull(apiData.more_items) && Util.emptyArray(apiData.assets)) {
+                    return null;
+                }
+
+                if (query) {
+                    // null if apiData.start_assetid is undefined
+                    query.start_assetid = Util.options(apiData.last_assetid);
+                }
+
+                return apiData;
+            } else {
+                const response = result.response;
+                this.log.trace(`FAIL: statusCode=${response.statusCode} statusMessage=${response.statusMessage}`);
+                throw HttpErrors(response.statusCode, response.statusMessage);
             }
-
-            if (query) {
-                // null if apiData.start_assetid is undefined
-                query.start_assetid = Util.options(apiData.last_assetid);
+        }
+        catch (error) {
+            if (error.response) {
+                const statusCode = error.response.status;
+                const statusMessage = error.message || '';
+                this.log.trace(`FAIL: statusCode=${statusCode} statusMessage=${statusMessage}`);
+                throw HttpErrors(statusCode, statusMessage);
             }
-
-            return apiData;
-        } else {
-            const response = result.response;
-            this.log.trace(`FAIL: statusCode=${response.statusCode} statusMessage=${response.statusMessage}`);
-            throw HttpErrors(response.statusCode, response.statusMessage);
+            else if (error.request) {
+                throw new Error(`ERROR sending request: ${request}`);
+            }
+            else if (error.message) throw new Error(`ERROR sending request: ${error.message}`);
         }
     }
 
@@ -794,8 +817,11 @@ class GfApi {
         let image_type = {};
 
         // Download the image
-        photo_data = await Request.get(url, {encoding: null});
-        image_type = await FileType.fromBuffer(photo_data);
+        let result = await Axios.get(url, {responseType: 'arraybuffer'});
+        if (result.data) {
+            photo_data = result.data;
+            image_type = await FileType.fromBuffer(result.data);
+        }
 
         return {data: photo_data, mime: image_type.mime};
     }

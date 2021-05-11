@@ -24,21 +24,17 @@
     "docs": "jsdoc -c jsdoc_conf.js -d docs -P package.json index.js; docco -o docs/samples src/samples/*.js src/samples/*.rb"
   },
   "dependencies": {
-    "base-64": "^0.1.0",
+    "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "bunyan": "^1.8.14",
     "file-type": "^14.7.1",
     "http-errors": "^1.8.0",
-    "node-rest-client": "github:gameflip/node-rest-client",
-    "node-rest-client-promise": "github:gameflip/node-rest-client-promise",
     "promise-ratelimit": "^0.0.3",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.6",
     "speakeasy": "^2.0.0"
   },
   "devDependencies": {
-    "docco": "^0.7.0",
-    "jsdoc": "^3.6.5",
+    "docco": "^0.8.1",
+    "jsdoc": "^3.6.6",
     "marked": "^0.7.0"
   }
 }
