@@ -29,7 +29,7 @@
     "bunyan": "^1.8.15",
     "file-type": "^14.7.1",
     "http-errors": "^1.8.0",
-    "promise-ratelimit": "^0.0.3",
+    "limiter": "^2.1.0",
     "speakeasy": "^2.0.0"
   },
   "devDependencies": {

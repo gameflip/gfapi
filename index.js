@@ -8,6 +8,7 @@ const Bunyan = require('bunyan');
 const QueryString = require('querystring');
 const FileType = require('file-type');
 const Fs = require('fs');
+const Limiter = require('limiter');
 
 const CONST = {
     // Important: Listing must use correct category according to Gameflip terms of service.  Physical items can only be purchased
@@ -278,7 +279,7 @@ class GfApi {
             }
         });
 
-        this.rateLimit = require('promise-ratelimit')(1000);
+        this.rateLimiter = new Limiter.RateLimiter({ tokensPerInterval: 3, interval: "minute" });
     }
 
     /**
@@ -729,12 +730,17 @@ class GfApi {
     }
 
     async _entry(text) {
-        await this.rateLimit();
         this.log.debug(text);
     }
     
     async _apiRequest(request, query = null) {
         try {
+            let mustThrottle = request.method && request.method == 'post';
+            if (mustThrottle) {
+                // Wait until we can send
+                let remaining = await this.rateLimiter.removeTokens(1);
+            }
+
             const result = await Axios(request);
             const apiData = result.data || {};
             if (apiData.status == 'SUCCESS') {
