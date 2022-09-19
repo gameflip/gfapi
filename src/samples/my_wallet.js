@@ -34,14 +34,19 @@ async function main() {
         logLevel: 'debug'
     });
 
-    // Get the current wallet balance
-    let wallet = await gfapi.wallet_get();
-    console.log(`==== User's Wallet:`);
+    // Get my own profile
+    let profile = await gfapi.profile_get();
+    console.log(`==== My Profile:`);
+    console.log(profile);
+
+    // Get my current wallet balance
+    let wallet = await gfapi.wallet_get(profile.owner);
+    console.log(`==== My Wallet:`);
     console.log(wallet);
 
     // Get the current wallet balance with ledger entries for 2018-08
-    wallet = await gfapi.wallet_get({year_month: '2018-08'});
-    console.log(`==== User's Wallet for Aug 2018:`);
+    wallet = await gfapi.wallet_get(profile.owner, {year_month: '2018-08'});
+    console.log(`==== My Wallet for Aug 2018:`);
     console.log(wallet);
 
 }

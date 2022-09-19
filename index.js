@@ -295,6 +295,7 @@ class GfApi {
      * Get wallet balance and transaction history/ledger
      * NOTE: the balance amount is the lowest possible unit for that currency.  Ex: cents for USD and atto (10e-18) for FLP)
      *
+     * @param owner the user's owner/user id
      * @param options Options for data return
      *   - balance_only: Return only the wallet balance without any recent history (without ledger)
      *   - flp: Return with the "balance" property to be a map showing the balance for each currency supported
@@ -303,8 +304,8 @@ class GfApi {
      *   - year_month (yyyy-mm): The year and month in which the transactions took place.  When not provided, the current month is used
      * @returns wallet information
      */
-    wallet_get(opt) {
-        let endpoint = 'account/me/wallet_history';
+    wallet_get(owner, opt) {
+        let endpoint = `account/${owner}/wallet_history`;
         let options = opt || { };
 
         if (!options.year_month && typeof options.balance_only === 'undefined') options.balance_only = true;
