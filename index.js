@@ -61,7 +61,7 @@ const CONST = {
         POKEMON_LETS_GO: '045496593940',
         POKEMON_SUN_MOON: 'GFPOKSUNMOON'
     },
-    
+
     PLATFORM: {
         XBOX: 'xbox',
         X360: 'xbox_360',
@@ -90,7 +90,7 @@ const CONST = {
         PSN: 'playstation_network',
         UNKNOWN: 'unknown'           // For PC platform, use UNKNOWN
     },
-    
+
     // The promised time frame which you will ship a physical item or deliver a digital item
     SHIPPING_WITHIN_DAYS: {
       AUTO: 0,
@@ -98,7 +98,7 @@ const CONST = {
       TWO: 2,
       THREE: 3
     },
-    
+
     // Your listing will automatically expire after these many days
     EXPIRE_IN_DAYS: {
       SEVEN: 7,
@@ -127,13 +127,13 @@ const CONST = {
         SALE_PENDING: 'sale_pending',       // A buyer just bought the listing, and payment is being processed
         SOLD: 'sold'                        // A buyer had bought the listing
     },
-    
+
     LISTING_PHOTO_STATUS: {
         PENDING: 'pending',
         ACTIVE: 'active',
         DELETED: 'deleted'
     },
-    
+
     LISTING_OPS: {
         TEST: 'test',
         ADD: 'add',
@@ -158,7 +158,7 @@ const CONST = {
         FLP: 'FLP',
         BOTH: 'BOTH'
     },
-    
+
     IMAGE_MIME_TYPES: ['image/jpeg', 'image/png'],
     IMAGE_BYTE_SIZE: 500000,
 
@@ -333,7 +333,7 @@ class GfApi {
     listing_get(id) {
         return this._get(`listing/${id}`);
     }
-    
+
     /**
      * Get a user's listings.
      * @param owner of the user.
@@ -350,7 +350,7 @@ class GfApi {
     listing_search(query) {
         return this._getList('listing', query);
     }
-    
+
     /**
      * Create a blank listing to be edited and posted.
      * @returns listing
@@ -358,7 +358,7 @@ class GfApi {
     listing_post(query) {
         return this._post('listing', query);
     }
-    
+
     /**
      * Update a listing with new or updated properties.
      * @param {hash} Query options.
@@ -367,7 +367,7 @@ class GfApi {
     listing_patch(id, query) {
         return this._patch(`listing/${id}`, JSON.stringify(query));
     }
-    
+
     /**
      * Change a listing's status.
      * @param {string} id
@@ -381,7 +381,7 @@ class GfApi {
             value: status
         }]);
     }
-    
+
     /**
      * Delete a single listing by id.
      * @param id list id
@@ -453,12 +453,12 @@ class GfApi {
         if (!photo_obj || !photo_obj.upload_url) {
           throw new Error('ERROR Failed POST photo to API');
         }
-        
+
         // Upload the image
         let upload_req = await Axios.put(photo_obj.upload_url, photo_data, {
             headers: { "Content-Type": image_type }
         });
-        
+
         // Update the listing with the new image
         let patch = [{
             op: CONST.LISTING_OPS.REPLACE,
@@ -475,7 +475,7 @@ class GfApi {
             value: photo_obj.id
         };
         patch.push(order_patch);
-        
+
         return await this.listing_patch(listing_id, patch);
     }
 
@@ -492,7 +492,7 @@ class GfApi {
 
     /**
      * Get escrow data, if exists, for given listing id. Caller must own listing.
-     * 
+     *
      * @param {uuid} listing id
      * @returns {hash} escrow data
      * **escrow.status**
@@ -712,7 +712,7 @@ class GfApi {
             data: data
         });
     }
-    
+
     _delete(uri) {
         const url = `${this.baseUrl}/${uri}`;
         this._entry(`DELETE '${url}'`);
@@ -733,7 +733,7 @@ class GfApi {
     async _entry(text) {
         this.log.debug(text);
     }
-    
+
     async _apiRequest(request, query = null) {
         try {
             let mustThrottle = request.method && request.method == 'post';

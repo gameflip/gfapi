@@ -1,4 +1,4 @@
-// Sample code to search for a user's listings. 
+// Sample code to search for a user's listings.
 // Your Gameflip account needs to be verified and in good standing.
 //
 // Generate the API Key and OTP secret in [Settings page](https://gameflip.com/settings)
@@ -7,7 +7,7 @@
 // ```
 //   export GFAPI_KEY=my_api_key
 //   export GFAPI_SECRET=my_api_secret
-//   node src/samples/bulk_listing.js
+//   node src/samples/my_wallet.js
 // ```
 //
 // If you are using an IDE, set the `GFAPI_KEY` and `GFAPI_SECRET` in the Run Configuration Environment.
