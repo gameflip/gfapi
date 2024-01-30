@@ -24,10 +24,10 @@
     "docs": "jsdoc -c jsdoc_conf.js -d docs -P package.json index.js; docco -o docs/samples src/samples/*.js src/samples/*.rb"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^1.6.7",
     "bluebird": "^3.7.2",
     "bunyan": "^1.8.15",
-    "file-type": "^14.7.1",
+    "file-type": "^19.0.0",
     "http-errors": "^1.8.0",
     "limiter": "^2.1.0",
     "speakeasy": "^2.0.0"
