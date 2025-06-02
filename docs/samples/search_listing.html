@@ -91,7 +91,8 @@ Your Gameflip account needs to be verified and in good standing.</p>
 <p>Type in bash shell:</p>
 <pre><code>  <span class="hljs-keyword">export</span> GFAPI_KEY=my_api_key
   <span class="hljs-keyword">export</span> GFAPI_SECRET=my_api_secret
-  node src/samples/bulk_listing.js</code></pre><p>If you are using an IDE, set the <code>GFAPI_KEY</code> and <code>GFAPI_SECRET</code> in the Run Configuration Environment.
+  node src/samples/bulk_listing.js
+</code></pre><p>If you are using an IDE, set the <code>GFAPI_KEY</code> and <code>GFAPI_SECRET</code> in the Run Configuration Environment.
 Be careful not to commit/push anything with the API key/secret to a public repository.</p>
 
             </div>
@@ -154,23 +155,24 @@ Be careful not to commit/push anything with the API key/secret to a public repos
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Search listings for Rocket League XBox One</p>
+              <p>Search listings for Fallout 76 PC
+The “listing_search” function automatically includes the required property “v2: true” for searching listings</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> query = {
         <span class="hljs-attr">category</span>: GfApi.CATEGORY.INGAME,
-        <span class="hljs-attr">upc</span>: GfApi.UPC.RL_XONE,               <span class="hljs-comment">// Rocket League on Xbox One</span>
+        <span class="hljs-attr">upc</span>: GfApi.UPC.FALLOUT76_PC,          <span class="hljs-comment">// Fallout 76 on PC</span>
         status: GfApi.LISTING_STATUS.ONSALE,  <span class="hljs-comment">// On sale listings only (not Sold)</span>
         price: <span class="hljs-string">'100,2999'</span>,                    <span class="hljs-comment">// Price range between 1 USD and 29.99 USD (value in cents)</span>
-        tags: <span class="hljs-string">'id: zomba'</span>,                    <span class="hljs-comment">// Search only Zomba wheels</span>
+        tags: <span class="hljs-string">'mode: Adventure'</span>,              <span class="hljs-comment">// Search by game mode</span>
         sort: <span class="hljs-string">'price:asc'</span>,                    <span class="hljs-comment">// Sort by lowest price (highest price: 'price:desc', most recent: 'onsale:desc')</span>
-        limit: <span class="hljs-number">5</span>
+        limit: <span class="hljs-number">5</span>                              <span class="hljs-comment">// Number of results</span>
     };
 
-    <span class="hljs-keyword">let</span> listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    <span class="hljs-keyword">if</span> (listings) {
-        listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+    <span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
+    <span class="hljs-keyword">if</span> (data &amp;&amp; data.listings) {
+        data.listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
             <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
         });
     }</pre></div></div>
@@ -197,9 +199,9 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
     };
 
-    listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    <span class="hljs-keyword">if</span> (listings) {
-        listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+    data = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
+    <span class="hljs-keyword">if</span> (data &amp;&amp; data.listings) {
+        data.listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
             <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
         });
     }</pre></div></div>
@@ -225,9 +227,9 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
     };
 
-    listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    <span class="hljs-keyword">if</span> (listings) {
-        listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+    data = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
+    <span class="hljs-keyword">if</span> (data &amp;&amp; data.listings) {
+        data.listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
             <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing accepting FLP only "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
         });
     }</pre></div></div>
@@ -253,9 +255,9 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
     };
 
-    listings = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    <span class="hljs-keyword">if</span> (listings) {
-        listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+    data = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
+    <span class="hljs-keyword">if</span> (data &amp;&amp; data.listings) {
+        data.listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
             <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing for Google Play gift card "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
         });
     }

@@ -42,9 +42,9 @@ async function main() {
     console.log(profile);
     owner = profile ? profile.owner : owner;
     if (owner) {
-      let listings = await gfapi.listing_of(owner);
+      let data = await gfapi.listing_of(owner);
       console.log(`==== User's Listings:`);
-      console.log(listings);
+      console.log(data.listings);
     }
 }
 

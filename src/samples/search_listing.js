@@ -34,20 +34,21 @@ async function main() {
         logLevel: 'debug'
     });
 
-    // Search listings for Rocket League XBox One
+    // Search listings for Fallout 76 PC.
+    // The "listing_search" function automatically includes the required property "v2: true" for searching listings.
     let query = {
         category: GfApi.CATEGORY.INGAME,
-        upc: GfApi.UPC.RL_XONE,               // Rocket League on Xbox One
+        upc: GfApi.UPC.FALLOUT76_PC,          // Fallout 76 on PC
         status: GfApi.LISTING_STATUS.ONSALE,  // On sale listings only (not Sold)
         price: '100,2999',                    // Price range between 1 USD and 29.99 USD (value in cents)
-        tags: 'id: zomba',                    // Search only Zomba wheels
+        tags: 'mode: Adventure',              // Search by game mode
         sort: 'price:asc',                    // Sort by lowest price (highest price: 'price:desc', most recent: 'onsale:desc')
-        limit: 5
+        limit: 5                              // Number of results
     };
 
-    let listings = await gfapi.listing_search(query);
-    if (listings) {
-        listings.forEach(listing => {
+    let data = await gfapi.listing_search(query);
+    if (data && data.listings) {
+        data.listings.forEach(listing => {
             console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
         });
     }
@@ -62,9 +63,9 @@ async function main() {
         limit: 5
     };
 
-    listings = await gfapi.listing_search(query);
-    if (listings) {
-        listings.forEach(listing => {
+    data = await gfapi.listing_search(query);
+    if (data && data.listings) {
+        data.listings.forEach(listing => {
             console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
         });
     }
@@ -78,9 +79,9 @@ async function main() {
         limit: 5
     };
 
-    listings = await gfapi.listing_search(query);
-    if (listings) {
-        listings.forEach(listing => {
+    data = await gfapi.listing_search(query);
+    if (data && data.listings) {
+        data.listings.forEach(listing => {
             console.log("=== Listing accepting FLP only " + listing.id, JSON.stringify(listing, null, 2));
         });
     }
@@ -94,9 +95,9 @@ async function main() {
         limit: 5
     };
 
-    listings = await gfapi.listing_search(query);
-    if (listings) {
-        listings.forEach(listing => {
+    data = await gfapi.listing_search(query);
+    if (data && data.listings) {
+        data.listings.forEach(listing => {
             console.log("=== Listing for Google Play gift card " + listing.id, JSON.stringify(listing, null, 2));
         });
     }

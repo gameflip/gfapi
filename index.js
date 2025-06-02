@@ -340,6 +340,7 @@ class GfApi {
      * @returns listings
      */
     listing_of(owner) {
+        query.v2 = true;
         return this._get(`listing?owner=${owner}`);
     }
 
@@ -348,6 +349,7 @@ class GfApi {
      * @returns Array of listings or null if none left
      */
     listing_search(query) {
+        query.v2 = true;
         return this._getList('listing', query);
     }
 
