@@ -82,26 +82,27 @@
         <li id="section-1">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-1">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-1">&#x00a7;</a>
               </div>
               <p>Sample code to search listings on Gameflip.
 Your Gameflip account needs to be verified and in good standing.</p>
 <p>Generate the API Key and OTP secret in <a href="https://gameflip.com/settings">Settings page</a></p>
 <p>Type in bash shell:</p>
-<pre><code>  <span class="hljs-keyword">export</span> GFAPI_KEY=my_api_key
-  <span class="hljs-keyword">export</span> GFAPI_SECRET=my_api_secret
-  node src/samples/bulk_listing.js
-</code></pre><p>If you are using an IDE, set the <code>GFAPI_KEY</code> and <code>GFAPI_SECRET</code> in the Run Configuration Environment.
+<pre><code>  <span class="hljs-keyword">export</span> <span class="hljs-variable constant_">GFAPI_KEY</span>=my_api_key
+  <span class="hljs-keyword">export</span> <span class="hljs-variable constant_">GFAPI_SECRET</span>=my_api_secret
+  node src/samples/bulk_listing.<span class="hljs-property">js</span>
+</code></pre>
+<p>If you are using an IDE, set the <code>GFAPI_KEY</code> and <code>GFAPI_SECRET</code> in the Run Configuration Environment.
 Be careful not to commit/push anything with the API key/secret to a public repository.</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-meta">
-'use strict'</span>;
+&#x27;use strict&#x27;</span>;
 
-<span class="hljs-keyword">const</span> GFAPI_KEY = process.env.GFAPI_KEY;
-<span class="hljs-keyword">const</span> GFAPI_SECRET = process.env.GFAPI_SECRET;</pre></div></div>
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">GFAPI_KEY</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">GFAPI_KEY</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">GFAPI_SECRET</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">GFAPI_SECRET</span>;</pre></div></div>
             
         </li>
         
@@ -109,16 +110,16 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-2">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-2">&#x00a7;</a>
               </div>
               <p>For your own code, use the ‘gfapi’ library (`npm install ‘iJJi/gfapi’).</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> GfApi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../index'</span>); <span class="hljs-comment">// require('gfapi')</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-title class_">GfApi</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../../index&#x27;</span>); <span class="hljs-comment">// require(&#x27;gfapi&#x27;)</span>
 
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"></span>) {</pre></div></div>
             
         </li>
         
@@ -126,8 +127,8 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-3">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-3">&#x00a7;</a>
               </div>
               <p>Create GF API client. Options: logLevel</p>
 <ul>
@@ -137,13 +138,13 @@ Be careful not to commit/push anything with the API key/secret to a public repos
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> gfapi = <span class="hljs-keyword">new</span> GfApi(GFAPI_KEY, {
-        <span class="hljs-attr">secret</span>: GFAPI_SECRET,
-        <span class="hljs-attr">algorithm</span>: <span class="hljs-string">"SHA1"</span>,
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> gfapi = <span class="hljs-keyword">new</span> <span class="hljs-title class_">GfApi</span>(<span class="hljs-variable constant_">GFAPI_KEY</span>, {
+        <span class="hljs-attr">secret</span>: <span class="hljs-variable constant_">GFAPI_SECRET</span>,
+        <span class="hljs-attr">algorithm</span>: <span class="hljs-string">&quot;SHA1&quot;</span>,
         <span class="hljs-attr">digits</span>: <span class="hljs-number">6</span>,
         <span class="hljs-attr">period</span>: <span class="hljs-number">30</span>
     }, {
-        <span class="hljs-attr">logLevel</span>: <span class="hljs-string">'debug'</span>
+        <span class="hljs-attr">logLevel</span>: <span class="hljs-string">&#x27;debug&#x27;</span>
     });</pre></div></div>
             
         </li>
@@ -152,28 +153,23 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-4">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-4">&#x00a7;</a>
               </div>
-              <p>Search listings for Fallout 76 PC
-The “listing_search” function automatically includes the required property “v2: true” for searching listings</p>
+              <p>Search the product catalog.
+You may use the product’s “sku” as your game item listing’s “upc”.</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> query = {
-        <span class="hljs-attr">category</span>: GfApi.CATEGORY.INGAME,
-        <span class="hljs-attr">upc</span>: GfApi.UPC.FALLOUT76_PC,          <span class="hljs-comment">// Fallout 76 on PC</span>
-        status: GfApi.LISTING_STATUS.ONSALE,  <span class="hljs-comment">// On sale listings only (not Sold)</span>
-        price: <span class="hljs-string">'100,2999'</span>,                    <span class="hljs-comment">// Price range between 1 USD and 29.99 USD (value in cents)</span>
-        tags: <span class="hljs-string">'mode: Adventure'</span>,              <span class="hljs-comment">// Search by game mode</span>
-        sort: <span class="hljs-string">'price:asc'</span>,                    <span class="hljs-comment">// Sort by lowest price (highest price: 'price:desc', most recent: 'onsale:desc')</span>
-        limit: <span class="hljs-number">5</span>                              <span class="hljs-comment">// Number of results</span>
+        <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Fallout&quot;</span>,
+        <span class="hljs-attr">category</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">CATEGORY</span>.<span class="hljs-property">INGAME</span>
     };
 
-    <span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    <span class="hljs-keyword">if</span> (data &amp;&amp; data.listings) {
-        data.listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+    <span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> gfapi.<span class="hljs-title function_">product_search</span>(query);
+    <span class="hljs-keyword">if</span> (data &amp;&amp; data.<span class="hljs-property">products</span>) {
+        data.<span class="hljs-property">products</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">product</span> =&gt;</span> {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;=== Product &quot;</span> + product.<span class="hljs-property">sku</span>, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(product, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
         });
     }</pre></div></div>
             
@@ -183,26 +179,28 @@ The “listing_search” function automatically includes the required property �
         <li id="section-5">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-5">&#x00a7;</a>
               </div>
-              <p>Search listings for CSGO skins</p>
+              <p>Search listings for Fallout 76 PC.
+The “listing_search” function automatically includes the required property “v2: true” for searching listings.</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>    query = {
-        <span class="hljs-attr">category</span>: GfApi.CATEGORY.INGAME,
-        <span class="hljs-attr">upc</span>: GfApi.UPC.CSGO,                  <span class="hljs-comment">// CSGO</span>
-        status: GfApi.LISTING_STATUS.ONSALE,  <span class="hljs-comment">// On sale listings only (not Sold)</span>
-        tags: <span class="hljs-string">'Type: Rifle^Weapon: AK-47'</span>,    <span class="hljs-comment">// Filter by Rifle and AK-47</span>
-        sort: <span class="hljs-string">'onsale:desc'</span>,
-        <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
+        <span class="hljs-attr">category</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">CATEGORY</span>.<span class="hljs-property">INGAME</span>,
+        <span class="hljs-attr">upc</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">UPC</span>.<span class="hljs-property">FALLOUT76_PC</span>,          <span class="hljs-comment">// Fallout 76 on PC</span>
+        <span class="hljs-attr">status</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">LISTING_STATUS</span>.<span class="hljs-property">ONSALE</span>,  <span class="hljs-comment">// On sale listings only (not Sold)</span>
+        <span class="hljs-attr">price</span>: <span class="hljs-string">&#x27;100,2999&#x27;</span>,                    <span class="hljs-comment">// Price range between 1 USD and 29.99 USD (value in cents)</span>
+        <span class="hljs-attr">tags</span>: <span class="hljs-string">&#x27;mode: Adventure&#x27;</span>,              <span class="hljs-comment">// Search by game mode</span>
+        <span class="hljs-attr">sort</span>: <span class="hljs-string">&#x27;price:asc&#x27;</span>,                    <span class="hljs-comment">// Sort by lowest price (highest price: &#x27;price:desc&#x27;, most recent: &#x27;onsale:desc&#x27;)</span>
+        <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>                              <span class="hljs-comment">// Number of results</span>
     };
 
-    data = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    <span class="hljs-keyword">if</span> (data &amp;&amp; data.listings) {
-        data.listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+    data = <span class="hljs-keyword">await</span> gfapi.<span class="hljs-title function_">listing_search</span>(query);
+    <span class="hljs-keyword">if</span> (data &amp;&amp; data.<span class="hljs-property">listings</span>) {
+        data.<span class="hljs-property">listings</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;=== Listing &quot;</span> + listing.<span class="hljs-property">id</span>, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
         });
     }</pre></div></div>
             
@@ -212,25 +210,26 @@ The “listing_search” function automatically includes the required property �
         <li id="section-6">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-6">&#x00a7;</a>
               </div>
-              <p>Search listings for gift cards from sellers who accept FLP</p>
+              <p>Search listings for CS2 skins</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>    query = {
-        <span class="hljs-attr">category</span>: GfApi.CATEGORY.GIFTCARD,
-        <span class="hljs-attr">status</span>: GfApi.LISTING_STATUS.ONSALE,           <span class="hljs-comment">// On sale listings only (not Sold)</span>
-        accept_currency: GfApi.ACCEPT_CURRENCY.FLP,    <span class="hljs-comment">// Accept FLP only</span>
-        sort: <span class="hljs-string">'onsale:desc'</span>,
+        <span class="hljs-attr">category</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">CATEGORY</span>.<span class="hljs-property">INGAME</span>,
+        <span class="hljs-attr">upc</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">UPC</span>.<span class="hljs-property">CS2</span>,                   <span class="hljs-comment">// CS2</span>
+        <span class="hljs-attr">status</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">LISTING_STATUS</span>.<span class="hljs-property">ONSALE</span>,  <span class="hljs-comment">// On sale listings only (not Sold)</span>
+        <span class="hljs-attr">tags</span>: <span class="hljs-string">&#x27;Type: Rifle^Weapon: AK-47&#x27;</span>,    <span class="hljs-comment">// Filter by Rifle and AK-47</span>
+        <span class="hljs-attr">sort</span>: <span class="hljs-string">&#x27;onsale:desc&#x27;</span>,
         <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
     };
 
-    data = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    <span class="hljs-keyword">if</span> (data &amp;&amp; data.listings) {
-        data.listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing accepting FLP only "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+    data = <span class="hljs-keyword">await</span> gfapi.<span class="hljs-title function_">listing_search</span>(query);
+    <span class="hljs-keyword">if</span> (data &amp;&amp; data.<span class="hljs-property">listings</span>) {
+        data.<span class="hljs-property">listings</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;=== Listing &quot;</span> + listing.<span class="hljs-property">id</span>, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
         });
     }</pre></div></div>
             
@@ -240,28 +239,27 @@ The “listing_search” function automatically includes the required property �
         <li id="section-7">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-7">&#x00a7;</a>
               </div>
-              <p>Search listings for Google Play gift cards</p>
+              <p>Search listings for gift cards from sellers who accept FLP</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>    query = {
-        <span class="hljs-attr">category</span>: GfApi.CATEGORY.GIFTCARD,
-        <span class="hljs-attr">platform</span>: <span class="hljs-string">'google'</span>,                   <span class="hljs-comment">// Other brands you can search 'apple', 'amazon', 'xbox_live', 'playstation_network', 'steam', and more</span>
-        status: GfApi.LISTING_STATUS.ONSALE,  <span class="hljs-comment">// On sale listings only (not Sold)</span>
-        sort: <span class="hljs-string">'onsale:desc'</span>,
+        <span class="hljs-attr">category</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">CATEGORY</span>.<span class="hljs-property">GIFTCARD</span>,
+        <span class="hljs-attr">status</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">LISTING_STATUS</span>.<span class="hljs-property">ONSALE</span>,           <span class="hljs-comment">// On sale listings only (not Sold)</span>
+        <span class="hljs-attr">accept_currency</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">ACCEPT_CURRENCY</span>.<span class="hljs-property">FLP</span>,    <span class="hljs-comment">// Accept FLP only</span>
+        <span class="hljs-attr">sort</span>: <span class="hljs-string">&#x27;onsale:desc&#x27;</span>,
         <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
     };
 
-    data = <span class="hljs-keyword">await</span> gfapi.listing_search(query);
-    <span class="hljs-keyword">if</span> (data &amp;&amp; data.listings) {
-        data.listings.forEach(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Listing for Google Play gift card "</span> + listing.id, <span class="hljs-built_in">JSON</span>.stringify(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+    data = <span class="hljs-keyword">await</span> gfapi.<span class="hljs-title function_">listing_search</span>(query);
+    <span class="hljs-keyword">if</span> (data &amp;&amp; data.<span class="hljs-property">listings</span>) {
+        data.<span class="hljs-property">listings</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;=== Listing accepting FLP only &quot;</span> + listing.<span class="hljs-property">id</span>, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
         });
-    }
-}</pre></div></div>
+    }</pre></div></div>
             
         </li>
         
@@ -269,15 +267,44 @@ The “listing_search” function automatically includes the required property �
         <li id="section-8">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-8">&#x00a7;</a>
+              </div>
+              <p>Search listings for Google Play gift cards</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    query = {
+        <span class="hljs-attr">category</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">CATEGORY</span>.<span class="hljs-property">GIFTCARD</span>,
+        <span class="hljs-attr">platform</span>: <span class="hljs-string">&#x27;google&#x27;</span>,                   <span class="hljs-comment">// Other brands you can search &#x27;apple&#x27;, &#x27;amazon&#x27;, &#x27;xbox_live&#x27;, &#x27;playstation_network&#x27;, &#x27;steam&#x27;, and more</span>
+        <span class="hljs-attr">status</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">LISTING_STATUS</span>.<span class="hljs-property">ONSALE</span>,  <span class="hljs-comment">// On sale listings only (not Sold)</span>
+        <span class="hljs-attr">sort</span>: <span class="hljs-string">&#x27;onsale:desc&#x27;</span>,
+        <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
+    };
+
+    data = <span class="hljs-keyword">await</span> gfapi.<span class="hljs-title function_">listing_search</span>(query);
+    <span class="hljs-keyword">if</span> (data &amp;&amp; data.<span class="hljs-property">listings</span>) {
+        data.<span class="hljs-property">listings</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">listing</span> =&gt;</span> {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;=== Listing for Google Play gift card &quot;</span> + listing.<span class="hljs-property">id</span>, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(listing, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+        });
+    }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-9">&#x00a7;</a>
               </div>
               <p>Run main() and catch any unhandled Promise errors</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>main().catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'==== ERROR'</span>, err);
+            <div class="content"><div class='highlight'><pre><span class="hljs-title function_">main</span>().<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;==== ERROR&#x27;</span>, err);
 });</pre></div></div>
             
         </li>

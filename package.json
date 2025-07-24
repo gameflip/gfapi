@@ -20,7 +20,7 @@
   },
   "scripts": {
     "bulk_listing": "node src/samples/bulk_listing.js",
-    "docs": "jsdoc -c jsdoc_conf.js -d docs -P package.json index.js; docco -o docs/samples src/samples/*.js src/samples/*.rb"
+    "docs": "jsdoc -c jsdoc_conf.js -d docs -P package.json index.js; (cd src/samples && docco -o ../../docs/samples *.js *.rb)"
   },
   "dependencies": {
     "axios": "^1.6.7",

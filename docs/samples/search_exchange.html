@@ -82,24 +82,26 @@
         <li id="section-1">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-1">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-1">&#x00a7;</a>
               </div>
               <p>Sample code to search listings on Gameflip.  Your Gameflip account needs to be verified and in good standing.</p>
 <p>Generate the API Key and OTP secret in <a href="https://gameflip.com/settings">Settings page</a></p>
 <p>Type in bash shell:</p>
-<pre><code>  <span class="hljs-keyword">export</span> GFAPI_KEY=my_api_key
-  <span class="hljs-keyword">export</span> GFAPI_SECRET=my_api_secret
-  node src/samples/bulk_listing.js</code></pre><p>If you are using an IDE, set the <code>GFAPI_KEY</code> and <code>GFAPI_SECRET</code> in the Run Configuration Environment.
+<pre><code>  <span class="hljs-keyword">export</span> <span class="hljs-variable constant_">GFAPI_KEY</span>=my_api_key
+  <span class="hljs-keyword">export</span> <span class="hljs-variable constant_">GFAPI_SECRET</span>=my_api_secret
+  node src/samples/bulk_listing.<span class="hljs-property">js</span>
+</code></pre>
+<p>If you are using an IDE, set the <code>GFAPI_KEY</code> and <code>GFAPI_SECRET</code> in the Run Configuration Environment.
 Be careful not to commit/push anything with the API key/secret to a public repository.</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-meta">
-'use strict'</span>;
+&#x27;use strict&#x27;</span>;
 
-<span class="hljs-keyword">const</span> GFAPI_KEY = process.env.GFAPI_KEY;
-<span class="hljs-keyword">const</span> GFAPI_SECRET = process.env.GFAPI_SECRET;</pre></div></div>
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">GFAPI_KEY</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">GFAPI_KEY</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">GFAPI_SECRET</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">GFAPI_SECRET</span>;</pre></div></div>
             
         </li>
         
@@ -107,14 +109,14 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-2">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-2">&#x00a7;</a>
               </div>
               <p>For your own code, use the ‘gfapi’ library (`npm install ‘iJJi/gfapi’).</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> GfApi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../index'</span>); <span class="hljs-comment">// require('gfapi')</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-title class_">GfApi</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../../index&#x27;</span>); <span class="hljs-comment">// require(&#x27;gfapi&#x27;)</span></pre></div></div>
             
         </li>
         
@@ -122,14 +124,14 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-3">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-3">&#x00a7;</a>
               </div>
               <p>Search exchanges (sold listings or purchases)</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"></span>) {</pre></div></div>
             
         </li>
         
@@ -137,8 +139,8 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-4">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-4">&#x00a7;</a>
               </div>
               <p>Create GF API client. Options: logLevel</p>
 <ul>
@@ -148,13 +150,13 @@ Be careful not to commit/push anything with the API key/secret to a public repos
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> gfapi = <span class="hljs-keyword">new</span> GfApi(GFAPI_KEY, {
-        <span class="hljs-attr">secret</span>: GFAPI_SECRET,
-        <span class="hljs-attr">algorithm</span>: <span class="hljs-string">"SHA1"</span>,
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> gfapi = <span class="hljs-keyword">new</span> <span class="hljs-title class_">GfApi</span>(<span class="hljs-variable constant_">GFAPI_KEY</span>, {
+        <span class="hljs-attr">secret</span>: <span class="hljs-variable constant_">GFAPI_SECRET</span>,
+        <span class="hljs-attr">algorithm</span>: <span class="hljs-string">&quot;SHA1&quot;</span>,
         <span class="hljs-attr">digits</span>: <span class="hljs-number">6</span>,
         <span class="hljs-attr">period</span>: <span class="hljs-number">30</span>
     }, {
-        <span class="hljs-attr">logLevel</span>: <span class="hljs-string">'debug'</span>
+        <span class="hljs-attr">logLevel</span>: <span class="hljs-string">&#x27;debug&#x27;</span>
     });</pre></div></div>
             
         </li>
@@ -163,23 +165,23 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-5">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-5">&#x00a7;</a>
               </div>
               <p>Search sold &amp; completed listing</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> query = {
-      <span class="hljs-attr">role</span>: <span class="hljs-string">'seller'</span>,   <span class="hljs-comment">// Get my 'complete' exchanges (rated by both buyer &amp; seller).  Use role: 'buyer' for listings you bought.</span>
-      status: GfApi.EXCHANGE_STATUS.COMPLETE,
+      <span class="hljs-attr">role</span>: <span class="hljs-string">&#x27;seller&#x27;</span>,   <span class="hljs-comment">// Get my &#x27;complete&#x27; exchanges (rated by both buyer &amp; seller).  Use role: &#x27;buyer&#x27; for listings you bought.</span>
+      <span class="hljs-attr">status</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">EXCHANGE_STATUS</span>.<span class="hljs-property">COMPLETE</span>,
       <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
     };
 
-    <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> gfapi.exchange_search(query);
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Found "</span> + result.found + <span class="hljs-string">" results"</span>);
-    <span class="hljs-keyword">let</span> exchanges = result.exchanges || [];
-    exchanges.map(<span class="hljs-function"><span class="hljs-params">exchange</span> =&gt;</span> {</pre></div></div>
+    <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> gfapi.<span class="hljs-title function_">exchange_search</span>(query);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Found &quot;</span> + result.<span class="hljs-property">found</span> + <span class="hljs-string">&quot; results&quot;</span>);
+    <span class="hljs-keyword">let</span> exchanges = result.<span class="hljs-property">exchanges</span> || [];
+    exchanges.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">exchange</span> =&gt;</span> {</pre></div></div>
             
         </li>
         
@@ -187,14 +189,14 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-6">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-6">&#x00a7;</a>
               </div>
               <p>console.log(“=== Exchange “ + exchange.id, JSON.stringify(exchange, null, 2));</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Exchange "</span> + exchange.name);
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;=== Exchange &quot;</span> + exchange.<span class="hljs-property">name</span>);
     });</pre></div></div>
             
         </li>
@@ -203,23 +205,23 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-7">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-7">&#x00a7;</a>
               </div>
               <p>Search past completed purchases</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>    query = {
-      <span class="hljs-attr">role</span>: <span class="hljs-string">'buyer'</span>,
-      <span class="hljs-attr">status</span>: GfApi.EXCHANGE_STATUS.COMPLETE,
+      <span class="hljs-attr">role</span>: <span class="hljs-string">&#x27;buyer&#x27;</span>,
+      <span class="hljs-attr">status</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">EXCHANGE_STATUS</span>.<span class="hljs-property">COMPLETE</span>,
       <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span>
     };
 
-    result = <span class="hljs-keyword">await</span> gfapi.exchange_search(query);
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Found "</span> + result.found + <span class="hljs-string">" results"</span>);
-    exchanges = result.exchanges || [];
-    exchanges.map(<span class="hljs-function"><span class="hljs-params">exchange</span> =&gt;</span> {</pre></div></div>
+    result = <span class="hljs-keyword">await</span> gfapi.<span class="hljs-title function_">exchange_search</span>(query);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Found &quot;</span> + result.<span class="hljs-property">found</span> + <span class="hljs-string">&quot; results&quot;</span>);
+    exchanges = result.<span class="hljs-property">exchanges</span> || [];
+    exchanges.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">exchange</span> =&gt;</span> {</pre></div></div>
             
         </li>
         
@@ -227,14 +229,14 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-8">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-8">&#x00a7;</a>
               </div>
               <p>console.log(“=== Exchange “ + exchange.id, JSON.stringify(exchange, null, 2));</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=== Exchange "</span> + exchange.name);
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;=== Exchange &quot;</span> + exchange.<span class="hljs-property">name</span>);
     });
 
 }</pre></div></div>
@@ -245,15 +247,15 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-9">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-9">&#x00a7;</a>
               </div>
               <p>Run main() and catch any unhandle Promise errors</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>main().catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'==== ERROR'</span>, err);
+            <div class="content"><div class='highlight'><pre><span class="hljs-title function_">main</span>().<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;==== ERROR&#x27;</span>, err);
 });</pre></div></div>
             
         </li>

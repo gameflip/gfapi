@@ -57,47 +57,97 @@ const CONST = {
         GIG:  'gig',    // Gig selling
     },
 
+    // Below is a legacy list of UPC associated with each game.
+    // For all other games please search the product catalog using the "product_search" function.
+    // Then use the product's "sku" property as your listing's "upc" property,
+    // and use one of the product's platforms as your listing's "platform" property.
     UPC: {
         ANIMAL_CROSSING_NH: '045496596439',
-        CSGO: '094922417596',
-        DOTA2: '111111111111',
-        TF2: '014633098693',
-        RUST: '000000252490',
-        PUBG: '000000578080',
-        PUBG_LITE: 'GF00PUBGLITE',
-        GTA5_PC: '710425414534',
-        GTA5_PS4: '710425474521',
-        GTA5_XONE: '710425494512',
-        H1Z1: '000000433850',
-        H1Z1_JS: '000000295110',
-        FORTNITE: 'GFFORTNITE',
-        RL_ALL: '023171037943,812872018928,812872018935,GF00RLSWITCH',
-        RL_STEAM: '023171037943',
-        RL_PS4: '812872018928',
-        RL_XONE: '812872018935',
-        RL_SWITCH: 'GF00RLSWITCH',
-        ROBLOX: 'GF0000ROBLOX',
-        FALLOUT76_PC: 'GFPCFLLOUT76',
-        FALLOUT76_PS4: 'GFPSFLLOUT76',
-        FALLOUT76_XONE: 'GFXOFLLOUT76',
         BORDERLANDS3_PC: 'GFPCBDLANDS3',
         BORDERLANDS3_PS4: 'GFPSBDLANDS3',
         BORDERLANDS3_XONE: 'GFXOBDLANDS3',
+        BRAWLHALLA: '045496663285',
+        BRAWL_STARS: 'GFBRAWLSTARS',
+        CLASH_OF_CLANS: 'GFCLASHOCLAN',
+        CLASH_ROYALE: 'GFCLASHROYAL',
+        COD_BLOPS6: '7340f6b6-3a5a-4737-9033-237b9fb522ca',
+        COD_MWII: 'GF0000CODMW2',
+        COD_MWIII: 'GF0000CODMW3',
+        COD_WZ: 'GF00000CODWZ',
+        CS2: '094922417596',
+        DARK_AND_DARKER: 'GF00DADARKER',
+        DARK_SOULS_3: 'GFDARKSOULS3',
+        DCU_ONLINE: 'GF000000DCUO',
+        DEAD_BY_DAYLIGHT: 'GFDBDAYLIGHT',
+        DIABLO_4: 'GF000DIABLO4',
+        DOTA2: '111111111111',
+        DRAGONS_DOGMA_2: 'GFDRAGONSDM2',
+        DREAMLIGHT_VALLEY: 'GFDREAMLIGHT',
+        DYING_LIGHT_2_PS4: '662248923314',
+        DYING_LIGHT_2_PS5: '662248924915',
+        DYING_LIGHT_2_XONE: '662248923369',
+        DYING_LIGHT_2_XSERIES: '662248924823',
+        ELDEN_RING_PC: 'GF000ERINGPC',
+        ELDEN_RING_PS5: 'GF000ERINGPS',
+        ELDEN_RING_XSERIES: 'GF000ERINGXS',
+        ENSHROUDED: 'GFENSHROUDED',
+        ESO_PC: 'GF00000PCESO',
+        ESO_PS5: 'GF00000PSESO',
+        ESO_XSERIES: 'GF00000XSESO',
+        EVE_ONLINE: 'GF0000000EVE',
+        FALLOUT76_PC: 'GFPCFLLOUT76',
+        FALLOUT76_PS4: 'GFPSFLLOUT76',
+        FALLOUT76_XONE: 'GFXOFLLOUT76',
         FIFA: 'GF000000FIFA',
+        FORTNITE: 'GFFORTNITE',
+        GROWTOPIA: 'GF0GROWTOPIA',
+        GTA5_PC: '710425414534',
+        GTA5_PS4: '710425474521',
+        GTA5_PS5: 'GF000GTA5PS5',
+        GTA5_XONE: '710425494512',
+        GTA5_XSERIES: 'GF000GTA5XSX',
+        HALO_INFINITE: 'GF000HALOINF',
+        HAY_DAY: 'GF0000HAYDAY',
+        LEAGUE_OF_LEGENDS: 'GF0000000LOL',
+        LORDS_OF_THE_FALLEN: 'GFLORDFALLEN',
         MADDEN: 'GF0000MADDEN',
+        MONOPOLY_GO: 'GFMONOPOLYGO',
+        NO_MANS_SKY: 'GF0NOMANSSKY',
+        PATH_OF_EXILE: 'GF000POEXILE',
+        PATH_OF_EXILE_2: '6ce9c6d3-c32d-4037-9554-3f1f9de866bd',
+        POKEMON_DIAMOND_PEARL: '045496597894',
+        POKEMON_LEGENDS_ARCEUS: '045496598044',
+        POKEMON_SCARLET_VIOLET: '045496599058',
         POKEMON_SWORD_SHIELD: '045496596972',
-        POKEMON_LETS_GO: '045496593940',
-        POKEMON_SUN_MOON: 'GFPOKSUNMOON'
+        PUBG: '000000578080',
+        PUBG_MOBILE: 'GF00PUBGMOBI',
+        RUNESCAPE: 'GF0RUNESCAPE',
+        RUST: '000000252490',
+        RUST_CONSOLE: 'GFRUSTCONSOL',
+        SEA_OF_THIEVES: 'GFSEATHIEVES',
+        SKULL_BONES: 'GFSKULLBONES',
+        STATE_OF_DECAY_2: 'GF00SODECAY2',
+        SWTOR: 'GF00000SWTOR',
+        TF2: '014633098693',
+        TINY_TINAS_WONDERLANDS: 'GF00TTWONDER',
+        WARFRAME_PC: 'GFSTWARFRAME',
+        WARFRAME_PS: 'GFPSWARFRAME',
+        WARFRAME_SWITCH: 'GFSWWARFRAME',
+        WARFRAME_XBOX: 'GFXOWARFRAME',
+        WORLD_OF_WARCRAFT: 'GF000WOW0000',
+        XDEFIANT: 'GF00XDEFIANT'
     },
 
     PLATFORM: {
         XBOX: 'xbox',
         X360: 'xbox_360',
         XONE: 'xbox_one',
+        XSERIES: 'xbox_series',
         PS1: 'playstation',
         PS2: 'playstation_2',
         PS3: 'playstation_3',
         PS4: 'playstation_4',
+        PS5: 'playstation_5',
         PSP: 'playstation_portable',
         PSVITA: 'playstation_vita',
         N64: 'nintendo_64',
@@ -105,6 +155,7 @@ const CONST = {
         NWII: 'nintendo_wii',
         NWIIU: 'nintendo_wiiu',
         NSWITCH: 'nintendo_switch',
+        NSWITCH2: 'nintendo_switch_2',
         NDS: 'nintendo_ds',
         NDSI: 'nintendo_dsi',
         N3DS: 'nintendo_3ds',
@@ -112,10 +163,14 @@ const CONST = {
         ORIGIN: 'origin',
         UPLAY: 'uplay',
         GOG: 'gog',
-        MOBILE: 'mobile',
         BATTLENET: 'battlenet',
         XLIVE: 'xbox_live',
         PSN: 'playstation_network',
+        WINDOWS: 'windows',
+        MAC: 'mac',
+        LINUX: 'linux',
+        ANDROID: 'android',
+        IOS: 'ios',
         UNKNOWN: 'unknown'           // For PC platform, use UNKNOWN
     },
 
@@ -204,7 +259,7 @@ const CONST = {
 
     STEAM: {
         APP_ID: {
-            CSGO:  '730',           // CS:GO
+            CS2:  '730',            // CS2
             TF2:   '440',           // Team Fortress 2
             DOTA2: '570',           // DOTA 2
             RUST:  '252490',        // Rust
@@ -350,6 +405,23 @@ class GfApi {
 
     wallet_flp_put(owner) {
         return this._put(`flp/account/${owner}/key`);
+    }
+
+    /**
+     * Search the product catalog.
+     * @returns Array of products or null if none found
+     */
+    product_search(query) {
+        return this._getList('product', query);
+    }
+
+    /**
+     * Get a single product by id.
+     * @param id product id
+     * @returns product
+     */
+    product_get(id) {
+        return this._get(`product/${id}`);
     }
 
     /**
@@ -651,7 +723,7 @@ class GfApi {
      * Get public steam inventory. This is not part of the Gameflip API and is an unsupported helper function.
      *
      * @param {string} profileId Profile ID of Steam User
-     * @param {string} appId APP ID of game inventory to retrieve (such as, GfApi.STEAM.APP_ID.CSGO)
+     * @param {string} appId APP ID of game inventory to retrieve (such as, GfApi.STEAM.APP_ID.CS2)
      * @param {hash} query parameters including l=&lt;language> and count=&lt;integer>
      */
     steam_inventory_get(profileid, appId, query = {}) {
@@ -893,7 +965,7 @@ module.exports = Object.assign(GfApi, CONST, Util);
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jun 02 2025 12:54:35 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Jul 24 2025 15:24:19 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -82,25 +82,27 @@
         <li id="section-1">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-1">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-1">&#x00a7;</a>
               </div>
-              <p>Sample code to search for a user’s listings. 
+              <p>Sample code to search for a user’s listings.
 Your Gameflip account needs to be verified and in good standing.</p>
 <p>Generate the API Key and OTP secret in <a href="https://gameflip.com/settings">Settings page</a></p>
 <p>Type in bash shell:</p>
-<pre><code>  <span class="hljs-keyword">export</span> GFAPI_KEY=my_api_key
-  <span class="hljs-keyword">export</span> GFAPI_SECRET=my_api_secret
-  node src/samples/bulk_listing.js</code></pre><p>If you are using an IDE, set the <code>GFAPI_KEY</code> and <code>GFAPI_SECRET</code> in the Run Configuration Environment.
+<pre><code>  <span class="hljs-keyword">export</span> <span class="hljs-variable constant_">GFAPI_KEY</span>=my_api_key
+  <span class="hljs-keyword">export</span> <span class="hljs-variable constant_">GFAPI_SECRET</span>=my_api_secret
+  node src/samples/my_wallet.<span class="hljs-property">js</span>
+</code></pre>
+<p>If you are using an IDE, set the <code>GFAPI_KEY</code> and <code>GFAPI_SECRET</code> in the Run Configuration Environment.
 Be careful not to commit/push anything with the API key/secret to a public repository.</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-meta">
-'use strict'</span>;
+&#x27;use strict&#x27;</span>;
 
-<span class="hljs-keyword">const</span> GFAPI_KEY = process.env.GFAPI_KEY;
-<span class="hljs-keyword">const</span> GFAPI_SECRET = process.env.GFAPI_SECRET;</pre></div></div>
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">GFAPI_KEY</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">GFAPI_KEY</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">GFAPI_SECRET</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">GFAPI_SECRET</span>;</pre></div></div>
             
         </li>
         
@@ -108,16 +110,16 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-2">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-2">&#x00a7;</a>
               </div>
               <p>For your own code, use the ‘gfapi’ library (`npm install ‘iJJi/gfapi’).</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> GfApi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../index'</span>); <span class="hljs-comment">// require('gfapi')</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-title class_">GfApi</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../../index&#x27;</span>); <span class="hljs-comment">// require(&#x27;gfapi&#x27;)</span>
 
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"></span>) {</pre></div></div>
             
         </li>
         
@@ -125,8 +127,8 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-3">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-3">&#x00a7;</a>
               </div>
               <p>Create GF API client. Options: logLevel</p>
 <ul>
@@ -136,13 +138,13 @@ Be careful not to commit/push anything with the API key/secret to a public repos
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> gfapi = <span class="hljs-keyword">new</span> GfApi(GFAPI_KEY, {
-        <span class="hljs-attr">secret</span>: GFAPI_SECRET,
-        <span class="hljs-attr">algorithm</span>: <span class="hljs-string">"SHA1"</span>,
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> gfapi = <span class="hljs-keyword">new</span> <span class="hljs-title class_">GfApi</span>(<span class="hljs-variable constant_">GFAPI_KEY</span>, {
+        <span class="hljs-attr">secret</span>: <span class="hljs-variable constant_">GFAPI_SECRET</span>,
+        <span class="hljs-attr">algorithm</span>: <span class="hljs-string">&quot;SHA1&quot;</span>,
         <span class="hljs-attr">digits</span>: <span class="hljs-number">6</span>,
         <span class="hljs-attr">period</span>: <span class="hljs-number">30</span>
     }, {
-        <span class="hljs-attr">logLevel</span>: <span class="hljs-string">'debug'</span>
+        <span class="hljs-attr">logLevel</span>: <span class="hljs-string">&#x27;debug&#x27;</span>
     });</pre></div></div>
             
         </li>
@@ -151,16 +153,16 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-4">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-4">&#x00a7;</a>
               </div>
-              <p>Get the current wallet balance</p>
+              <p>Get my own profile</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> wallet = <span class="hljs-keyword">await</span> gfapi.wallet_get();
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`==== User's Wallet:`</span>);
-    <span class="hljs-built_in">console</span>.log(wallet);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> profile = <span class="hljs-keyword">await</span> gfapi.<span class="hljs-title function_">profile_get</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`==== My Profile:`</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(profile);</pre></div></div>
             
         </li>
         
@@ -168,18 +170,16 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-5">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-5">&#x00a7;</a>
               </div>
-              <p>Get the current wallet balance with ledger entries for 2018-08</p>
+              <p>Get my current wallet balance</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    wallet = <span class="hljs-keyword">await</span> gfapi.wallet_get({<span class="hljs-attr">year_month</span>: <span class="hljs-string">'2018-08'</span>});
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`==== User's Wallet for Aug 2018:`</span>);
-    <span class="hljs-built_in">console</span>.log(wallet);
-
-}</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> wallet = <span class="hljs-keyword">await</span> gfapi.<span class="hljs-title function_">wallet_get</span>(profile.<span class="hljs-property">owner</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`==== My Wallet:`</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(wallet);</pre></div></div>
             
         </li>
         
@@ -187,15 +187,34 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         <li id="section-6">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-6">&#x00a7;</a>
+              </div>
+              <p>Get the current wallet balance with ledger entries for 2018-08</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    wallet = <span class="hljs-keyword">await</span> gfapi.<span class="hljs-title function_">wallet_get</span>(profile.<span class="hljs-property">owner</span>, {<span class="hljs-attr">year_month</span>: <span class="hljs-string">&#x27;2018-08&#x27;</span>});
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`==== My Wallet for Aug 2018:`</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(wallet);
+
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-7">&#x00a7;</a>
               </div>
               <p>Run main() and catch any unhandled Promise errors</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>main().catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'==== ERROR'</span>, err);
+            <div class="content"><div class='highlight'><pre><span class="hljs-title function_">main</span>().<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;==== ERROR&#x27;</span>, err);
 });</pre></div></div>
             
         </li>

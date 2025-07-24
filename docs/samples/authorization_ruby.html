@@ -82,13 +82,13 @@
         <li id="section-1">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-1">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-1">&#x00a7;</a>
               </div>
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-comment">#!/usr/bin/env ruby</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-meta">#!/usr/bin/env ruby</span></pre></div></div>
             
         </li>
         
@@ -96,30 +96,35 @@
         <li id="section-2">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
+              <div class="sswrap ">
+                <a class="ss" href="#section-2">&#x00a7;</a>
               </div>
               <p><strong>Generates authorization header to login to Gameflip API</strong></p>
 <ol>
-<li><p>Get your Gameflip API Key and TOTP secret:</p>
-<pre><code><span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/gameflip.com/settings</span></code></pre></li>
-<li><p>Add the API key and secret to your IDE environment or <code>~/.bash_profile</code>:</p>
-<pre><code class="language-bash"><span class="hljs-built_in">export</span> GFAPI_KEY=my_api_key
-<span class="hljs-built_in">export</span> GFAPI_SECRET=my_api_secret</code></pre>
-</li>
-<li><p>Sample API call to get your profile</p>
-<pre><code class="language-bash"><span class="hljs-built_in">export</span> API=<span class="hljs-string">"https://production-gameflip.fingershock.com/api/v1"</span>
-curl -isS -H <span class="hljs-string">"<span class="hljs-variable">$(ruby authorization_ruby.rb)</span>"</span> -X GET <span class="hljs-string">"<span class="hljs-variable">${API}</span>/account/me/profile"</span>; <span class="hljs-built_in">echo</span></code></pre>
-</li>
+<li>Get your Gameflip API Key and TOTP secret:</li>
 </ol>
+<pre><code><span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/gameflip.com/settings</span>
+</code></pre>
+<ol start="2">
+<li>Add the API key and secret to your IDE environment or <code>~/.bash_profile</code>:</li>
+</ol>
+<pre><code class="language-bash"><span class="hljs-built_in">export</span> GFAPI_KEY=my_api_key
+<span class="hljs-built_in">export</span> GFAPI_SECRET=my_api_secret
+</code></pre>
+<ol start="3">
+<li>Sample API call to get your profile</li>
+</ol>
+<pre><code class="language-bash"><span class="hljs-built_in">export</span> API=<span class="hljs-string">&quot;https://production-gameflip.fingershock.com/api/v1&quot;</span>
+curl -isS -H <span class="hljs-string">&quot;<span class="hljs-subst">$(ruby authorization_ruby.rb)</span>&quot;</span> -X GET <span class="hljs-string">&quot;<span class="hljs-variable">${API}</span>/account/me/profile&quot;</span>; <span class="hljs-built_in">echo</span>
+</code></pre>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>
-<span class="hljs-keyword">require</span> <span class="hljs-string">'rotp'</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;rotp&#x27;</span>
 
-totp = ROTP::TOTP.new(ENV[<span class="hljs-string">'GFAPI_SECRET'</span>], <span class="hljs-symbol">digits:</span> <span class="hljs-number">6</span>, <span class="hljs-symbol">digest:</span> <span class="hljs-string">'sha1'</span>, <span class="hljs-symbol">interval:</span> <span class="hljs-number">30</span>)
-puts(<span class="hljs-string">"Authorization: GFAPI <span class="hljs-subst">#{ENV[<span class="hljs-string">'GFAPI_KEY'</span>]}</span>:<span class="hljs-subst">#{totp.now}</span>"</span>)</pre></div></div>
+totp = ROTP::TOTP.new(ENV[<span class="hljs-string">&#x27;GFAPI_SECRET&#x27;</span>], <span class="hljs-symbol">digits:</span> <span class="hljs-number">6</span>, <span class="hljs-symbol">digest:</span> <span class="hljs-string">&#x27;sha1&#x27;</span>, <span class="hljs-symbol">interval:</span> <span class="hljs-number">30</span>)
+puts(<span class="hljs-string">&quot;Authorization: GFAPI <span class="hljs-subst">#{ENV[<span class="hljs-string">&#x27;GFAPI_KEY&#x27;</span>]}</span>:<span class="hljs-subst">#{totp.now}</span>&quot;</span>)</pre></div></div>
             
         </li>
         

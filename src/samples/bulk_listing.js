@@ -1,4 +1,4 @@
-// Sample code to creates listings for first 2 items in your Steam CS:GO inventory.
+// Sample code to creates listings for first 2 items in your Steam CS2 inventory.
 // Your Gameflip account needs to be verified and Steam connected.
 //
 // Generate the API Key and OTP secret in [Settings page](https://gameflip.com/settings)
@@ -21,7 +21,7 @@ const GFAPI_SECRET = process.env.GFAPI_SECRET;
 // For your own code, use the 'gfapi' library (`npm install 'iJJi/gfapi').
 const GfApi = require('../../index'); // require('gfapi')
 
-// Create listings for first 2 items in your Steam CS:GO inventory
+// Create listings for first 2 items in your Steam CS2 inventory
 async function main() {
     // Create GF API client. Options: logLevel
     // * `trace` (logs HTTP requests/responses)
@@ -43,7 +43,7 @@ async function main() {
 
     // Get Steam inventory (must be public).
     // Note: this is a helper function and is not really part of the API (ie, not supported).
-    let inventory = await gfapi.steam_inventory_get(profile.steam_id, GfApi.STEAM.APP_ID.CSGO, {
+    let inventory = await gfapi.steam_inventory_get(profile.steam_id, GfApi.STEAM.APP_ID.CS2, {
         l: 'english', count: 2
     });
 

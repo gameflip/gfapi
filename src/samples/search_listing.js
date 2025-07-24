@@ -34,9 +34,23 @@ async function main() {
         logLevel: 'debug'
     });
 
+    // Search the product catalog.
+    // You may use the product's "sku" as your game item listing's "upc".
+    let query = {
+        name: "Fallout",
+        category: GfApi.CATEGORY.INGAME
+    };
+
+    let data = await gfapi.product_search(query);
+    if (data && data.products) {
+        data.products.forEach(product => {
+            console.log("=== Product " + product.sku, JSON.stringify(product, null, 2));
+        });
+    }
+
     // Search listings for Fallout 76 PC.
     // The "listing_search" function automatically includes the required property "v2: true" for searching listings.
-    let query = {
+    query = {
         category: GfApi.CATEGORY.INGAME,
         upc: GfApi.UPC.FALLOUT76_PC,          // Fallout 76 on PC
         status: GfApi.LISTING_STATUS.ONSALE,  // On sale listings only (not Sold)
@@ -46,17 +60,17 @@ async function main() {
         limit: 5                              // Number of results
     };
 
-    let data = await gfapi.listing_search(query);
+    data = await gfapi.listing_search(query);
     if (data && data.listings) {
         data.listings.forEach(listing => {
             console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
         });
     }
 
-    // Search listings for CSGO skins
+    // Search listings for CS2 skins
     query = {
         category: GfApi.CATEGORY.INGAME,
-        upc: GfApi.UPC.CSGO,                  // CSGO
+        upc: GfApi.UPC.CS2,                   // CS2
         status: GfApi.LISTING_STATUS.ONSALE,  // On sale listings only (not Sold)
         tags: 'Type: Rifle^Weapon: AK-47',    // Filter by Rifle and AK-47
         sort: 'onsale:desc',
