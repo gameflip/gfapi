@@ -38,7 +38,7 @@ async function main() {
     // You may use the product's "sku" as your game item listing's "upc".
     let query = {
         name: "Fallout",
-        category: GfApi.CATEGORY.INGAME
+        category: GfApi.CATEGORY.GAMES
     };
 
     let data = await gfapi.product_search(query);

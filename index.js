@@ -384,7 +384,7 @@ class GfApi {
      * @returns Array of products or null if none found
      */
     product_search(query) {
-        return this._getList('product', query);
+        return this._getList('product', query, null);
     }
 
     /**
@@ -715,19 +715,19 @@ class GfApi {
     // HELPER FUNCTIONS
     // ----------------
 
-    _get(uri, query = null) {
+    _get(uri, query = null, headers) {
         const url = `${this.baseUrl}/${uri}${Util.queryString(query)}`;
         this._entry(`GET '${url}'`);
 
         return this._apiRequest({
             url: url,
-            headers: {
+            headers: headers !== undefined ? headers : {
                 "Authorization": this._authorizationHeader()
             }
         });
     }
 
-    _getList(uri, query) {
+    _getList(uri, query, headers) {
         if (query.nextPage === null) {
             return null;
         }
@@ -737,7 +737,7 @@ class GfApi {
 
         return this._apiRequest({
             url: url,
-            headers: {
+            headers: headers !== undefined ? headers : {
                 "Authorization": this._authorizationHeader()
             }
         }, query);
