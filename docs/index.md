@@ -5,8 +5,8 @@ support, we only accept a small number of developers during the Beta period.  We
 
 ### Sample Code
 * Node.js
-  * [Create listings for CS:GO items](https://gameflip.github.io/gfapi/samples/bulk_listing.html)
-  * [Create listings for Rocket League items](https://gameflip.github.io/gfapi/samples/rl_listing.html)
+  * [Create listings for CS2 items](https://gameflip.github.io/gfapi/samples/bulk_listing.html)
+  * [Create listings for Fortnite items](https://gameflip.github.io/gfapi/samples/rl_listing.html)
   * [Show my listings](https://gameflip.github.io/gfapi/samples/my_listings.html)
   * [Search listings](https://gameflip.github.io/gfapi/samples/search_listing.html)
   * [Search exchanges](https://gameflip.github.io/gfapi/samples/search_exchange.html)

@@ -34,37 +34,52 @@ async function main() {
         logLevel: 'debug'
     });
 
-    // Search listings for Rocket League XBox One
+    // Search the product catalog.
+    // You may use the product's "sku" as your game item listing's "upc".
     let query = {
-        category: GfApi.CATEGORY.INGAME,
-        upc: GfApi.UPC.RL_XONE,               // Rocket League on Xbox One
-        status: GfApi.LISTING_STATUS.ONSALE,  // On sale listings only (not Sold)
-        price: '100,2999',                    // Price range between 1 USD and 29.99 USD (value in cents)
-        tags: 'id: zomba',                    // Search only Zomba wheels
-        sort: 'price:asc',                    // Sort by lowest price (highest price: 'price:desc', most recent: 'onsale:desc')
-        limit: 5
+        name: "Fallout",
+        category: GfApi.CATEGORY.GAMES
     };
 
-    let listings = await gfapi.listing_search(query);
-    if (listings) {
-        listings.forEach(listing => {
+    let data = await gfapi.product_search(query);
+    if (data && data.products) {
+        data.products.forEach(product => {
+            console.log("=== Product " + product.sku, JSON.stringify(product, null, 2));
+        });
+    }
+
+    // Search listings for Fallout 76 PC.
+    // The "listing_search" function automatically includes the required property "v2: true" for searching listings.
+    query = {
+        category: GfApi.CATEGORY.INGAME,
+        upc: GfApi.UPC.FALLOUT76_PC,          // Fallout 76 on PC
+        status: GfApi.LISTING_STATUS.ONSALE,  // On sale listings only (not Sold)
+        price: '100,2999',                    // Price range between 1 USD and 29.99 USD (value in cents)
+        tags: 'mode: Adventure',              // Search by game mode
+        sort: 'price:asc',                    // Sort by lowest price (highest price: 'price:desc', most recent: 'onsale:desc')
+        limit: 5                              // Number of results
+    };
+
+    data = await gfapi.listing_search(query);
+    if (data && data.listings) {
+        data.listings.forEach(listing => {
             console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
         });
     }
 
-    // Search listings for CSGO skins
+    // Search listings for CS2 skins
     query = {
         category: GfApi.CATEGORY.INGAME,
-        upc: GfApi.UPC.CSGO,                  // CSGO
+        upc: GfApi.UPC.CS2,                   // CS2
         status: GfApi.LISTING_STATUS.ONSALE,  // On sale listings only (not Sold)
         tags: 'Type: Rifle^Weapon: AK-47',    // Filter by Rifle and AK-47
         sort: 'onsale:desc',
         limit: 5
     };
 
-    listings = await gfapi.listing_search(query);
-    if (listings) {
-        listings.forEach(listing => {
+    data = await gfapi.listing_search(query);
+    if (data && data.listings) {
+        data.listings.forEach(listing => {
             console.log("=== Listing " + listing.id, JSON.stringify(listing, null, 2));
         });
     }
@@ -78,9 +93,9 @@ async function main() {
         limit: 5
     };
 
-    listings = await gfapi.listing_search(query);
-    if (listings) {
-        listings.forEach(listing => {
+    data = await gfapi.listing_search(query);
+    if (data && data.listings) {
+        data.listings.forEach(listing => {
             console.log("=== Listing accepting FLP only " + listing.id, JSON.stringify(listing, null, 2));
         });
     }
@@ -94,9 +109,9 @@ async function main() {
         limit: 5
     };
 
-    listings = await gfapi.listing_search(query);
-    if (listings) {
-        listings.forEach(listing => {
+    data = await gfapi.listing_search(query);
+    if (data && data.listings) {
+        data.listings.forEach(listing => {
             console.log("=== Listing for Google Play gift card " + listing.id, JSON.stringify(listing, null, 2));
         });
     }

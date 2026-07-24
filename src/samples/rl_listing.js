@@ -1,4 +1,4 @@
-// Sample code to create a listing for Rocket League.
+// Sample code to create a listing for Fortnite.
 // Your Gameflip account needs to be verified and Steam connected.
 //
 // Generate the API Key and OTP secret in [Settings page](https://gameflip.com/settings)
@@ -21,7 +21,7 @@ const GFAPI_SECRET = process.env.GFAPI_SECRET;
 // For your own code, use the 'gfapi' library (`npm install 'iJJi/gfapi').
 const GfApi = require('../../index'); // require('gfapi')
 
-// Create a Rocket League listing
+// Create a Fortnite listing
 async function main() {
     // Create GF API client. Options: logLevel
     // * `trace` (logs HTTP requests/responses)
@@ -35,12 +35,10 @@ async function main() {
         logLevel: 'debug'
     });
     
-    // For an inventory of Rocket League items and photo URLs, view https://gameflip.com/api/gameitem/inventory/812872018935
-    // and for Fortnite, view https://gameflip.com/api/gameitem/inventory/GFFORTNITE
+    // For an inventory of Fortnite items and photo URLs, view https://gameflip.com/api/gameitem/inventory/GFFORTNITE
     
     // DO EDIT: Choose an image for your listing, which could be a URL or file path
-    let photo_url = 'https://gameflip.com' + '/img/items/rocket-league/key.png';
-    let photo_file = 'key.png';
+    let photo_url = 'https://gameflip.com' + '/img/items/generic/icon_ingame_crafting.png';
     // Create an initial listing
     let query = {
       
@@ -57,7 +55,7 @@ async function main() {
         // tags: [ "id: chakram", "type: Wheel", "color: Black" ]
 
         // MAYBE EDIT: Platform variation, change if you want to sell for example Fortnite (upc) on the PlayStation (platform) section instead
-        upc: GfApi.UPC.RL_XONE,
+        upc: GfApi.UPC.FORTNITE,
         platform: GfApi.PLATFORM.XONE,
         shipping_within_days: GfApi.SHIPPING_WITHIN_DAYS.ONE,
         expire_in_days: GfApi.EXPIRE_IN_DAYS.SEVEN,
