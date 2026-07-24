@@ -91,6 +91,12 @@ const CONST = {
         UNKNOWN: 'unknown'           // For PC platform, use UNKNOWN
     },
 
+    VISIBILITY: {
+        PUBLIC: 'public',     // Visible to all users
+        PRIVATE: 'private',   // Visible only to owner
+        UNLISTED: 'unlisted'  // Publicly visible but not searchable
+    },
+
     // The promised time frame which you will ship a physical item or deliver a digital item
     SHIPPING_WITHIN_DAYS: {
       AUTO: 0,

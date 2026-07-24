@@ -1,4 +1,5 @@
-// Sample code to create a listing
+// Sample code to create a listing for Rocket League.
+// Your Gameflip account needs to be verified and Steam connected.
 //
 // Generate the API Key and OTP secret in [Settings page](https://gameflip.com/settings)
 //
@@ -6,7 +7,7 @@
 // ```
 //   export GFAPI_KEY=my_api_key
 //   export GFAPI_SECRET=my_api_secret
-//   node src/samples/giftcard_listing.js
+//   node src/samples/bulk_listing.js
 // ```
 //
 // If you are using an IDE, set the `GFAPI_KEY` and `GFAPI_SECRET` in the Run Configuration Environment.
@@ -38,40 +39,48 @@ async function main() {
     // and for Fortnite, view https://gameflip.com/api/gameitem/inventory/GFFORTNITE
     
     // DO EDIT: Choose an image for your listing, which could be a URL or file path
-    let photo_url = 'https://gameflip.com/img/app/digital_card_googleplay.png';
-    let photo_file = 'digital_card_googleplay.png';
+    let photo_url = 'https://gameflip.com' + '/img/items/generic/icon_ingame_pet.png';
+    let photo_file = 'icon_ingame_pet.png';
     // Create an initial listing
     let query = {
       
-        // DO EDIT: Use appropriate name & description to reflect the nature of the listing
-        name: '$20.00 Google Play',               // Include the full value with $ so that discount can be shown
-        description: '$20.00 Google Play card',   // Include any specific instructions or important information in description
-        price: 1950, // price you want to sell in cents
-        tags: [      // Must use the correct tags for search/filtering to function properly
-          "balance: 2000",
-          "currency: USD",
-          "type: giftcard"
+        // DO EDIT: Put just 'Key' for example if you are selling one, otherwise write the quantity as so: Item Name | 10x
+        name: 'Pet',
+        description: 'Pet Dragon',
+        price: 1050, // price in cents
+        tags: [      // Must use the correct tag for search/filtering to function properly
+          "id: pet",
+          "type: Pet",
+          "roblox_game: Adopt Me"
         ],
 
-        // Standard settings
-        platform: "google",
-        // sku: "6d87c4a8-98c1-46be-b59b-cd4344c23b31",         // Optionally specify the sku for this particular $20 google gift card
+        // MAYBE EDIT: Platform variation, change if you want to sell for example Fortnite (upc) on the PlayStation (platform) section instead
+        upc: "4ca1b5e8-00e1-4625-bbfd-9897a154e294",   // Optional, specify the game product ID from Gameflip product catalog
+        platform: "roblox",
+        shipping_within_days: GfApi.SHIPPING_WITHIN_DAYS.ONE,
         expire_in_days: GfApi.EXPIRE_IN_DAYS.SEVEN,
-        category: GfApi.CATEGORY.GIFTCARD,
+        //accept_currency: GfApi.ACCEPT_CURRENCY.FLP   // Uncomment this if you want to accept FLP instead of USD
+
+        // DON'T EDIT: Standard settings for coordinated transfer in game item
+        category: GfApi.CATEGORY.INGAME,
         kind: GfApi.KIND.ITEM,
         digital: true,
-        digital_region: 'none',                                 // If restrictive, must specify (ex: "US")
-        digital_deliverable: 'code',
-        shipping_within_days: GfApi.SHIPPING_WITHIN_DAYS.AUTO,  // Set auto delivery if you are going to store the digital code within Gameflip
+        digital_region: 'none',
+        digital_deliverable: 'transfer',
+        shipping_predefined_package: 'None',
+        shipping_fee: 0,
+        shipping_paid_by: 'seller',
+        visibility: GfApi.VISIBILITY.PUBLIC,
 
-        // USD is the default when not specified accept_currency
-        //accept_currency: GfApi.ACCEPT_CURRENCY.FLP
-        //accept_currency: GfApi.ACCEPT_CURRENCY.BOTH
+        // NOTE: Special treatment for listings with quantity (even if you only have one item to sell):
+        // - Only available for game items category
+        // - Buyer can save listing to favorite 
+        // - Buyer can buy multiple items in one order
+        // - Generally better visibility in search results
+        // - You can restock or increase quantity any time later
+        qty_avail: 5,
     };
     let listing = await gfapi.listing_post(query);
-
-    let code = "MY-GIFT-CARD-CODE-" + (new Date()).getTime();   // Digital code must be unique for each listing
-    await gfapi.digital_goods_put(listing.id, code);
 
     // Upload an image to show in the listing page
     gfapi.upload_photo(listing.id, photo_url, 0).then(() => {
@@ -82,8 +91,7 @@ async function main() {
       // return gfapi.upload_photo(listing.id, second_photo_url, 1);
     }).then(() => {
       // List the listing for sale
-      //return gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);
-      return gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.READY);
+      return gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);
     }).catch(err => {
       console.log(err);
     });
