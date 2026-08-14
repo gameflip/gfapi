@@ -29,9 +29,9 @@ const CONST = {
         GIG:  'gig',    // Gig selling
     },
 
-    // Below is a legacy list of UPC associated with each game.
+    // Below is a legacy list of UPC associated with each game - for "in-game" listings ONLY.
     // For all other games please search the product catalog using the "product_search" function.
-    // Then use the product's "sku" property as your listing's "upc" property,
+    // Then use the product's "sku" property as your listing's "upc" property for in-game items.  
     // and use one of the product's platforms as your listing's "platform" property.
     UPC: {
         ANIMAL_CROSSING_NH: '045496596439',
@@ -143,7 +143,7 @@ const CONST = {
         LINUX: 'linux',
         ANDROID: 'android',
         IOS: 'ios',
-        UNKNOWN: 'unknown'           // For PC platform, use UNKNOWN
+        UNKNOWN: 'unknown'           // For other platforms, use UNKNOWN
     },
 
     VISIBILITY: {
@@ -167,6 +167,7 @@ const CONST = {
       THIRTY: 30
     },
 
+    // For Steam Bots only
     ESCROW_STATUS: {
         START: 'start',                     // Initial condition: seller has Steam item(s)
         RECEIVE_PENDING: 'receive_pending', // Offer made to seller to get Steam item(s)
@@ -237,7 +238,7 @@ const CONST = {
 
     STEAM: {
         APP_ID: {
-            CS2:  '730',            // CS2
+            CS2:   '730',           // CS2
             TF2:   '440',           // Team Fortress 2
             DOTA2: '570',           // DOTA 2
             RUST:  '252490',        // Rust

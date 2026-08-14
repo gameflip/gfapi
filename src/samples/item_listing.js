@@ -73,7 +73,7 @@ async function main() {
         visibility: GfApi.VISIBILITY.PUBLIC,
 
         // NOTE: Special treatment for listings with quantity (even if you only have one item to sell):
-        // - Only available for game items category
+        // - Only available for game items category and "coordinated transfer" type of digital delivery
         // - Buyer can save listing to favorite 
         // - Buyer can buy multiple items in one order
         // - Generally better visibility in search results
@@ -83,18 +83,35 @@ async function main() {
     let listing = await gfapi.listing_post(query);
 
     // Upload an image to show in the listing page
-    gfapi.upload_photo(listing.id, photo_url, 0).then(() => {
-      // Upload another image to show in the search results
-      return gfapi.upload_photo(listing.id, photo_url);
-      // If you want to add a second image in the listing page then uncomment the two lines below:
-      // }).then(() => {
-      // return gfapi.upload_photo(listing.id, second_photo_url, 1);
-    }).then(() => {
-      // List the listing for sale
-      return gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);
-    }).catch(err => {
-      console.log(err);
-    });
+    let cover_photo = null;
+    listing = await gfapi.upload_photo(listing.id, photo_url, 1);
+
+    // Find the photo ID and make it the cover (thumbnamil)
+    if (listing.photo) {
+      for (const [id, photo] of Object.entries(listing.photo)) {
+        if (!photo && photo.status === 'active') {
+          photo = photo;
+          break;
+        }
+      }
+    }
+    // If you want to add a second image in the listing page then uncomment the two lines below:
+    //return gfapi.upload_photo(listing.id, photo_url, 1);
+    if (cover_photo) {
+      console.log(photo, "Patch cover photo....");
+      let patch = [{
+        op: GfApi.LISTING_OPS.REPLACE,
+        path: '/cover_photo',
+        value: photo.id
+      }];
+      gfapi.listing_patch(listing.id, patch).then((l) => {
+        console.log('Updated listing with cover photo', l);
+      }).then(() => {
+          // IMPORTANT: Once the listing is set "onsale", it will be restricted for editing (e.g. only price and quantity can be changed).
+          // List the listing for sale.
+          // return gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);
+      });
+    }
 }
 
 // Run main() and catch any unhandle Promise errors
