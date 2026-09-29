@@ -16,6 +16,7 @@ const CONST = {
     CATEGORY: {
         GAMES: 'CONSOLE_VIDEO_GAMES',            // Video games, digital or physical
         INGAME: 'DIGITAL_INGAME',                // In-game items, digital only
+        GAMECOIN: 'INGAME_CURRENCY',             // In-game curency, digital only
         GIFTCARD: 'GIFTCARD',                    // Gift cards, digital or physical
         CONSOLE: 'VIDEO_GAME_HARDWARE',          // Console game hardware, physical listing only
         ACCESSORIES: 'VIDEO_GAME_ACCESSORIES',   // Console game accessories, physical listing only

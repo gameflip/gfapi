@@ -79,6 +79,16 @@ async function main() {
         // - Generally better visibility in search results
         // - You can restock or increase quantity any time later
         qty_avail: 5,
+
+        // For game currency only, specify unit stack size along with quantity.
+        // Stack size must be 1,000 (K), 1,000,000 (M), 1,000,000,000 (B), or 1,000,000,000,000 (T)
+        // Example: if you have 100K coins, specify 100 for quantity and stack size 1,000 (K).
+        //unit_stacksize: 1000000,
+
+        // Add this property if you require a minimum quantity to be purchased.
+        // Example, if you want to sell at least 5K coins, set stack size 1,000 (K), and set qty_purchased_min to 5. Your quantity must be at least 5 or higher
+        // Buyer can still buy more than minimum quantity, but not less than the minimum quantity.
+        //qty_purchased_min: 2,
     };
     let listing = await gfapi.listing_post(query);
 
