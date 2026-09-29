@@ -905,8 +905,12 @@ class GfApi {
         let photo_data = null;
         let image_type = {};
 
-        // Download the image
-        let result = await Axios.get(url, {responseType: 'arraybuffer'});
+        // Download the image, capping the response size to avoid memory exhaustion
+        let result = await Axios.get(url, {
+            responseType: 'arraybuffer',
+            maxContentLength: 20 * 1024 * 1024,
+            maxBodyLength: 20 * 1024 * 1024
+        });
         if (result.data) {
             photo_data = result.data;
             image_type = await FileType.fromBuffer(result.data);
