@@ -40,6 +40,11 @@
                 </a>
               
                 
+                <a class="source" href="item_listing.html">
+                  item_listing.js
+                </a>
+              
+                
                 <a class="source" href="my_listings.html">
                   my_listings.js
                 </a>
@@ -101,22 +106,21 @@
               </div>
               <p><strong>Generates authorization header to login to Gameflip API</strong></p>
 <ol>
-<li>Get your Gameflip API Key and TOTP secret:</li>
-</ol>
+<li><p>Get your Gameflip API Key and TOTP secret:</p>
 <pre><code><span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/gameflip.com/settings</span>
 </code></pre>
-<ol start="2">
-<li>Add the API key and secret to your IDE environment or <code>~/.bash_profile</code>:</li>
-</ol>
+</li>
+<li><p>Add the API key and secret to your IDE environment or <code>~/.bash_profile</code>:</p>
 <pre><code class="language-bash"><span class="hljs-built_in">export</span> GFAPI_KEY=my_api_key
 <span class="hljs-built_in">export</span> GFAPI_SECRET=my_api_secret
 </code></pre>
-<ol start="3">
-<li>Sample API call to get your profile</li>
-</ol>
+</li>
+<li><p>Sample API call to get your profile</p>
 <pre><code class="language-bash"><span class="hljs-built_in">export</span> API=<span class="hljs-string">&quot;https://production-gameflip.fingershock.com/api/v1&quot;</span>
 curl -isS -H <span class="hljs-string">&quot;<span class="hljs-subst">$(ruby authorization_ruby.rb)</span>&quot;</span> -X GET <span class="hljs-string">&quot;<span class="hljs-variable">${API}</span>/account/me/profile&quot;</span>; <span class="hljs-built_in">echo</span>
 </code></pre>
+</li>
+</ol>
 
             </div>
             

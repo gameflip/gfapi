@@ -40,6 +40,11 @@
                 </a>
               
                 
+                <a class="source" href="item_listing.html">
+                  item_listing.js
+                </a>
+              
+                
                 <a class="source" href="my_listings.html">
                   my_listings.js
                 </a>
@@ -85,8 +90,7 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-1">&#x00a7;</a>
               </div>
-              <p>Sample code to create a listing for gift cards.
-Your Gameflip account needs to be verified and Steam connected.</p>
+              <p>Sample code to create a listing for gift cards.</p>
 <p>Generate the API Key and OTP secret in <a href="https://gameflip.com/settings">Settings page</a></p>
 <p>Type in bash shell:</p>
 <pre><code>  <span class="hljs-keyword">export</span> <span class="hljs-variable constant_">GFAPI_KEY</span>=my_api_key
@@ -225,8 +229,22 @@ Be careful not to commit/push anything with the API key/secret to a public repos
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-attr">platform</span>: <span class="hljs-string">&quot;google&quot;</span>,
-        <span class="hljs-attr">expire_in_days</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">EXPIRE_IN_DAYS</span>.<span class="hljs-property">SEVEN</span>,
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-attr">platform</span>: <span class="hljs-string">&quot;google&quot;</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-9">&#x00a7;</a>
+              </div>
+              <p>sku: “6d87c4a8-98c1-46be-b59b-cd4344c23b31”,         // Optionally specify the sku for this particular $20 google gift card</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-attr">expire_in_days</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">EXPIRE_IN_DAYS</span>.<span class="hljs-property">SEVEN</span>,
         <span class="hljs-attr">category</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">CATEGORY</span>.<span class="hljs-property">GIFTCARD</span>,
         <span class="hljs-attr">kind</span>: <span class="hljs-title class_">GfApi</span>.<span class="hljs-property">KIND</span>.<span class="hljs-property">ITEM</span>,
         <span class="hljs-attr">digital</span>: <span class="hljs-literal">true</span>,
@@ -237,11 +255,11 @@ Be careful not to commit/push anything with the API key/secret to a public repos
         </li>
         
         
-        <li id="section-9">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="sswrap ">
-                <a class="ss" href="#section-9">&#x00a7;</a>
+                <a class="ss" href="#section-10">&#x00a7;</a>
               </div>
               <p>USD is the default when not specified accept_currency
 accept_currency: GfApi.ACCEPT_CURRENCY.FLP
@@ -258,11 +276,11 @@ accept_currency: GfApi.ACCEPT_CURRENCY.BOTH</p>
         </li>
         
         
-        <li id="section-10">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="sswrap ">
-                <a class="ss" href="#section-10">&#x00a7;</a>
+                <a class="ss" href="#section-11">&#x00a7;</a>
               </div>
               <p>Upload an image to show in the listing page</p>
 
@@ -273,11 +291,11 @@ accept_currency: GfApi.ACCEPT_CURRENCY.BOTH</p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="sswrap ">
-                <a class="ss" href="#section-11">&#x00a7;</a>
+                <a class="ss" href="#section-12">&#x00a7;</a>
               </div>
               <p>Upload another image to show in the search results</p>
 
@@ -288,11 +306,11 @@ accept_currency: GfApi.ACCEPT_CURRENCY.BOTH</p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="sswrap ">
-                <a class="ss" href="#section-12">&#x00a7;</a>
+                <a class="ss" href="#section-13">&#x00a7;</a>
               </div>
               <p>If you want to add a second image in the listing page then uncomment the two lines below:
 }).then(() =&gt; {
@@ -305,11 +323,11 @@ return gfapi.upload_photo(listing.id, second_photo_url, 1);</p>
         </li>
         
         
-        <li id="section-13">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="sswrap ">
-                <a class="ss" href="#section-13">&#x00a7;</a>
+                <a class="ss" href="#section-14">&#x00a7;</a>
               </div>
               <p>List the listing for sale
 return gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);</p>
@@ -325,11 +343,11 @@ return gfapi.listing_status(listing.id, GfApi.LISTING_STATUS.ONSALE);</p>
         </li>
         
         
-        <li id="section-14">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="sswrap ">
-                <a class="ss" href="#section-14">&#x00a7;</a>
+                <a class="ss" href="#section-15">&#x00a7;</a>
               </div>
               <p>Run main() and catch any unhandle Promise errors</p>
 

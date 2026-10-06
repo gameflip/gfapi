@@ -22,23 +22,38 @@ Many search and filtering options are supported including:
 
 property         | filter type | data type | notes
 ---------        |-------------|---------- |-------
-term             | fuzzy       | text      | searches listing `name` and `description` and generates relevance score
-category         | term        | text      |
-platform         | term        | text      |
+accept_currency  | term        | text      | currently only `USD` and `FLP` are supported
+category         | term        | text      | one of a predefined category
+created          | range       | date      | timestamp when the listing was created
+cover_photo      | term        | uuid      | the UUID (pointer) to an `active` listing.photo
+expiration       | range       | date      | when the listing expires. The date time will be updated when the listing goes onsale.
+expire_in_days   |             | integer   | the number of days the listing will expire.  Once status changes to `onsale`, `expiration` will be calculated based on this value
 genre            | term        | text      |
-upc              | term        | text      |
-shipping_paid_by | term        | text      | `buyer` or `seller`
+condition        | range       | text      | physical listing only [`new`, `like new`, `good`, `fair`, `poor`]
+condition_min    | range       | text      | physical listing only, any one value defined for `condition`
+description      | term        | text      | the listing description
 digital          | term        | boolean   | `true` or `false`
-status           | term        | text      |
-owner            | term        | text      |
-condition        | range       | text      |
-condition_min    | range       | text      | any one value defined for `condition`
+id               | term        | uuid      | the UUID4 of the listing
+kind             | term        | text      | must be `item` or `gig` (service)
+name             | term        | text      | the name or title of the listing
+qty_avail        | range       | integer   | must be > 0 (if missing, listing is consumed on purchase)
+qty_purchased_min| range       | integer   | must be >= 1 (if missing, 1 is assumed)
+owner            | term        | text      | the custom UUID4 of the listing owner
+photo            |             | object    | the object of listing photos, each is a photo object 
+platform         | term        | text      |
 price            | range       | integer   |
-onsale           | range       | date      | alias for `created` currently but may change
-created          | range       | date      |
+onsale           | range       | date      | timestamp when the listing went onsale
 updated          | range       | date      |
-expiration       | range       | date      |
+upc              | term        | text      |
+unit_stack_size  | range       | integer*  | For stackable game items and must be one of [`1000`, `1000000`, `1000000000`, `1000000000000`]
+shipping_paid_by | term        | text      | `buyer` or `seller` (only used for physical listings)
+shipping_within_days | range   | integer   | [0, 1, 2, 3] if the value is zero `and` vault contains code, then it's auto delivery
+shipping_within_mins | range   | integer   | [30, 60] if specified, `shipping_within_days` must be zero
+status           | term        | text      | `draft`, `ready`, `onsale`, `sold`, `cancelled`, `complete`
+sku              | term        | text      |
 tags             | term        | text      |
+term             | fuzzy       | text      | searches listing `name` and `description` and generates relevance score
+visibility       | term        | text      | one of `public`, `unlisted` (public but not searchable), or `private`
 
 Required arguments: none
 
