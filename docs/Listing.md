@@ -22,22 +22,16 @@ Many search and filtering options are supported including:
 
 property         | filter type | data type | notes
 ---------        |-------------|---------- |-------
-accept_currency  | term        | text      | currently only `USD` and `FLP` are supported
 category         | term        | text      | one of a predefined category
 created          | range       | date      | timestamp when the listing was created
-cover_photo      | term        | uuid      | the UUID (pointer) to an `active` listing.photo
 expiration       | range       | date      | when the listing expires. The date time will be updated when the listing goes onsale.
-expire_in_days   |             | integer   | the number of days the listing will expire.  Once status changes to `onsale`, `expiration` will be calculated based on this value
 genre            | term        | text      |
 condition        | range       | text      | physical listing only [`new`, `like new`, `good`, `fair`, `poor`]
 condition_min    | range       | text      | physical listing only, any one value defined for `condition`
-description      | term        | text      | the listing description
 digital          | term        | boolean   | `true` or `false`
 id               | term        | uuid      | the UUID4 of the listing
 kind             | term        | text      | must be `item` or `gig` (service)
-name             | term        | text      | the name or title of the listing
-qty_avail        | range       | integer   | must be > 0 (if missing, listing is consumed on purchase)
-qty_purchased_min| range       | integer   | must be >= 1 (if missing, 1 is assumed)
+name             | fuzzy       | text      | searches listing `name` only
 owner            | term        | text      | the custom UUID4 of the listing owner
 photo            |             | object    | the object of listing photos, each is a photo object 
 platform         | term        | text      |
@@ -45,7 +39,6 @@ price            | range       | integer   |
 onsale           | range       | date      | timestamp when the listing went onsale
 updated          | range       | date      |
 upc              | term        | text      |
-unit_stack_size  | range       | integer*  | For stackable game items and must be one of [`1000`, `1000000`, `1000000000`, `1000000000000`]
 shipping_paid_by | term        | text      | `buyer` or `seller` (only used for physical listings)
 shipping_within_days | range   | integer   | [0, 1, 2, 3] if the value is zero `and` vault contains code, then it's auto delivery
 shipping_within_mins | range   | integer   | [30, 60] if specified, `shipping_within_days` must be zero
@@ -53,7 +46,6 @@ status           | term        | text      | `draft`, `ready`, `onsale`, `sold`,
 sku              | term        | text      |
 tags             | term        | text      |
 term             | fuzzy       | text      | searches listing `name` and `description` and generates relevance score
-visibility       | term        | text      | one of `public`, `unlisted` (public but not searchable), or `private`
 
 Required arguments: none
 
@@ -480,7 +472,7 @@ Content-Type: application/json
   "data": {
     "status": "pending",
     "view_url": "https://s3.amazonaws.com/api/v1/listing-photo/13086deb-aa83-4baf-8cd5-17c99bd3e2e8/b4a07169-3365-47ba-ac12-1e03ceb10175",
-    "upload_url": "https://s3.amazonaws.com/api/v1/listing-photo/13086deb-aa83-4baf-8cd5-17c99bd3e2e8/b4a07169-3365-47ba-ac12-1e03ceb10175?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAJBCACU77XZ6TBNYQ%2F20150202%2Fus-fake-1%2Fs3%2Faws4_request&X-Amz-Date=20150202T221233Z&X-Amz-Expires=900&X-Amz-Security-Token=AQoDYXdzEK%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEa4AM8WSW0VANbP%2BdsCirbRugFnOthWdxgPV4EYwhUgXQW3TteVWVEAIW4t1eTEYbNtxKn0gyvqOtWyJRomKB8X11qMvnYrAiE5i7pTuEvN8sf77%2BGS%2BJsr1OBHncZzrg6rlShSUoo%2FZNYXzLRoShxi2lcLK1XCvYPIin0ZO%2FNZSLIThdTNoHSQ337lxzygLNIR%2FFbQ3MO%2FewV5ySFYwvnYUB2960ffSf5M1XUbjEY91EdnjapoEIASdQowW53FV4N4Owk1kSyRkEf2B6Wvur1v%2FFrCCCZMXaKupCjDNcLiKVAiat9GVsUq2KruCkG7nA6UOoAltr9PrRLo%2F2J7rCyC1ljSvF9tVQFySgWwhHpGqXIxcxCNysVr4OS8BFGxPDieJ%2B5TU1JqjM%2BGCGhNdxzc5hawABdla74PwN%2FzCt6vpvZADdr3e7oNGaJzzG0FSJ2x0chG6yTqfQVVTzBoYUMhkMzHQzhOKafzKYYUZhzGFkUu8akPlGQQYml5lSi0NBwAvfA2ne%2BoG4jbKJi2LWaZHOeHPoKGBBpzbsufcpHgN0KqgLJ3ipjiHxq5cgSeF6Yh5ZDXJuKQ1OgkW9q%2B1f%2BtYJ%2FZH4FZxMplL2B3zC8ZQQaot1DimsIgNqWzAPlJdiw%2FPkgxeK%2FpgU%3D&X-Amz-SignedHeaders=host&X-Amz-Signature=50df68b4bac0e5773d50718a2437518efad753c567a1886f4fa98e3c64320199"
+    "upload_url": "https://s3.amazonaws.com/api/v1/listing-photo/13086deb-aa83-4baf-8cd5-17c99bd3e2e8/b4a07169-3365-47ba-ac12-1e03ceb10175?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=FAKEJBCACU77XZ6TBNYQ%2F20150202%2Fus-fake-1%2Fs3%2Faws4_request&X-Amz-Date=20150202T221233Z&X-Amz-Expires=900&X-Amz-Security-Token=AQoDYXdzEK%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEa4AM8WSW0VANbP%2BdsCirbRugFnOthWdxgPV4EYwhUgXQW3TteVWVEAIW4t1eTEYbNtxKn0gyvqOtWyJRomKB8X11qMvnYrAiE5i7pTuEvN8sf77%2BGS%2BJsr1OBHncZzrg6rlShSUoo%2FZNYXzLRoShxi2lcLK1XCvYPIin0ZO%2FNZSLIThdTNoHSQ337lxzygLNIR%2FFbQ3MO%2FewV5ySFYwvnYUB2960ffSf5M1XUbjEY91EdnjapoEIASdQowW53FV4N4Owk1kSyRkEf2B6Wvur1v%2FFrCCCZMXaKupCjDNcLiKVAiat9GVsUq2KruCkG7nA6UOoAltr9PrRLo%2F2J7rCyC1ljSvF9tVQFySgWwhHpGqXIxcxCNysVr4OS8BFGxPDieJ%2B5TU1JqjM%2BGCGhNdxzc5hawABdla74PwN%2FzCt6vpvZADdr3e7oNGaJzzG0FSJ2x0chG6yTqfQVVTzBoYUMhkMzHQzhOKafzKYYUZhzGFkUu8akPlGQQYml5lSi0NBwAvfA2ne%2BoG4jbKJi2LWaZHOeHPoKGBBpzbsufcpHgN0KqgLJ3ipjiHxq5cgSeF6Yh5ZDXJuKQ1OgkW9q%2B1f%2BtYJ%2FZH4FZxMplL2B3zC8ZQQaot1DimsIgNqWzAPlJdiw%2FPkgxeK%2FpgU%3D&X-Amz-SignedHeaders=host&X-Amz-Signature=50df68b4bac0e5773d50718a2437518efad753c567a1886f4fa98e3c64320199"
   }
 }
 ```
@@ -547,38 +539,50 @@ Sample listing document
 Field                | Type   | Mutable |  Description
 ---------------------|--------|---------|---------------
 id                   | string | no      | Unique id of the listing
-name                 | string | yes     | Name of the item / title of the game
-description          | string | yes     | Long description
-category             | string | yes     | enum: games, console, accessory
-platform             | string | yes     | enum: ps1, ps2, ps3, ps4, wii, xbox, wiiu, xbox360, xboxone
-genre                | array  | yes     | array of strings for game genre.
+accept_currency      | string | yes     | currently only `USD` and `FLP` are supported
+name                 | string | yes*    | Name of the item / title of the game
+description          | string | yes*    | Long description
+category             | string | yes*    | enum: games, console, accessory
+genre                | array  | yes*    | array of strings for game genre.
 owner                | string | no      | listing owner id.
-condition            | string | yes     | enum: poor, fair, good, very good, like new, refurbished, new
-price                | number | yes     | cost of the item in cents USD
-upc                  | string | yes     | UPC code for the item. opaque code used as key to product catalog
-commission           | number | yes     | commission
-digital              | boolean| yes     | indicate the listing is digital if set to true
-digital_fee          | number | yes     | similar to commission, but extra fee for digital listing
-digital_region       | string | yes     | region limitation for digital goods
-digital_deliverable  | string | yes     | digital code, in-game item, etc.
+condition            | string | yes*    | enum: poor, fair, good, like new, new (physical listings only)
+commission           | number | no      | commission
+comment              | number | no      | total count of comments on listing
 cover_photo          | string | yes     | the photo id key of the photo hash to be used as the listings cover photo
+created              | string | no      | RFC3339 string 'YYYY-MM-DDThh:mm:ss.dddZ'
+digital              | boolean| yes*    | indicate the listing is digital if set to true
+digital_fee          | number | no      | similar to commission, but extra fee for digital listing
+digital_region       | string | yes*    | region limitation for digital goods
+digital_deliverable  | string | yes*    | enum: `transfer`, `code`
+expire_in_days       | integer| yes     | the number of days the listing will expire.  Once status changes to `onsale`, `expiration` will be calculated based on this value
+is_in_stock          | boolean| no      | when `qty_avail` is set and > 0, this field will be true. Conversely, when qty_avail reaches zero, it will be set to false
+platform             | string | yes*    | enum: ps1, ps2, ps3, ps4, wii, xbox, wiiu, xbox360, xboxone, roblox
 photo                | hash   | no      | A hash of key=id, value="photo meta-data" of photos attached to the listing.
+price                | number | yes     | cost of the item in cents USD
+price_per_unit       | number | no      | price / unit_stack_size.  This field is only present when unit_stack_size is set.
+qty_avail            | number | yes     | must be > 0 (if missing, listing is consumed on purchase)
+qty_purchased_min    | number | yes*    | must be >= 1 (if missing, 1 is assumed)
 status               | string | yes     | enum: prepare, ready, onsale, sold, cancelled
-shipping_fee         | number | yes     | shipping cost in cents USD
-shipping_weight      | number | yes     | shipping weight in Oz
-shipping_paid_by     | string | yes     | enum: buyer, seller
-shipping_from_state  | string | yes     | deprecated -- use shipping_from_address
+shipping_fee         | number | no      | shipping cost in cents USD
+shipping_weight      | number | yes*    | shipping weight in Oz
+shipping_paid_by     | string | yes*    | enum: buyer, seller
 shipping_from_address_id | string | yes | id from profile address book of shipping_from_address
 shipping_from_address| hash   | no      | address object (from profile address book) describing where the items will be shipped from. Used for computing shipping cost estimates.
 shipping_within_days | number | yes     | maximum number of days after purchase the item will be shipped
+shipping_within_mins | number | yes     | maximum number of minutes after purchase the item will be shipped
 shipping_predefined_package | string | yes | 'None', 'Letter', or 'Parcel': unset is equivalent to 'Parcel' for old clients which set shipping_fee=300 explicitly
-tags                 | array  | yes     | client-managed strings (case sensitive) used for search filters
-comment              | number | yes     | total count of comments on listing
-created              | string | no      | RFC3339 string 'YYYY-MM-DDThh:mm:ss.dddZ'
+sku                  | string | yes*    | product sku
+unit_stack_size      | number | integer*| For stackable game items and must be one of [`1000`, `1000000`, `1000000000`, `1000000000000`]
+tags                 | array  | yes*    | client-managed strings (case sensitive) used for search filters
+total_avail_units    | number | no      | unit_stack_size * qty_avail.  This field is only present when unit_stack_size is set.
+upc                  | string | yes*    | UPC code for the item. opaque code used as key to product catalog
 updated              | string | no      | RFC3339 string 'YYYY-MM-DDThh:mm:ss.dddZ'
 expiration           | string | no      | RFC3339 string 'YYYY-MM-DDThh:mm:ss.dddZ'
 version              | number | no      | current version of object: incremented on update
+visibility           | string | yes*    | one of `public`, `unlisted` (public but not searchable), or `private`
 
+
+NOTE: Mutable "yes*" means once listing is published (status changes to `onsale`), these fields become immutable
 
 Listing Photo
 
